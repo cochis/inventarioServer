@@ -1,0 +1,30 @@
+db.usuarios.updateMany({ email: "info@cochisweb.com" }, { $set: { role: "650373d9db5868019b55ebd1" } })
+db.fiestas.updateMany({ nombre: "REUNION SEP 2023" }, { $set: { realizada: false } })
+db.usuarios.deleteOne({ email: "vian.vicu@gmail.com" })
+db.usuarios.deleteOne({ email: "fray@fray.com" })
+
+db.boletos.drop()
+db.eventos.drop()
+db.fiestas.drop()
+db.grupos.drop()
+db.roles.drop()
+db.salons.drop()
+db.tickets.drop()
+db.tipoeventos.drop()
+db.tipogrupos.drop()
+
+
+db.roles.insertMany([{ "nombre": "ADMIN", "clave": "ADMROL", "usuarioCreated": "650232e1b8649a713fce811d", "activated": true, "dateCreated": 1694453393809, "lastEdited": 1694457953313 }, { "nombre": "USUARIO", "clave": "USRROL", "usuarioCreated": "650232e1b8649a713fce811d", "activated": true, "dateCreated": 1694453393809, "lastEdited": 1694457953313 }, { "nombre": "SALON", "clave": "SLNROL", "usuarioCreated": "650232e1b8649a713fce811d", "activated": true, "dateCreated": 1694453393809, "lastEdited": 1694457953313 }, { "nombre": "ANFITRION", "clave": "ANFROL", "usuarioCreated": "650232e1b8649a713fce811d", "activated": true, "dateCreated": 1694453393809, "lastEdited": 1694457953313 }, { "nombre": "CHECADOR", "clave": "CHCROL", "usuarioCreated": "650232e1b8649a713fce811d", "activated": true, "dateCreated": 1694453393809, "lastEdited": 1694457953313 }])
+
+
+db.createUser(
+    {
+      user: "cochis20",
+      pwd: ".Garcia20.",   // Or  "<cleartext password>"
+      roles:
+        [
+          { role: "readWrite", db: "config" },
+          "clusterAdmin"
+        ]
+    }
+ )
