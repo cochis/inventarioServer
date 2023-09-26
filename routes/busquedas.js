@@ -9,12 +9,12 @@ const { getTodo, getDocumentosColeccion, getDocumentosColeccionCatalogo } = requ
 const { validarJWT } = require("../middlewares/validar-jwt");
 const router = Router();
 
-router.get("/:busqueda", validarJWT, getTodo);
 router.get(
-  "/coleccion/:tabla/:busqueda/:admin?",
+  "/coleccion/:tabla/:busqueda/:admin",
   validarJWT,
   getDocumentosColeccion
 );
+router.get("/:busqueda", validarJWT, getTodo);
 router.get(
   "/coleccion-catalogo/:tabla/:busqueda/:admin?",
   validarJWT,

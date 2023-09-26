@@ -30,7 +30,7 @@ app.use('/api/asignacion', require('./routes/asignacion'))
 app.use('/api/stock', require('./routes/stock'))
   app.use('/api/tipoStock', require('./routes/tipoStock'))
   app.use('/api/upload', require('./routes/uploads'))
-// app.use('/api/search', require('./routes/busquedas'))
+  app.use('/api/search', require('./routes/busquedas'))
 app.get('*', function (req, res, next) {
   res.sendFile(path.resolve('client/index.html'))
 })

@@ -3,13 +3,10 @@ const bcrypt = require('bcryptjs')
 const { generarJWT } = require('../helpers/jwt')
 
 const Usuario = require('../models/usuario')
-const Salon = require('../models/salon')
-const Fiesta = require('../models/fiesta')
-const Boleto = require('../models/boleto')
+ 
 const Role = require('../models/role')
-const Grupo = require('../models/grupo')
-const Evento = require('../models/evento')
-
+const Stock = require('../models/stock')
+ 
 
 
 //getCiclos Ciclo
@@ -31,16 +28,18 @@ const getTodo = async (req, res = response) => {
 }
 const getDocumentosColeccion = async (req, res = response) => {
   const busqueda = req.params.busqueda
+  //console.log('busqueda', busqueda)
   const tabla = req.params.tabla
+  //console.log('tabla', tabla)
   const admin = req.params.admin
+  //console.log('admin', admin)
   const uid = req.uid
-  console.log('uid::: ', uid);
-  console.log('admin::: ', admin);
-  console.log('tabla::: ', tabla);
-
+  //console.log('uid', uid)
+ 
 
 
   const regex = new RegExp(busqueda, 'i')
+  //console.log('regex', regex)
 
 
   let data = []
@@ -60,7 +59,9 @@ const getDocumentosColeccion = async (req, res = response) => {
               { "usuarioCreated": uid }
             ]
           }
-        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+        )
+        .populate('role' ,'nombre _id')
+        .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
 
       } else {
         data = await Usuario.find(
@@ -71,112 +72,22 @@ const getDocumentosColeccion = async (req, res = response) => {
               { apellidoMaterno: regex }
             ]
           }
-        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+        )
+        .populate('role' ,'nombre _id')
+        .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       }
       break
-    case 'salones':
+    case 'stocks':
       if (admin === 'false') {
-        data = await Salon.find(
+        data = await Stock.find(
           {
             $and: [
               {
                 $or: [
-                  { nombre: regex },
-                  { img: regex },
-                  { direccion: regex },
-                  { lat: regex },
-                  { long: regex },
-                  { telefono: regex }
-                ]
-              },
-              { "usuarioCreated": uid }
-            ]
-          }
-        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      } else {
-        data = await Salon.find(
-          {
-            $or: [
-              { nombre: regex },
-              { img: regex },
-              { direccion: regex },
-              { lat: regex },
-              { long: regex },
-              { telefono: regex }
-            ]
-          }
-        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      }
-      break
-    case 'fiestas':
-      if (admin === 'false') {
-        data = await Fiesta.find(
-          {
-            $and: [
-              {
-                $or: [
-                  { nombre: regex },
-                  { cantidad: regex },
-                  { fecha: regex },
-                  { lugar: regex },
-                ]
-              },
-              { "usuarioCreated": uid }
-            ]
-          }
-        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      } else {
-        data = await Fiesta.find(
-          {
-            $or: [
-              { nombre: regex },
-              { cantidad: regex },
-              { fecha: regex },
-              { lugar: regex },
-            ]
-          }
-        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      }
-      break
-    case 'boletos':
-      if (admin === 'false') {
-        data = await Boleto.find(
-          {
-            $and: [
-              {
-                $or: [
-                  { nombre: regex },
-                  { cantidad: regex },
-                  { fecha: regex },
-                  { lugar: regex },
-                ]
-              },
-              { "usuarioCreated": uid }
-            ]
-          }
-        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      } else {
-        data = await Boleto.find(
-          {
-            $or: [
-              { nombre: regex },
-              { cantidad: regex },
-              { fecha: regex },
-              { lugar: regex },
-            ]
-          }
-        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      }
-      break
-    case 'roles':
-      if (admin === 'false') {
-        data = await Role.find(
-          {
-            $and: [
-              {
-                $or: [
-                  { nombre: regex },
                   { clave: regex },
+                  { modelo: regex },
+                  { serie: regex },
+                  { img: regex } 
                 ]
               },
               { "usuarioCreated": uid }
@@ -184,96 +95,21 @@ const getDocumentosColeccion = async (req, res = response) => {
           }
         ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       } else {
-        data = await Role.find(
+        data = await Stock.find(
           {
             $or: [
-              { nombre: regex },
               { clave: regex },
+              { modelo: regex },
+              { serie: regex },
+              { img: regex } 
             ]
           }
-        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+        )  .populate('usuarioCreated')
+        .populate('tipoStock')
+        .populate('usuarioAsignado')
       }
       break
-    case 'salones':
-      console.log('entro');
-      if (admin === 'false') {
-        data = await Salon.find(
-          {
-            $and: [
-              {
-                $or: [
-                  { nombre: regex },
-                  { email: regex },
-                ]
-              },
-              { "usuarioCreated": uid }
-            ]
-          }
-        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      } else {
-        data = await Salon.find(
-          {
-            $or: [
-              { nombre: regex },
-              { clave: regex },
-            ]
-          }
-        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      }
-      break
-    case 'grupos':
-      if (admin === 'false') {
-        data = await Grupo.find(
-          {
-            $and: [
-              {
-                $or: [
-                  { nombre: regex },
-                  { clave: regex },
-                ]
-              },
-              { "usuarioCreated": uid }
-            ]
-          }
-        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      } else {
-        data = await Grupo.find(
-          {
-            $or: [
-              { nombre: regex },
-              { clave: regex },
-            ]
-          }
-        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      }
-      break
-    case 'eventos':
-      if (admin === 'false') {
-        data = await Evento.find(
-          {
-            $and: [
-              {
-                $or: [
-                  { nombre: regex },
-                  { clave: regex },
-                ]
-              },
-              { "usuarioCreated": uid }
-            ]
-          }
-        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      } else {
-        data = await Evento.find(
-          {
-            $or: [
-              { nombre: regex },
-              { clave: regex },
-            ]
-          }
-        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      }
-      break
-    default:
+     default:
       res.status(400).json({
         ok: false,
         msg: 'No se encontro  la tabla',
@@ -304,7 +140,51 @@ const getDocumentosColeccionCatalogo = async (req, res = response) => {
 
 
         ],
+      })    .populate('role' ,'nombre _id')
+      .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+      break
+    case 'usuarios-rol':
+      data = await Usuario.find({
+        $or: [
+
+          { role: busqueda },
+        
+
+
+        ],
       })
+      .populate('role')
+      .populate('usuarioCreated')
+      break
+    case 'stocks':
+      data = await Stock.find({
+        $or: [
+
+          { tipoStock: busqueda },
+          
+
+
+        ],
+      })
+      .populate('usuarioCreated')
+      .populate('tipoStock')
+      .populate('usuarioAsignado')
+
+      break
+    case 'stock-usuarioAsignado':
+      data = await Stock.find({
+        $or: [
+
+          { usuarioAsignado: busqueda },
+          
+
+
+        ],
+      })
+      .populate('usuarioCreated')
+      .populate('tipoStock')
+      .populate('usuarioAsignado')
+
       break
 
 

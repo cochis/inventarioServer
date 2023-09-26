@@ -13,11 +13,13 @@ const {
   getUsuarioById,
   getAllUsuarios,
   actualizarPassUsuario,
-  getUsuarioByCreatedUid
+  getUsuarioByCreatedUid,
+  getUsuarioByEmail
 } = require("../controllers/usuarios");
 const { validarJWT, validarAdminJWT } = require("../middlewares/validar-jwt");
 const router = Router();
 
+router.get("/by_email/:email", getUsuarioByEmail);
 router.get("/", validarJWT, getUsuarios);
 router.get("/all", validarJWT, getAllUsuarios);
 router.get("/:uid", validarJWT, getUsuarioById);

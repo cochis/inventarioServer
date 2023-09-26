@@ -200,8 +200,33 @@ const isActive = async (req, res = response) => {
 
 const getUsuarioById = async (req, res = response) => {
   const uid = req.params.uid
+  console.log('uid', uid)
   try {
     const usuarioDB = await Usuario.findById(uid)
+      .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+      .populate('role', 'nombre clave _id')
+    if (!usuarioDB) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'No exite un usuario',
+      })
+    }
+    res.json({
+      ok: true,
+      usuario: usuarioDB,
+    })
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      msg: 'Error inesperado',error:error,
+    })
+  }
+}
+const getUsuarioByEmail = async (req, res = response) => {
+  const email = req.params.email
+  try {
+    console.log('email', email)
+    const usuarioDB = await Usuario.find({email:email})
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .populate('role', 'nombre clave _id')
     if (!usuarioDB) {
@@ -255,5 +280,6 @@ module.exports = {
   getUsuarioById,
   getAllUsuarios,
   actualizarPassUsuario,
-  getUsuarioByCreatedUid
+  getUsuarioByCreatedUid,
+  getUsuarioByEmail
 }

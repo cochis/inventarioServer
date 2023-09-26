@@ -28,3 +28,49 @@ db.createUser(
         ]
     }
  )
+
+
+
+ db.usuarios.insertMany([{"nombre": "Oscar","apellidoPaterno": "Ramirez","apellidoMaterno": "Rosas","email": "oramirez@jasu.us","password": "$2a$10$PagjKvSDQhZ4vJRHj79Ub.df7MTt.bShKX9rNw9sbsdweauiM7dda","img": "","role":"650b2614a45ac2ca7520f782","usuarioCreated": "","activated": true,"dateCreated": 1695244839399,"lastEdited": 1695244839399,  "usuario": "oramirez"}])
+
+ 
+  "nombre": "Oscar","apellidoPaterno": "Ramirez","apellidoMaterno": "Rosas","email": "oramirez@jasu.us","password": "$2a$10$PagjKvSDQhZ4vJRHj79Ub.df7MTt.bShKX9rNw9sbsdweauiM7dda","img": "","role":"650b2614a45ac2ca7520f782","usuarioCreated": "","activated": true,"dateCreated": 1695244839399,"lastEdited": 1695244839399,  "usuario": "oramirez"
+db.roles.insertMany([{
+  "nombre": "ADMINISTRADOR",
+  "clave": "ADM_ROLE",
+  "usuarioCreated":  "6511be29311fc09ce841f0eb",
+  "activated": true,
+  "dateCreated": 1695247040741,
+  "lastEdited": 1695247040741
+
+},
+{
+ 
+  "nombre": "EMPLEADO JASU",
+  "clave": "EMPJ_ROL",
+  "usuarioCreated":  "6511be29311fc09ce841f0eb",
+  "activated": true,
+  "dateCreated": 1695247040741,
+  "lastEdited": 1695247040741
+
+},
+{
+ 
+  "nombre": "EMPLEADO LOOP",
+  "clave": "EMPL_ROL",
+  "usuarioCreated":  "6511be29311fc09ce841f0eb",
+  "activated": true,
+  "dateCreated": 1695247040741,
+  "lastEdited": 1695247040741
+
+},
+{
+ 
+  "nombre": "RECURSOS HUMANOS",
+  "clave": "RECH_ROL",
+  "usuarioCreated":  "6511be29311fc09ce841f0eb",
+  "activated": true,
+  "dateCreated": 1695247040741,
+  "lastEdited": 1695247040741
+
+}])
