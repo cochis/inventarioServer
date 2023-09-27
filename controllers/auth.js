@@ -18,6 +18,12 @@ const login = async (req, res = response) => {
         msg: 'Email no encontrado',
       })
     }
+    if (!usuarioDB.activated) {
+      return res.status(400).json({
+        ok: false,
+        msg: 'Usuario desactivado',
+      })
+    }
  
 
     // Verificar contraseña
