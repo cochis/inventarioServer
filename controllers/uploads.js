@@ -11,7 +11,8 @@ const fileUpload = (req, res = response) => {
   const tiposValidos = [
     'usuarios',
     'stocks',
-    'salones'
+    'salones',
+    'tickets'
   ]
   if (!tiposValidos.includes(tipo)) {
     return res.status(400).json({

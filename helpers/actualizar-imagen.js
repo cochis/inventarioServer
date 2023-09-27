@@ -1,6 +1,7 @@
 const fs = require('fs')
 const Usuario = require('../models/usuario')
 const Stock = require('../models/stock')
+const Ticket = require('../models/ticket')
  
 
 
@@ -44,6 +45,22 @@ const actualizarImagen = async (tipo, id, nombreArchivo) => {
       }
       stock.img = nombreArchivo
       await stock.save()
+      return true
+      break
+    case 'tickets':
+      console.log('entro');
+      const ticket = await Ticket.findById(id)
+      if (!ticket) {
+        return false
+      }
+      pathViejo = `./uploads/tickets/${ticket.img}`
+      console.log('pathViejo', pathViejo)
+      if (ticket.img && ticket.img !== '') {
+
+        borrarImagen(pathViejo)
+      }
+      ticket.img = nombreArchivo
+      await ticket.save()
       return true
       break
     
