@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1695849280786,
+  "timestamp": 1695850197312,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -96,13 +96,13 @@
     "/assets/fonts/bootstrap-icons.woff": "a77e6a2f335f3fcb4f2930794907c88ed7de7ca1",
     "/assets/fonts/bootstrap-icons.woff2": "3a284b0618771f29da8eb6be900e99439253dce0",
     "/assets/icons/icon-128x128.png": "b1f06c7d714abb4a0cc4d1f7c954feb26826e4c4",
-    "/assets/icons/icon-144x144.png": "96a0d629765c1bc85d9263c6bc83094ca776d267",
+    "/assets/icons/icon-144x144.png": "87e7013c59eb94265f6526bfd38713ead025e2bc",
     "/assets/icons/icon-152x152.png": "b1fbbee3902eb96a7658e3bb006f31f78ca5a44c",
     "/assets/icons/icon-192x192.png": "e4211163bf0911688fbfb80278d8ff4d2f77691d",
     "/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
-    "/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
-    "/assets/icons/icon-72x72.png": "279825a1ac4377032ae996a1832c641e33ccf1b6",
-    "/assets/icons/icon-96x96.png": "592885efcbfee27e5e20be4fa3043589390d2740",
+    "/assets/icons/icon-512x512.png": "219efc4314c75db9b308a3db1667dc4a7178a4ec",
+    "/assets/icons/icon-72x72.png": "eb600fc654b390209a49a79791261abfba594d5a",
+    "/assets/icons/icon-96x96.png": "cccba7a8c7b81a26153f5f8cbf506fbafe4a6c82",
     "/assets/images/businesswoman-using-tablet-analysis.jpg": "610aec239228882ce4f7be6fe277de8ef426a758",
     "/assets/images/colleagues-working-cozy-office-medium-shot.jpg": "990cb87f1f6f066b63b352e9923e318f809a3c16",
     "/assets/images/faq_graphic.jpg": "07e50f3aa9b810d96f734d7629def2a279a0a3b2",
@@ -128,9 +128,9 @@
     "/assets/js/jquery.min.js": "ab07e8e39fd7992b47088b22a5e4511b03374223",
     "/assets/js/jquery.sticky.js": "58f675471d3ff898d5c16ea12796be1d6b328485",
     "/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/index.html": "3ebc08d7dcc177d63982e869f5233d63dfa79be6",
+    "/index.html": "0f6bebaf86a31a26a182791fba4970c5e8aa7761",
     "/main.894b25c139f8935f.js": "cebc2e4075232f169a9f97bd43c8d95a2b5ba66f",
-    "/manifest.webmanifest": "114683f5e82f2b94b7405e271e014ab04820bdc0",
+    "/manifest.webmanifest": "05d4692e7fe9af56e68c45f4cfa816e10c26abcd",
     "/polyfills.a87c474981dca57a.js": "1401953c8842a85b8640b100e9bb273e183da825",
     "/runtime.c4da19d28b4dd58e.js": "d8b5df4ba1da8c35587aa142f4c29d98b1872f25",
     "/styles.f41c0671e778f8c9.css": "1166dea364c16e0c2cb872cd9489aef0e08f19c4"

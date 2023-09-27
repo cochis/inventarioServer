@@ -1,7 +1,7 @@
 {
   "name": "inventario-front",
   "short_name": "inventario-front",
-  "theme_color": "#1976d2",
+  "theme_color": "#225d38",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
