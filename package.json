@@ -1,6 +1,6 @@
 {
   "name": "inventario-backend-server",
-  "version": "1.1.4",
+  "version": "1.1.6",
   "description": "jasu",
   "main": "index.js",
   "scripts": {
