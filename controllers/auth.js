@@ -137,25 +137,58 @@ const existUser = async (req, res = response) => {
   const email = req.params.email.toLowerCase()
 
   try {
-    const usuarioDB = await Usuario.find({ email: email })
+    const usuarioDB = await Usuario.find({  email })
     if (!usuarioDB || usuarioDB.length == 0) {
       return res.status(404).json({
         ok: false,
         msg: 'No exite un usuario',
       })
     }
-    const token = await generarJWT(usuarioDB)
-    res.json({
-      ok: true,
-      exist: true,
-      token: token,
-      usuarioDB,
+    
+ 
+     
+    
+    let campos ={
+      ...usuarioDB
+    }
+    campos._id= undefined
+    campos.activated = true
+  
+    console.log('campos', campos)
+    const usuario = await Usuario.findOneAndUpdate({ email }, campos, {
+      new: true,
     })
+    console.log('usuario', usuario)
+   
+    const token = await generarJWT(campos)
+    await transporter.sendMail({
+      from: '"Verificación de correo" <info@cochisweb.com>', // sender address
+      to: email , // list of receivers
+      subject: "Verificación de correo ✔", // Subject line
+      html: `
+      <b>Por favor entra al siguiente link para verificar tu correo  </b>
+     <a href="https://inventario.cochisweb.com/auth/verification/${token}/${email}">Verifica Correo</a>
+      `,
+    });
+     
+      res.json({
+        ok: true,
+        exist: true,
+        token: token,
+        usuario
+      })
+   
+     
+   
+    
+
+   
   } catch (error) {
     console.log('error', error)
     res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador',
+      error 
     })
   }
 }
