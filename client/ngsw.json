@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1696006191504,
+  "timestamp": 1696013462211,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.6e5e062bb869bfb3.js",
+        "/main.4c187f426f087b93.js",
         "/manifest.webmanifest",
         "/polyfills.a87c474981dca57a.js",
         "/runtime.c4da19d28b4dd58e.js",
@@ -88,7 +88,7 @@
     "/assets/css/bootstrap.min.css": "23b14ee7d38f64aac342f05edf0c0b06291b4070",
     "/assets/css/fontello.css": "4ff93f7b032237a8afaf6f669877a2a99628e588",
     "/assets/css/templatemo-topic-listing.css": "f690240daef04e815a8aacae9d6436da69116f49",
-    "/assets/examples/ex.txt": "31df18169bdafa182e9b01cf8d5b7d8714b98b4e",
+    "/assets/examples/ex.txt": "d15757321d9d4b0efb0bbd7e79100decb0d8469c",
     "/assets/font/fontello.eot": "8532f6f1c4db78883daf995ed0141d52cebbaf3c",
     "/assets/font/fontello.svg": "87bf112a12bd70dae690cfdb9c63b583227eeac2",
     "/assets/font/fontello.ttf": "dcc60097effd00e3fa8ff575f5853b6c86acdd6c",
@@ -130,8 +130,8 @@
     "/assets/js/jquery.min.js": "ab07e8e39fd7992b47088b22a5e4511b03374223",
     "/assets/js/jquery.sticky.js": "58f675471d3ff898d5c16ea12796be1d6b328485",
     "/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/index.html": "5f9c8ecb2f429e76f13f8f1266f85d716e230862",
-    "/main.6e5e062bb869bfb3.js": "446009d5161bab47e78006c54d0172f402f15bb0",
+    "/index.html": "606f8edac235511cb6d7c5e2e1b883cbebf01355",
+    "/main.4c187f426f087b93.js": "53e973fbf711193c5adcd0baea46c6a3f44e59ee",
     "/manifest.webmanifest": "5d7273248979ba5c802c5203c84eea098fda649a",
     "/polyfills.a87c474981dca57a.js": "1401953c8842a85b8640b100e9bb273e183da825",
     "/runtime.c4da19d28b4dd58e.js": "d8b5df4ba1da8c35587aa142f4c29d98b1872f25",

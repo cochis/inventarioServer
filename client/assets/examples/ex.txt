@@ -1,5 +1,29 @@
+sudo chown -R www-data:www-data /var/www/inventarioServer
+
+sudo ln -s sites-available/infra sites-enabled/
+
+sudo certbot --nginx -d infra.jasu.us
+
+
+server {
+        server_name infra.jasu.us www.infra.jasu.us;
+        location / {
+        proxy_pass http://localhost:3010;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+
+
+
 db.usuarios.updateMany({ email: "info@cochisweb.com" }, { $set: { role: "650373d9db5868019b55ebd1" } })
 db.fiestas.updateMany({ nombre: "REUNION SEP 2023" }, { $set: { realizada: false } })
+db.usuarios.updateMany({ nombre: "Oscar" }, { $set: { role: '651705dc04e4f314ed482462' } })
+
+db.usuarios.updateMany({ usuarioCreated: '6511be29311fc09ce841f0eb' }, { $set: {usuarioCreated: '6516ff6868826c2cb91cf050' } })
 db.usuarios.deleteOne({ email: "vian.vicu@gmail.com" })
 db.usuarios.deleteOne({ email: "fray@fray.com" })
 
@@ -20,7 +44,7 @@ db.roles.insertMany([{ "nombre": "ADMIN", "clave": "ADMROL", "usuarioCreated": "
 db.createUser(
     {
       user: "cochis20",
-      pwd: ".Garcia20.",   // Or  "<cleartext password>"
+      pwd: ".Garcia20.",   
       roles:
         [
           { role: "readWrite", db: "config" },
@@ -31,7 +55,7 @@ db.createUser(
 
 
 
- db.usuarios.insertMany([{"nombre": "Oscar","apellidoPaterno": "Ramirez","apellidoMaterno": "Rosas","email": "oramirez@jasu.us","password": "$2a$10$PagjKvSDQhZ4vJRHj79Ub.df7MTt.bShKX9rNw9sbsdweauiM7dda","img": "","role":"650b2614a45ac2ca7520f782","usuarioCreated": "","activated": true,"dateCreated": 1695244839399,"lastEdited": 1695244839399,  "usuario": "oramirez"}])
+ db.usuarios.insertMany([{"nombre": "Oscar","apellidoPaterno": "Ramirez","apellidoMaterno": "Rosas","email": "oramirez@jasu.us","password": "$2a$10$PagjKvSDQhZ4vJRHj79Ub.df7MTt.bShKX9rNw9sbsdweauiM7dda","img": "","role":"6516fedf68826c2cb91cf04c","usuarioCreated": "","activated": true,"dateCreated": 1695244839399,"lastEdited": 1695244839399,  "usuario": "oramirez"}])
 
  
   "nombre": "Oscar","apellidoPaterno": "Ramirez","apellidoMaterno": "Rosas","email": "oramirez@jasu.us","password": "$2a$10$PagjKvSDQhZ4vJRHj79Ub.df7MTt.bShKX9rNw9sbsdweauiM7dda","img": "","role":"650b2614a45ac2ca7520f782","usuarioCreated": "","activated": true,"dateCreated": 1695244839399,"lastEdited": 1695244839399,  "usuario": "oramirez"
@@ -74,3 +98,45 @@ db.roles.insertMany([{
   "lastEdited": 1695247040741
 
 }])
+
+db.roles.insertMany([{
+  "nombre": "ADMINISTRADOR",
+  "clave": "ADM_ROLE",
+  "usuarioCreated":  "6516ff6868826c2cb91cf050",
+  "activated": true,
+  "dateCreated": 1695247040741,
+  "lastEdited": 1695247040741
+
+},
+{
+ 
+  "nombre": "EMPLEADO JASU",
+  "clave": "EMPJ_ROL",
+  "usuarioCreated":  "6516ff6868826c2cb91cf050",
+  "activated": true,
+  "dateCreated": 1695247040741,
+  "lastEdited": 1695247040741
+
+},
+{
+ 
+  "nombre": "EMPLEADO LOOP",
+  "clave": "EMPL_ROL",
+  "usuarioCreated":  "6516ff6868826c2cb91cf050",
+  "activated": true,
+  "dateCreated": 1695247040741,
+  "lastEdited": 1695247040741
+
+},
+{
+ 
+  "nombre": "RECURSOS HUMANOS",
+  "clave": "RECH_ROL",
+  "usuarioCreated":  "6516ff6868826c2cb91cf050",
+  "activated": true,
+  "dateCreated": 1695247040741,
+  "lastEdited": 1695247040741
+
+}])
+
+db.tipotickets.deleteOne( { "_id" : ObjectId("6517072c7032fe22839d68c6") } );
