@@ -6,6 +6,7 @@ const Usuario = require('../models/usuario')
  
 const Role = require('../models/role')
 const Stock = require('../models/stock')
+const Ticket = require('../models/ticket')
  
 
 
@@ -28,20 +29,10 @@ const getTodo = async (req, res = response) => {
 }
 const getDocumentosColeccion = async (req, res = response) => {
   const busqueda = req.params.busqueda
-  //console.log('busqueda', busqueda)
   const tabla = req.params.tabla
-  //console.log('tabla', tabla)
   const admin = req.params.admin
-  //console.log('admin', admin)
   const uid = req.uid
-  //console.log('uid', uid)
- 
-
-
   const regex = new RegExp(busqueda, 'i')
-  //console.log('regex', regex)
-
-
   let data = []
   switch (tabla) {
     case 'usuarios':
@@ -75,6 +66,41 @@ const getDocumentosColeccion = async (req, res = response) => {
         )
         .populate('role' ,'nombre _id')
         .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+      }
+      break
+    case 'tickets':
+      if (admin === 'false') {
+        data = await Ticket.find(
+          {
+            $and: [
+              {
+                $or: [
+                  { descripcion: regex },
+                  { respuesta: regex } 
+                ]
+              },
+              { "usuarioCreated": uid }
+            ]
+          }
+        )
+        .populate('estado' ,'nombre _id')
+        .populate('tipoTicket' ,'nombre _id')
+        .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+        .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
+
+      } else {
+        data = await Ticket.find(
+          {
+            $or: [
+              { descripcion: regex },
+                  { respuesta: regex } 
+            ]
+          }
+        )
+        .populate('estado' ,'nombre clave uid')
+        .populate('tipoTicket' ,'nombre clave uid')
+        .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+        .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
       }
       break
     case 'stocks':
@@ -171,7 +197,69 @@ const getDocumentosColeccionCatalogo = async (req, res = response) => {
       .populate('usuarioAsignado')
 
       break
-    case 'stock-usuarioAsignado':
+    case 'usuarios-ticket':
+
+   
+      data = await Ticket.find({
+        $or: [
+
+          { usuarioCreated: busqueda }, 
+          
+
+
+        ],
+      })
+      
+      .populate('tipoTicket')
+      .populate('estado')
+      .populate('usuarioCreated')
+      .populate('usuarioAtendio')
+      
+
+      break
+    
+    case 'tipoTicket-ticket':
+
+   
+      data = await Ticket.find({
+        $or: [
+
+          { tipoTicket: busqueda }, 
+          
+
+
+        ],
+      })
+      
+      .populate('tipoTicket')
+      .populate('estado')
+      .populate('usuarioCreated')
+      .populate('usuarioAtendio')
+      
+
+      break
+    case 'estado-ticket':
+
+   
+      data = await Ticket.find({
+        $or: [
+
+          { estado: busqueda }, 
+          
+
+
+        ],
+      })
+      
+      .populate('tipoTicket')
+      .populate('estado')
+      .populate('usuarioCreated')
+      .populate('usuarioAtendio')
+      
+
+      break
+    
+      case 'stock-usuarioAsignado':
       data = await Stock.find({
         $or: [
 

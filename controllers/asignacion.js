@@ -62,10 +62,11 @@ const crearAsignacion = async (req, res = response) => {
       asignacion
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
       msg: 'Error inesperado...  revisar logs',
+      error:error
     })
   }
 }
@@ -83,9 +84,6 @@ const actualizarAsignacion = async (req, res = response) => {
       })
     }
     const { ...campos } = req.body
-
-
-    console.log('campos::: ', campos);
     const asignacionActualizado = await Asignacion.findByIdAndUpdate(uid, campos, {
       new: true,
     })
@@ -94,10 +92,11 @@ const actualizarAsignacion = async (req, res = response) => {
       asignacionActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado',
+      error:error,
     })
   }
 }
@@ -123,10 +122,11 @@ const isActive = async (req, res = response) => {
       asignacionActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador',
+      error:error
     })
   }
 }

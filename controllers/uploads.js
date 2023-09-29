@@ -48,7 +48,6 @@ const fileUpload = (req, res = response) => {
   file.mv(path, (err) => {
    
     if (err) {
-    //console.log('err', err)
       return res.status(500).json({
         ok: false,
         msg: 'Error al subir la imagen',
@@ -66,11 +65,8 @@ const fileUpload = (req, res = response) => {
 
 const retornaImagen = (req, res = response) => {
   const tipo = req.params.tipo
-//console.log('tipo', tipo)
   const foto = req.params.foto
-//console.log('foto', foto)
   const pathImg = path.join(__dirname, `../uploads/${tipo}/${foto}`)
-//console.log('pathImg', pathImg)
   if (fs.existsSync(pathImg)) {
     res.sendFile(pathImg)
   } else {

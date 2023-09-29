@@ -73,10 +73,11 @@ const crearUsuario = async (req, res = response) => {
       token,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
       msg: 'Error inesperado...  revisar logs',
+      error:error
     })
   }
 }
@@ -111,10 +112,11 @@ const actualizarUsuario = async (req, res = response) => {
       usuarioActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado',
+      error:error,
     })
   }
 }
@@ -122,7 +124,6 @@ const actualizarUsuario = async (req, res = response) => {
 const actualizarPassUsuario = async (req, res = response) => {
   //Validar token y comporbar si es el susuario
 
-  console.log('cambiopass');
   const uid = req.params.id
   try {
     const usuarioDB = await Usuario.findById(uid)
@@ -134,11 +135,8 @@ const actualizarPassUsuario = async (req, res = response) => {
       })
     }
     const campos = req.body
-    console.log('campos::: ', campos);
-
     const salt = bcrypt.genSaltSync()
     campos.password = bcrypt.hashSync(campos.password, salt)
-    console.log('campos::: ', campos);
     let usuarioDB2 = {
       nombre: usuarioDB.nombre,
       apellidoPaterno: usuarioDB.apellidoPaterno,
@@ -162,10 +160,12 @@ const actualizarPassUsuario = async (req, res = response) => {
       usuarioActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado',
+      error:error
+
     })
   }
 }
@@ -190,17 +190,18 @@ const isActive = async (req, res = response) => {
       usuarioActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador',
+      error:error
     })
   }
 }
 
 const getUsuarioById = async (req, res = response) => {
   const uid = req.params.uid
-  console.log('uid', uid)
+ 
   try {
     const usuarioDB = await Usuario.findById(uid)
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
@@ -225,7 +226,7 @@ const getUsuarioById = async (req, res = response) => {
 const getUsuarioByEmail = async (req, res = response) => {
   const email = req.params.email
   try {
-    console.log('email', email)
+    
     const usuarioDB = await Usuario.find({email:email})
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .populate('role', 'nombre clave _id')
@@ -248,7 +249,7 @@ const getUsuarioByEmail = async (req, res = response) => {
 }
 const getUsuarioByCreatedUid = async (req, res = response) => {
   const user = req.params.user
-  console.log('user::: ', user);
+ 
   try {
     const usuarioDB = await Usuario.find({ usuarioCreated: user })
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
@@ -259,7 +260,7 @@ const getUsuarioByCreatedUid = async (req, res = response) => {
         msg: 'No exite un usuario',
       })
     }
-    console.log('usuarioDB::: ', usuarioDB);
+ 
     res.json({
       ok: true,
       usuarios: usuarioDB,

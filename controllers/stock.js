@@ -65,10 +65,11 @@ const crearStock = async (req, res = response) => {
       stock
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
       msg: 'Error inesperado...  revisar logs',
+      error:error
     })
   }
 }
@@ -103,10 +104,11 @@ const actualizarStock = async (req, res = response) => {
       stockActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado',
+      error:error,
     })
   }
 }
@@ -130,10 +132,11 @@ const isActive = async (req, res = response) => {
       stockActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador',
+      error:error
     })
   }
 }

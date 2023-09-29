@@ -24,10 +24,10 @@ const getRoles = async (req, res) => {
       total,
     })
   } catch (error) {
-    console.log('error::: ', error);
+    
     res.json({
       ok: false,
-      error
+      error:error
     })
   }
   const desde = Number(req.query.desde) || 0
@@ -66,7 +66,7 @@ const getAllRoles = async (req, res) => {
       total,
     })
   } catch (error) {
-    console.log('error::: ', error);
+ 
     res.json({
       ok: false,
       error
@@ -101,10 +101,11 @@ const crearRole = async (req, res = response) => {
       role
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
       msg: 'Error inesperado...  revisar logs',
+      error:error
     })
   }
 }
@@ -140,10 +141,11 @@ const actualizarRole = async (req, res = response) => {
       roleActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado',
+      error:error,
     })
   }
 }
@@ -169,10 +171,11 @@ const isActive = async (req, res = response) => {
       roleActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador',
+      error:error
     })
   }
 }

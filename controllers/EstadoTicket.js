@@ -66,10 +66,11 @@ const crearEstadoTicket = async (req, res = response) => {
       tipostock
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
       msg: 'Error inesperado...  revisar logs',
+      error:error
     })
   }
 }
@@ -133,10 +134,11 @@ const registrarAsistencia = async (req, res = response) => {
       tipostockActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado',
+      error:error,
     })
   }
 }
@@ -170,10 +172,11 @@ const confirmaEstadoTicket = async (req, res = response) => {
       tipostockActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado',
+      error:error,
     })
   }
 }
@@ -199,10 +202,11 @@ const isActive = async (req, res = response) => {
       tipostockActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador',
+      error:error
     })
   }
 }

@@ -7,7 +7,6 @@ const { transporter } = require('../helpers/mailer')
 
 const login = async (req, res = response) => {
   const { email, password } = req.body
-  console.log('req.body::: ', req.body);
   try {
     // Verificar email
     const usuarioDB = await Usuario.findOne({ email })
@@ -46,10 +45,11 @@ const login = async (req, res = response) => {
       uid: usuarioDB._id,
     })
   } catch (error) {
-    console.log('error', error)
+   
     return res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador',
+      error:error
     })
   }
 }
@@ -85,10 +85,11 @@ const loginGoogle = async (req, res = response) => {
       token: tokenR,
     })
   } catch (error) {
-    console.log('error', error)
+   
     return res.status(400).json({
       ok: false,
       msg: 'Loggin de google no es correcto',
+      error:error
     })
   }
 }
@@ -126,10 +127,11 @@ const activeUser = async (req, res = response) => {
       usuarioActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador',
+      error:error
     })
   }
 }
@@ -153,13 +155,9 @@ const existUser = async (req, res = response) => {
     }
     campos._id= undefined
     campos.activated = true
-  
-    console.log('campos', campos)
     const usuario = await Usuario.findOneAndUpdate({ email }, campos, {
       new: true,
     })
-    console.log('usuario', usuario)
-   
     const token = await generarJWT(campos)
     await transporter.sendMail({
       from: '"Verificación de correo" <info@cochisweb.com>', // sender address
@@ -184,11 +182,11 @@ const existUser = async (req, res = response) => {
 
    
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador',
-      error 
+      error:error
     })
   }
 }

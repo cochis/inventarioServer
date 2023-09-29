@@ -89,10 +89,11 @@ const crearTicket = async (req, res = response) => {
       ticket
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
       msg: 'Error inesperado...  revisar logs',
+      error:error
     })
   }
 }
@@ -101,7 +102,6 @@ const crearTicket = async (req, res = response) => {
 const actualizarTicket = async (req, res = response) => {
   //Validar token y comporbar si es el stipostock
   const uid = req.params.id
-  console.log('uid', uid)
   try {
     const tipostockDB = await Ticket.findById(uid)
  
@@ -150,10 +150,11 @@ const registrarAsistencia = async (req, res = response) => {
       tipostockActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
       msg: 'Error inesperado',error:error,
+      error:error
     })
   }
 }
@@ -187,10 +188,11 @@ const confirmaTicket = async (req, res = response) => {
       tipostockActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado',
+      error:error,
     })
   }
 }
@@ -216,10 +218,11 @@ const isActive = async (req, res = response) => {
       tipostockActualizado,
     })
   } catch (error) {
-    console.log('error', error)
+   
     res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador',
+      error:error
     })
   }
 }
