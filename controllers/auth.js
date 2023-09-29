@@ -165,7 +165,7 @@ const existUser = async (req, res = response) => {
       subject: "Verificación de correo ✔", // Subject line
       html: `
       <b>Por favor entra al siguiente link para verificar tu correo  </b>
-     <a href="https://inventario.cochisweb.com/auth/verification/${token}/${email}">Verifica Correo</a>
+     <a href="https://infra.jasu.us/auth/verification/${token}/${email}">Verifica Correo</a>
       `,
     });
      
