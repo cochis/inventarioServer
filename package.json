@@ -2,9 +2,9 @@
   "name": "SistemaTI-server",
   "version": "1.2.0",
   "description": "jasu",
-  "main": "index.js",
+  "main": "infra.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node infra.js"
   },
   "keywords": [],
   "author": "",
