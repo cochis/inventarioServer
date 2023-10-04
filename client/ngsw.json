@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1696266252521,
+  "timestamp": 1696434620887,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.c582859f680d3d3d.js",
+        "/main.5f91ca543b318e42.js",
         "/manifest.webmanifest",
         "/polyfills.a87c474981dca57a.js",
         "/runtime.c4da19d28b4dd58e.js",
@@ -36,6 +36,7 @@
         "/assets/css/fontello.css",
         "/assets/css/templatemo-topic-listing.css",
         "/assets/examples/ex.txt",
+        "/assets/examples/updatesDB.json",
         "/assets/font/fontello.eot",
         "/assets/font/fontello.svg",
         "/assets/font/fontello.ttf",
@@ -89,6 +90,7 @@
     "/assets/css/fontello.css": "4ff93f7b032237a8afaf6f669877a2a99628e588",
     "/assets/css/templatemo-topic-listing.css": "f690240daef04e815a8aacae9d6436da69116f49",
     "/assets/examples/ex.txt": "d15757321d9d4b0efb0bbd7e79100decb0d8469c",
+    "/assets/examples/updatesDB.json": "f50a5322f85c04629d9647016009a593407fd0fb",
     "/assets/font/fontello.eot": "8532f6f1c4db78883daf995ed0141d52cebbaf3c",
     "/assets/font/fontello.svg": "87bf112a12bd70dae690cfdb9c63b583227eeac2",
     "/assets/font/fontello.ttf": "dcc60097effd00e3fa8ff575f5853b6c86acdd6c",
@@ -130,8 +132,8 @@
     "/assets/js/jquery.min.js": "ab07e8e39fd7992b47088b22a5e4511b03374223",
     "/assets/js/jquery.sticky.js": "58f675471d3ff898d5c16ea12796be1d6b328485",
     "/favicon.ico": "21078227f5dc0c7469405bb6926f8c88b892d269",
-    "/index.html": "245804608fdda0863d09206027367fb02148af49",
-    "/main.c582859f680d3d3d.js": "5caa69bf00be515e77c8ac4172a6b14875861f26",
+    "/index.html": "d2bce61e56946b6ed95f086e9509734ac24ef350",
+    "/main.5f91ca543b318e42.js": "188bfad3a9f6717e0fa9b73d6b3bd1939074aa0e",
     "/manifest.webmanifest": "5d7273248979ba5c802c5203c84eea098fda649a",
     "/polyfills.a87c474981dca57a.js": "1401953c8842a85b8640b100e9bb273e183da825",
     "/runtime.c4da19d28b4dd58e.js": "d8b5df4ba1da8c35587aa142f4c29d98b1872f25",

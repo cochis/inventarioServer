@@ -3,7 +3,8 @@ mongoose.set('strictQuery', false)
 dbConnection().catch((err) => console.log(err))
 async function dbConnection() {
   try {
-    await mongoose.connect(process.env.DB_CNNLocal, { dbName: 'InventoryDB' })
+    await mongoose.connect(process.env.DB_CNNLocal, { dbName: 'InventoryDBQA' }) //QA
+    // await mongoose.connect(process.env.DB_CNNLocal, { dbName: 'InventoryDB' }) //PROD
     console.log('DB Online')
   } catch (error) {
     console.log(error)
