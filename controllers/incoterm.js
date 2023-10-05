@@ -26,9 +26,7 @@ const getMyIncoterms = async (req, res) => {
   const uid = req.params.uid
  const [incoterms, total] = await Promise.all([
     Incoterm.find({usuarioCreated: uid})
-    .populate('tipoIncoterm')
-    .populate('estado')
-    .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
+
     .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .sort({ nombre: 1 }),
     Incoterm.countDocuments(),
@@ -45,9 +43,7 @@ const getMyIncoterms = async (req, res) => {
 const getAllIncoterms = async (req, res) => {
  const [incoterms, total] = await Promise.all([
     Incoterm.find({})
-    .populate('tipoIncoterm')
-    .populate('estado')
-    .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
+ 
     .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .sort({ nombre: 1 }),
     Incoterm.countDocuments(),

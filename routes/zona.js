@@ -1,26 +1,26 @@
 /*
-Ruta : api/productos
+Ruta : api/zonas
 */
 
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos");
 const {
-  getProductos,
-  crearProducto,
-  actualizarProducto,
+  getZonas,
+  crearZona,
+  actualizarZona,
   isActive,
-  getProductoById,
-  getAllProductos ,
-  getMyProductos
-} = require("../controllers/Producto");
+  getZonaById,
+  getAllZonas ,
+  getMyZonas
+} = require("../controllers/zona");
 const { validarJWT } = require("../middlewares/validar-jwt");
 const router = Router();
 
-router.get("/", validarJWT, getProductos);
-router.get("/all", validarJWT, getAllProductos);
-router.get("/my-productos/:uid", validarJWT, getMyProductos);
-router.get("/:uid", validarJWT, getProductoById);
+router.get("/", validarJWT, getZonas);
+router.get("/all", validarJWT, getAllZonas);
+router.get("/my-zonas/:uid", validarJWT, getMyZonas);
+router.get("/:uid", validarJWT, getZonaById);
  
 router.post(
   "/",
@@ -31,7 +31,7 @@ router.post(
 
     validarCampos,
   ],
-  crearProducto
+  crearZona
 );
 
 router.put(
@@ -39,11 +39,12 @@ router.put(
   [
     validarJWT,
     check("descripcion", "La descripcion es obligatoria").not().isEmpty(),
-  
+     
+
     check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
     validarCampos,
   ],
-  actualizarProducto
+  actualizarZona
 );
 
 

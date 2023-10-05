@@ -26,7 +26,7 @@ router.post(
   "/",
   [
     validarJWT,
-    check("descripcion", "La descripcion es obligatoria").not().isEmpty(),
+   
 
 
     validarCampos,
@@ -38,8 +38,7 @@ router.put(
   "/:id",
   [
     validarJWT,
-    check("descripcion", "La descripcion es obligatoria").not().isEmpty(),
-    check("proveedorProveedor", "El proveedorproveedor es obligatorio").not().isEmpty(),
+ 
 
     check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
     validarCampos,

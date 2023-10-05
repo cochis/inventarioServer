@@ -1,44 +1,21 @@
 const { Schema, model } = require('mongoose')
-const ProveedorSchema = Schema({
+const ZonaSchema = Schema({
  
    
-  tipoProveedor: {
-    type: Schema.Types.ObjectId,
-    ref: "TipoProveedor",
-  },
-  nombreEmpresa: {
+  nombre: {
     type: String,
- 
-  },
-  nombreRepresentante: {
-    type: String,
- 
+    required: true,
   },
    
-  zonas:[{
-    type: Schema.Types.ObjectId,
-    ref: "Zona",
-    
-  }],
-   
-  productos:[{
-    type: Schema.Types.ObjectId,
-    ref: "Producto",
-    
-  }],
-    telefono: {
-    type: Number,
- 
-  },
-    correo: {
+  descripcion: {
     type: String,
- 
+    required: true,
   },
-    incoterm: [{
-      type: Schema.Types.ObjectId,
-      ref: "Producto",
-      
-    }],
+   
+  clave: {
+    type: String,
+    required: true,
+  },
     img: {
     type: String,
  
@@ -66,9 +43,9 @@ const ProveedorSchema = Schema({
 
 })
 
-ProveedorSchema.method('toJSON', function () {
+ZonaSchema.method('toJSON', function () {
   const { __v, _id, password, ...object } = this.toObject()
   object.uid = _id
   return object
 })
-module.exports = model('Proveedor', ProveedorSchema)
+module.exports = model('Zona', ZonaSchema)

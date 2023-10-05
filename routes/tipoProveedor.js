@@ -1,49 +1,50 @@
 /*
-Ruta : api/productos
+Ruta : api/tipostocks
 */
 
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos");
 const {
-  getProductos,
-  crearProducto,
-  actualizarProducto,
+  getTipoProveedors,
+  crearTipoProveedor,
+  actualizarTipoProveedor,
   isActive,
-  getProductoById,
-  getAllProductos ,
-  getMyProductos
-} = require("../controllers/Producto");
+  getTipoProveedorById,
+  getAllTipoProveedors 
+} = require("../controllers/tipoProveedor");
 const { validarJWT } = require("../middlewares/validar-jwt");
 const router = Router();
 
-router.get("/", validarJWT, getProductos);
-router.get("/all", validarJWT, getAllProductos);
-router.get("/my-productos/:uid", validarJWT, getMyProductos);
-router.get("/:uid", validarJWT, getProductoById);
+router.get("/", validarJWT, getTipoProveedors);
+router.get("/all", validarJWT, getAllTipoProveedors);
+router.get("/:uid", validarJWT, getTipoProveedorById);
  
 router.post(
   "/",
   [
     validarJWT,
-    check("descripcion", "La descripcion es obligatoria").not().isEmpty(),
+    check("nombre", "El nombre es obligatorio").not().isEmpty(),
+    check("clave", "La clave es obligatoria").not().isEmpty(),
+    
 
 
     validarCampos,
   ],
-  crearProducto
+  crearTipoProveedor
 );
 
 router.put(
   "/:id",
   [
     validarJWT,
-    check("descripcion", "La descripcion es obligatoria").not().isEmpty(),
-  
+    check("nombre", "El nombre es obligatorio").not().isEmpty(),
+    check("clave", "La clave es obligatoria").not().isEmpty(),
+
     check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
     validarCampos,
   ],
-  actualizarProducto
+  actualizarTipoProveedor
 );
 
 

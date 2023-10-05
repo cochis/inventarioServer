@@ -38,8 +38,8 @@ router.put(
   "/:id",
   [
     validarJWT,
-    check("descripcion", "La descripcion es obligatoria").not().isEmpty(),
-    check("tipoIncoterm", "El tipoincoterm es obligatorio").not().isEmpty(),
+ 
+   
 
     check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
     validarCampos,

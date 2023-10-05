@@ -45,9 +45,7 @@ const getMyProveedors = async (req, res) => {
 const getAllProveedors = async (req, res) => {
  const [proveedors, total] = await Promise.all([
     Proveedor.find({})
-    .populate('proveedorProveedor')
-    .populate('estado')
-    .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
+    
     .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .sort({ nombre: 1 }),
     Proveedor.countDocuments(),

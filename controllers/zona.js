@@ -1,18 +1,18 @@
 const { response } = require('express')
 const bcrypt = require('bcryptjs')
-const Producto = require('../models/producto')
+const Zona = require('../models/zona')
 const { generarJWT } = require('../helpers/jwt')
-//getProductos Producto
-const getProductos = async (req, res) => {
+//getZonas Zona
+const getZonas = async (req, res) => {
   const desde = Number(req.query.desde) || 0
   const cant = Number(req.query.cant) || 10
   const [tipostocks, total] = await Promise.all([
-    Producto.find({})
+    Zona.find({})
       .sort({ nombre: 1 })
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .skip(desde)
       .limit(cant),
-    Producto.countDocuments(),
+    Zona.countDocuments(),
   ])
 
   res.json({
@@ -22,47 +22,46 @@ const getProductos = async (req, res) => {
     total,
   })
 }
-const getMyProductos = async (req, res) => {
+const getMyZonas = async (req, res) => {
   const uid = req.params.uid
- const [productos, total] = await Promise.all([
-    Producto.find({usuarioCreated: uid})
-    .populate('tipoProducto')
+ const [zonas, total] = await Promise.all([
+    Zona.find({usuarioCreated: uid})
+    .populate('tipoZona')
     .populate('estado')
-     
+    
     .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .sort({ nombre: 1 }),
-    Producto.countDocuments(),
+    Zona.countDocuments(),
   ])
  
 
   res.json({
     ok: true,
-    productos,
+    zonas,
     uid: req.uid,
     total,
   })
 }
-const getAllProductos = async (req, res) => {
- const [productos, total] = await Promise.all([
-    Producto.find({})
- 
+const getAllZonas = async (req, res) => {
+ const [zonas, total] = await Promise.all([
+    Zona.find({})
    
     .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .sort({ nombre: 1 }),
-    Producto.countDocuments(),
+    Zona.countDocuments(),
   ])
  
 
   res.json({
     ok: true,
-    productos,
+    zonas,
     uid: req.uid,
     total,
   })
 }
 
-//crearProducto Producto
-const crearProducto = async (req, res = response) => {
+//crearZona Zona
+const crearZona = async (req, res = response) => {
   const { email, password } = req.body
   const uid = req.uid
  
@@ -75,17 +74,17 @@ const crearProducto = async (req, res = response) => {
   try {
 
 
-    const producto = new Producto({
+    const zona = new Zona({
       ...campos
     })
 
 
-    await producto.save()
+    await zona.save()
 
 
     res.json({
       ok: true,
-      producto
+      zona
     })
   } catch (error) {
    
@@ -97,12 +96,12 @@ const crearProducto = async (req, res = response) => {
   }
 }
 
-//actualizarProducto Producto
-const actualizarProducto = async (req, res = response) => {
+//actualizarZona Zona
+const actualizarZona = async (req, res = response) => {
   //Validar token y comporbar si es el stipostock
   const uid = req.params.id
   try {
-    const tipostockDB = await Producto.findById(uid)
+    const tipostockDB = await Zona.findById(uid)
  
     if (!tipostockDB) {
       return res.status(404).json({
@@ -113,7 +112,7 @@ const actualizarProducto = async (req, res = response) => {
      
 
 
-    const tipostockActualizado = await Producto.findByIdAndUpdate(uid, req.body, {
+    const tipostockActualizado = await Zona.findByIdAndUpdate(uid, req.body, {
       new: true,
     })
     res.json({
@@ -132,7 +131,7 @@ const registrarAsistencia = async (req, res = response) => {
   //Validar token y comporbar si es el stipostock
   const uid = req.params.id
   try {
-    const tipostockDB = await Producto.findById(uid)
+    const tipostockDB = await Zona.findById(uid)
     if (!tipostockDB) {
       return res.status(404).json({
         ok: false,
@@ -141,7 +140,7 @@ const registrarAsistencia = async (req, res = response) => {
     }
     const { ...campos } = req.body
 
-    const tipostockActualizado = await Producto.findByIdAndUpdate(uid, campos, {
+    const tipostockActualizado = await Zona.findByIdAndUpdate(uid, campos, {
       new: true,
     })
     res.json({
@@ -157,11 +156,11 @@ const registrarAsistencia = async (req, res = response) => {
     })
   }
 }
-const confirmaProducto = async (req, res = response) => {
+const confirmaZona = async (req, res = response) => {
   //Validar token y comporbar si es el stipostock
   const uid = req.params.id
   try {
-    const tipostockDB = await Producto.findById(uid)
+    const tipostockDB = await Zona.findById(uid)
     if (!tipostockDB) {
       return res.status(404).json({
         ok: false,
@@ -179,7 +178,7 @@ const confirmaProducto = async (req, res = response) => {
     }
 
 
-    const tipostockActualizado = await Producto.findByIdAndUpdate(uid, campos, {
+    const tipostockActualizado = await Zona.findByIdAndUpdate(uid, campos, {
       new: true,
     })
     res.json({
@@ -200,7 +199,7 @@ const confirmaProducto = async (req, res = response) => {
 const isActive = async (req, res = response) => {
   const uid = req.params.id
   try {
-    const tipostockDB = await Producto.findById(uid)
+    const tipostockDB = await Zona.findById(uid)
     if (!tipostockDB) {
       return res.status(404).json({
         ok: false,
@@ -209,7 +208,7 @@ const isActive = async (req, res = response) => {
     }
     const campos = req.body
     campos.activated = !tipostockDB.activated
-    const tipostockActualizado = await Producto.findByIdAndUpdate(uid, campos, {
+    const tipostockActualizado = await Zona.findByIdAndUpdate(uid, campos, {
       new: true,
     })
     res.json({
@@ -226,10 +225,10 @@ const isActive = async (req, res = response) => {
   }
 }
 
-const getProductoById = async (req, res = response) => {
+const getZonaById = async (req, res = response) => {
   const uid = req.params.uid
   try {
-    const tipostockDB = await Producto.findById(uid)
+    const tipostockDB = await Zona.findById(uid)
     if (!tipostockDB) {
       return res.status(404).json({
         ok: false,
@@ -238,7 +237,7 @@ const getProductoById = async (req, res = response) => {
     }
     res.json({
       ok: true,
-      producto: tipostockDB,
+      zona: tipostockDB,
     })
   } catch (error) {
     res.status(500).json({
@@ -252,12 +251,12 @@ const getProductoById = async (req, res = response) => {
  
 
 module.exports = {
-  getProductos,
-  crearProducto,
-  actualizarProducto,
+  getZonas,
+  crearZona,
+  actualizarZona,
   isActive,
-  getProductoById,
-  getAllProductos,
-  getMyProductos
+  getZonaById,
+  getAllZonas,
+  getMyZonas
 
 }
