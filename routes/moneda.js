@@ -1,38 +1,39 @@
 /*
-Ruta : api/abastos
+Ruta : api/monedas
 */
 
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos");
 const {
-  getAbastos,
-  crearAbasto,
-  actualizarAbasto,
+  getMonedas,
+  crearMoneda,
+  actualizarMoneda,
   isActive,
-  getAbastoById,
-  getAllAbastos,
-  getAbastoForSln,
-  getAbastoByClave
-} = require("../controllers/abasto");
+  getMonedaById,
+  getAllMonedas,
+  getMonedaForSln,
+  getMonedaByClave
+} = require("../controllers/moneda");
 const { validarJWT, validarAdminJWT } = require("../middlewares/validar-jwt");
 const router = Router();
 
 
-router.get("/", getAbastos);
-router.get("/all", getAllAbastos);
-router.get("/all/salon", getAbastoForSln);
-router.get("/:uid", getAbastoById);
-router.get("/clave/:clave", getAbastoByClave);
+router.get("/", getMonedas);
+router.get("/all", getAllMonedas);
+router.get("/all/salon", getMonedaForSln);
+router.get("/:uid", getMonedaById);
+router.get("/clave/:clave", getMonedaByClave);
 router.post(
   "/",
   [
     validarJWT,
- 
+    check("nombre", "El nombre es obligatorio").not().isEmpty(),
+    check("clave", "La clave es obligatoria").not().isEmpty(),
 
     validarCampos,
   ],
-  crearAbasto
+  crearMoneda
 );
 
 router.put(
@@ -45,7 +46,7 @@ router.put(
     check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
     validarCampos,
   ],
-  actualizarAbasto
+  actualizarMoneda
 );
 
 

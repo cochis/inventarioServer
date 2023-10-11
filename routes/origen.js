@@ -1,38 +1,39 @@
 /*
-Ruta : api/abastos
+Ruta : api/origens
 */
 
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos");
 const {
-  getAbastos,
-  crearAbasto,
-  actualizarAbasto,
+  getOrigens,
+  crearOrigen,
+  actualizarOrigen,
   isActive,
-  getAbastoById,
-  getAllAbastos,
-  getAbastoForSln,
-  getAbastoByClave
-} = require("../controllers/abasto");
+  getOrigenById,
+  getAllOrigens,
+  getOrigenForSln,
+  getOrigenByClave
+} = require("../controllers/origen");
 const { validarJWT, validarAdminJWT } = require("../middlewares/validar-jwt");
 const router = Router();
 
 
-router.get("/", getAbastos);
-router.get("/all", getAllAbastos);
-router.get("/all/salon", getAbastoForSln);
-router.get("/:uid", getAbastoById);
-router.get("/clave/:clave", getAbastoByClave);
+router.get("/", getOrigens);
+router.get("/all", getAllOrigens);
+router.get("/all/salon", getOrigenForSln);
+router.get("/:uid", getOrigenById);
+router.get("/clave/:clave", getOrigenByClave);
 router.post(
   "/",
   [
     validarJWT,
- 
+    check("nombre", "El nombre es obligatorio").not().isEmpty(),
+    check("clave", "La clave es obligatoria").not().isEmpty(),
 
     validarCampos,
   ],
-  crearAbasto
+  crearOrigen
 );
 
 router.put(
@@ -45,7 +46,7 @@ router.put(
     check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
     validarCampos,
   ],
-  actualizarAbasto
+  actualizarOrigen
 );
 
 

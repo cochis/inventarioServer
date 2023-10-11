@@ -1,31 +1,51 @@
 const { Schema, model } = require('mongoose')
 const ProveedorSchema = Schema({
  
-   
-  tipoProveedor: {
-    type: Schema.Types.ObjectId,
-    ref: "TipoProveedor",
+  clave: {
+    type: String,
+ 
   },
   nombreEmpresa: {
     type: String,
- 
+    
   },
   nombreRepresentante: {
     type: String,
  
   },
    
-  zonas:[{
-    type: Schema.Types.ObjectId,
-    ref: "Zona",
-    
-  }],
+ 
    
-  productos:[{
+  materiaPrimas:[{
     type: Schema.Types.ObjectId,
     ref: "Producto",
     
   }],
+ 
+  actividadEconomica: {
+    type: String,
+    
+  },
+  rfc: {
+    type: String,
+    
+  },
+  direccionFiscal: {
+    type: String,
+    
+  },
+  estado: {
+    type: String,
+    
+  },
+  municipio: {
+    type: String,
+    
+  },
+  codigoPostal: {
+    type: Number,
+    
+  },
     telefono: {
     type: Number,
  
@@ -34,20 +54,22 @@ const ProveedorSchema = Schema({
     type: String,
  
   },
-    incoterm: [{
+    incoterm: {
       type: Schema.Types.ObjectId,
       ref: "Producto",
       
-    }],
-    img: {
+    } ,
+    img: [{
     type: String,
  
-  },
+  }],
+ 
   usuarioCreated: {
     type: Schema.Types.ObjectId,
     ref: "Usuario",
     
   },
+
  
     activated: {
     type: Boolean,

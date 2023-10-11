@@ -1,38 +1,39 @@
 /*
-Ruta : api/abastos
+Ruta : api/tipoMaterials
 */
 
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos");
 const {
-  getAbastos,
-  crearAbasto,
-  actualizarAbasto,
+  getTipoMaterials,
+  crearTipoMaterial,
+  actualizarTipoMaterial,
   isActive,
-  getAbastoById,
-  getAllAbastos,
-  getAbastoForSln,
-  getAbastoByClave
-} = require("../controllers/abasto");
+  getTipoMaterialById,
+  getAllTipoMaterials,
+  getTipoMaterialForSln,
+  getTipoMaterialByClave
+} = require("../controllers/tipoMaterial");
 const { validarJWT, validarAdminJWT } = require("../middlewares/validar-jwt");
 const router = Router();
 
 
-router.get("/", getAbastos);
-router.get("/all", getAllAbastos);
-router.get("/all/salon", getAbastoForSln);
-router.get("/:uid", getAbastoById);
-router.get("/clave/:clave", getAbastoByClave);
+router.get("/", getTipoMaterials);
+router.get("/all", getAllTipoMaterials);
+router.get("/all/salon", getTipoMaterialForSln);
+router.get("/:uid", getTipoMaterialById);
+router.get("/clave/:clave", getTipoMaterialByClave);
 router.post(
   "/",
   [
     validarJWT,
- 
+    check("nombre", "El nombre es obligatorio").not().isEmpty(),
+    check("clave", "La clave es obligatoria").not().isEmpty(),
 
     validarCampos,
   ],
-  crearAbasto
+  crearTipoMaterial
 );
 
 router.put(
@@ -45,7 +46,7 @@ router.put(
     check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
     validarCampos,
   ],
-  actualizarAbasto
+  actualizarTipoMaterial
 );
 
 

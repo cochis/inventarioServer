@@ -1,45 +1,101 @@
 const { Schema, model } = require('mongoose')
 const AbastoSchema = Schema({
   origen: {
-    type: String,
-    required: true,
+    type: Schema.Types.ObjectId,
+    ref: "Origen",
   },
   destino: {
-    type: String,
-    required: true,
+    type: Schema.Types.ObjectId,
+    ref: "Destino",
   },
   proveedor: {
-    type: String,
-    required: true,
-  },
-  producto: {
-    type: String,
-    required: true,
-  },
-  tipoTransporte: {
-    type: Boolean,
-    required: true,
-  },
-  carga: {
     type: Schema.Types.ObjectId,
-    ref: "Carga",
-    
+    ref: "Proveedor",
   },
-  tipoCarga: {
+  materiaPrima: [{
     type: Schema.Types.ObjectId,
-    ref: "TipoCarga",
-    
+    ref: "MateriaPrima",
+  }],
+  unidadMedida: {
+    type: Schema.Types.ObjectId,
+    ref: "UnidadMedida",
   },
-  cantidadMinima: {
+  cantidadTotal: {
     type: Number,
   },
-  cantidadMaxima: {
+  CantidadOrigenProceso: {
     type: Number,
+    required: true,
   },
-   usuarioCreated: {
+  CantidadDestinoProceso: {
+    type: Number,
+    required: true,
+  },
+  
+  viajes: [{
+    viajeFinalizado: {
+      type: Boolean,
+  
+    },
+    numeroTicket: {
+      type: String,
+  
+    },
+    tipoTransporte: {
+      type: Boolean,
+      required: true,
+    },
+    carga: {
+      type: Schema.Types.ObjectId,
+      ref: "Carga",
+      required: true,
+  
+    },
+    tipoCarga: {
+      type: Schema.Types.ObjectId,
+      ref: "TipoCarga",
+      required: true,
+  
+    },
+    basculaOrigen1: {
+      type: Number,
+  
+    },
+    basculaOrigen2: {
+      type: Number,
+  
+    },
+    fotoTicketOrigen: {
+      type: String,
+  
+    },
+    basculaDestino1: {
+      type: Number,
+  
+    },
+    basculaDestino2: {
+      type: Number,
+  
+    },
+    FotoTiketDestino: {
+      type: String,
+  
+    },
+    fechaProceso: {
+      type: Number,
+  
+    },
+    fechaAbasto: {
+      type: Number,
+  
+    },
+  }],
+  
+  
+  usuarioCreated: {
     type: Schema.Types.ObjectId,
     ref: "Usuario",
-    
+
   },
   activated: {
     type: Boolean,
