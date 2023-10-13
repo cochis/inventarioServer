@@ -122,15 +122,9 @@ const actualizarAbasto = async (req, res = response) => {
         msg: 'No exite un abasto',
       })
     }
-    const { password, google, email, ...campos } = req.body
-    if (!abastoDB.google) {
-      campos.email = email
-    } else if (abastoDB.email !== email) {
-      return res.status(400).json({
-        ok: false,
-        msg: 'El abasto de Google  no se puede actualizar',
-      })
-    }
+    const {  ...campos } = req.body
+    console.log('campos', campos)
+     
 
 
     const abastoActualizado = await Abasto.findByIdAndUpdate(uid, campos, {

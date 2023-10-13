@@ -23,13 +23,13 @@ const AbastoSchema = Schema({
   cantidadTotal: {
     type: Number,
   },
-  CantidadOrigenProceso: {
+  cantidadOrigenProceso: {
     type: Number,
-    required: true,
+  
   },
-  CantidadDestinoProceso: {
+  cantidadDestinoProceso: {
     type: Number,
-    required: true,
+ 
   },
   
   viajes: [{
@@ -77,7 +77,7 @@ const AbastoSchema = Schema({
       type: Number,
   
     },
-    FotoTiketDestino: {
+    fotoTicketDestino: {
       type: String,
   
     },
