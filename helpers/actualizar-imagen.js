@@ -9,6 +9,7 @@ const Abasto = require('../models/abasto')
 const borrarImagen = (path) => {
 
   if (fs.existsSync(path)) {
+    console.log('fs.existsSync(path)', fs.existsSync(path))
     fs.unlinkSync(path)
   }
 }
@@ -68,7 +69,7 @@ const actualizarImagen = async (tipo, id, nombreArchivo) => {
 }
 const actualizarViaje = async (id, nombreArchivo,tipo, idViaje) => {
  
-  console.log('actualizarViaje nombreArchivo', nombreArchivo)
+ 
   
   let pathViejo = ''
   const abasto = await Abasto.findById(id)
@@ -77,15 +78,29 @@ const actualizarViaje = async (id, nombreArchivo,tipo, idViaje) => {
     return false
   }
  
-  pathViejo = `./uploads/abastos/${abasto.viajes[ Number(idViaje)].tipo}`
- 
+  console.log('tipo', tipo)
+  console.log('abasto.viajes[ Number(idViaje)].basculaOrigen', abasto.viajes[ Number(idViaje)] )
+  if(tipo =='basculaOrigen'){
 
-  if (abasto.viajes[ Number(idViaje)].tipo && abasto.viajes[ Number(idViaje)].tipo !== '' ) {
+    pathViejo = `./uploads/abastos/${abasto.viajes[ Number(idViaje)].fotoTicketOrigen}`
+    if(abasto.viajes[ Number(idViaje)].fotoTicketOrigen !== ''){
 
-    borrarImagen(pathViejo)
+      borrarImagen(pathViejo)
+    }
+  }else {
+    pathViejo = `./uploads/abastos/${abasto.viajes[ Number(idViaje)].fotoTicketDestino}`
+    if(abasto.viajes[ Number(idViaje)].fotoTicketDestino !== ''){
+
+      borrarImagen(pathViejo)
+    }
   }
  
-  console.log('tipo', tipo)
+ 
+ 
+ 
+
+   
+ 
   if(tipo =='basculaOrigen'){
     abasto.viajes[ Number(idViaje)].fotoTicketOrigen= nombreArchivo
   } else if (tipo =='basculaDestino'){

@@ -65,17 +65,10 @@ const fileUpload = (req, res = response) => {
 }
 const fileUploadAbasto = (req, res = response) => {
   const tipo = req.params.tipo
-  console.log('fileUploadAbasto tipo', tipo)
   const id = req.params.id
-  console.log('fileUploadAbasto id', id)
   const tipoAbasto = req.params.tipoAbasto
-  console.log('fileUploadAbasto tipoAbasto', tipoAbasto)
   const idAbasto = req.params.idAbasto
-  console.log('fileUploadAbasto idAbasto', idAbasto)
-  
-  
   const tiposValidos = [
-    
     'abastos'
   ]
   if (!tiposValidos.includes(tipo)) {
@@ -108,7 +101,8 @@ const fileUploadAbasto = (req, res = response) => {
 
   const nombreArchivo = `${uuidv4()}.${extensionArchivo}`
   const path = `./uploads/${tipo}/${nombreArchivo}`
-  console.log('path', path)
+ 
+   
  
   file.mv(path, (err) => {
    
