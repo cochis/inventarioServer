@@ -13,7 +13,7 @@ const {
   getProductoById,
   getAllProductos ,
   getMyProductos
-} = require("../controllers/Producto");
+} = require("../controllers/producto");
 const { validarJWT } = require("../middlewares/validar-jwt");
 const router = Router();
 
