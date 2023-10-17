@@ -37,8 +37,18 @@ const AbastoSchema = Schema({
       type: Boolean,
   
     },
-    numeroTicket: {
+    numeroTicketOrigen: {
       type: String,
+  
+    },
+    numeroTicketDestino: {
+      type: String,
+  
+    },
+    proveedorTransporte: {
+      type: Schema.Types.ObjectId,
+      ref: "ProveedorTransporte",
+      required: true,
   
     },
     tipoTransporte: {
