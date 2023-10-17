@@ -3,11 +3,13 @@ const bcrypt = require('bcryptjs')
 const { generarJWT } = require('../helpers/jwt')
 
 const Usuario = require('../models/usuario')
- 
+
 const Role = require('../models/role')
 const Stock = require('../models/stock')
 const Ticket = require('../models/ticket')
- 
+const Abasto = require('../models/abasto')
+
+
 
 
 //getCiclos Ciclo
@@ -51,8 +53,8 @@ const getDocumentosColeccion = async (req, res = response) => {
             ]
           }
         )
-        .populate('role' ,'nombre _id')
-        .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+          .populate('role', 'nombre _id')
+          .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
 
       } else {
         data = await Usuario.find(
@@ -64,8 +66,8 @@ const getDocumentosColeccion = async (req, res = response) => {
             ]
           }
         )
-        .populate('role' ,'nombre _id')
-        .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+          .populate('role', 'nombre _id')
+          .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       }
       break
     case 'tickets':
@@ -76,31 +78,31 @@ const getDocumentosColeccion = async (req, res = response) => {
               {
                 $or: [
                   { descripcion: regex },
-                  { respuesta: regex } 
+                  { respuesta: regex }
                 ]
               },
               { "usuarioCreated": uid }
             ]
           }
         )
-        .populate('estado' ,'nombre _id')
-        .populate('tipoTicket' ,'nombre _id')
-        .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-        .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
+          .populate('estado', 'nombre _id')
+          .populate('tipoTicket', 'nombre _id')
+          .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+          .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
 
       } else {
         data = await Ticket.find(
           {
             $or: [
               { descripcion: regex },
-                  { respuesta: regex } 
+              { respuesta: regex }
             ]
           }
         )
-        .populate('estado' ,'nombre clave uid')
-        .populate('tipoTicket' ,'nombre clave uid')
-        .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-        .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
+          .populate('estado', 'nombre clave uid')
+          .populate('tipoTicket', 'nombre clave uid')
+          .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+          .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
       }
       break
     case 'stocks':
@@ -113,7 +115,7 @@ const getDocumentosColeccion = async (req, res = response) => {
                   { clave: regex },
                   { modelo: regex },
                   { serie: regex },
-                  { img: regex } 
+                  { img: regex }
                 ]
               },
               { "usuarioCreated": uid }
@@ -127,15 +129,47 @@ const getDocumentosColeccion = async (req, res = response) => {
               { clave: regex },
               { modelo: regex },
               { serie: regex },
-              { img: regex } 
+              { img: regex }
             ]
           }
-        )  .populate('usuarioCreated')
-        .populate('tipoStock')
-        .populate('usuarioAsignado')
+        ).populate('usuarioCreated')
+          .populate('tipoStock')
+          .populate('usuarioAsignado')
       }
       break
-     default:
+    case 'abastos':
+     
+      if (admin === 'false') {
+        data = await Abasto.find(
+          {
+            $and: [
+              {
+                $or: [
+                  { clave: regex },
+                  { modelo: regex },
+                  { serie: regex },
+                  { img: regex }
+                ]
+              },
+              { "usuarioCreated": uid }
+            ]
+          }
+        ).populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+      } else {
+        data = await Abasto.find(
+          {
+            $or: [
+              { clave: regex },
+              { modelo: regex },
+              { serie: regex },
+              { img: regex }
+            ]
+          }
+        ).populate('usuarioCreated')
+
+      }
+      break
+    default:
       res.status(400).json({
         ok: false,
         msg: 'No se encontro  la tabla',
@@ -151,6 +185,7 @@ const getDocumentosColeccion = async (req, res = response) => {
 }
 const getDocumentosColeccionCatalogo = async (req, res = response) => {
   const busqueda = req.params.busqueda
+
   const tabla = req.params.tabla
   const regex = new RegExp(busqueda, 'i')
 
@@ -166,112 +201,180 @@ const getDocumentosColeccionCatalogo = async (req, res = response) => {
 
 
         ],
-      })    .populate('role' ,'nombre _id')
-      .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+      }).populate('role', 'nombre _id')
+        .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       break
     case 'usuarios-rol':
       data = await Usuario.find({
         $or: [
 
           { role: busqueda },
-        
+
 
 
         ],
       })
-      .populate('role')
-      .populate('usuarioCreated')
+        .populate('role')
+        .populate('usuarioCreated')
       break
     case 'stocks':
       data = await Stock.find({
         $or: [
 
           { tipoStock: busqueda },
-          
+
 
 
         ],
       })
-      .populate('usuarioCreated')
-      .populate('tipoStock')
-      .populate('usuarioAsignado')
+        .populate('usuarioCreated')
+        .populate('tipoStock')
+        .populate('usuarioAsignado')
 
       break
     case 'usuarios-ticket':
 
-   
+
       data = await Ticket.find({
         $or: [
 
-          { usuarioCreated: busqueda }, 
-          
+          { usuarioCreated: busqueda },
+
 
 
         ],
       })
-      
-      .populate('tipoTicket')
-      .populate('estado')
-      .populate('usuarioCreated')
-      .populate('usuarioAtendio')
-      
+
+        .populate('tipoTicket')
+        .populate('estado')
+        .populate('usuarioCreated')
+        .populate('usuarioAtendio')
+
 
       break
-    
+
     case 'tipoTicket-ticket':
 
-   
+
       data = await Ticket.find({
         $or: [
 
-          { tipoTicket: busqueda }, 
-          
+          { tipoTicket: busqueda },
+
 
 
         ],
       })
-      
-      .populate('tipoTicket')
-      .populate('estado')
-      .populate('usuarioCreated')
-      .populate('usuarioAtendio')
-      
+
+        .populate('tipoTicket')
+        .populate('estado')
+        .populate('usuarioCreated')
+        .populate('usuarioAtendio')
+
 
       break
     case 'estado-ticket':
 
-   
+
       data = await Ticket.find({
         $or: [
 
-          { estado: busqueda }, 
-          
+          { estado: busqueda },
+
 
 
         ],
       })
-      
-      .populate('tipoTicket')
-      .populate('estado')
-      .populate('usuarioCreated')
-      .populate('usuarioAtendio')
-      
+
+        .populate('tipoTicket')
+        .populate('estado')
+        .populate('usuarioCreated')
+        .populate('usuarioAtendio')
+
 
       break
-    
-      case 'stock-usuarioAsignado':
+
+    case 'stock-usuarioAsignado':
       data = await Stock.find({
         $or: [
 
           { usuarioAsignado: busqueda },
-          
+
 
 
         ],
       })
-      .populate('usuarioCreated')
-      .populate('tipoStock')
-      .populate('usuarioAsignado')
+        .populate('usuarioCreated')
+        .populate('tipoStock')
+        .populate('usuarioAsignado')
+
+      break
+
+    case 'origens-abasto':
+ 
+      data = await Abasto.find({
+        $or: [
+
+          { origen: busqueda },
+
+
+
+        ],
+      })
+        .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+
+
+
+      break
+    case 'destinos-abasto':
+
+   
+      data = await Abasto.find({
+        $or: [
+
+          { destino: busqueda },
+
+
+
+        ],
+      })
+        .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+
+
+
+      break
+    case 'proveedors-abasto':
+
+      
+      data = await Abasto.find({
+        $or: [
+
+          { proveedor: busqueda },
+
+
+
+        ],
+      })
+        .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+
+
+
+      break
+    case 'materiaPrimas-abasto':
+ 
+      
+      data = await Abasto.find({
+        $or: [
+
+          { materiaPrima: { $all : [busqueda] }  },
+
+
+
+        ],
+      })
+        .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+
+
 
       break
 

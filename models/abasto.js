@@ -90,7 +90,9 @@ const AbastoSchema = Schema({
   
     },
   }],
-  
+  finalizado: {
+    type: Boolean,
+  },
   
   usuarioCreated: {
     type: Schema.Types.ObjectId,
