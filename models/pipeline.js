@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose')
 const CargaSchema = Schema({
   id: {
-    type: String,
+    type: Number,
     required: true,
   },
   name: {

@@ -1,49 +1,50 @@
 /*
-Ruta : api/pipelines
+Ruta : api/productoJasus
 */
 
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos");
 const {
-  getPipelines,
-  crearPipeline,
-  actualizarPipeline,
+  getProductoJasus,
+  crearProductoJasu,
+  actualizarProductoJasu,
   isActive,
-  getPipelineById,
-  getAllPipelines,
-  getPipelineForSln,
-  getPipelineByClave
-} = require("../controllers/pipeline");
-const { validarJWT, validarAdminJWT } = require("../middlewares/validar-jwt");
+  getProductoJasuById,
+  getAllProductoJasus ,
+  getMyProductoJasus,
+  dropProductosJasu
+} = require("../controllers/productoJasu");
+const { validarJWT } = require("../middlewares/validar-jwt");
 const router = Router();
 
-
-router.get("/", getPipelines);
-router.get("/all", getAllPipelines);
-router.get("/all/salon", getPipelineForSln);
-router.get("/:uid", getPipelineById);
-router.get("/clave/:clave", getPipelineByClave);
+router.get("/", validarJWT, getProductoJasus);
+router.get("/all", validarJWT, getAllProductoJasus);
+router.get("/my-productoJasus/:uid", validarJWT, getMyProductoJasus);
+router.get("/:uid", validarJWT, getProductoJasuById);
+router.put("/table/drop", validarJWT, dropProductosJasu);
+ 
 router.post(
   "/",
   [
     validarJWT,
     
+
+
     validarCampos,
   ],
-  crearPipeline
+  crearProductoJasu
 );
 
 router.put(
   "/:id",
   [
     validarJWT,
- 
-
+    
     check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
     validarCampos,
   ],
-  actualizarPipeline
+  actualizarProductoJasu
 );
 
 

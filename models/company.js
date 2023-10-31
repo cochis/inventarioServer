@@ -84,7 +84,7 @@ const CompanySchema = Schema({
 
     },
     value: {
-      type: String
+      type: Object
     },
   }],
 
