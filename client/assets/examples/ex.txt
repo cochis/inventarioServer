@@ -19,7 +19,24 @@ server {
 
 
 
-db.usuarios.updateMany({ email: "info@cochisweb.com" }, { $set: { role: "650373d9db5868019b55ebd1" } })
+db.usuarios.updateMany({ email: "oramirez@jasu.us" }, { $set: {  nombre:"Oscar ",apellidoPaterno:"Ramirez",apellidoMaterno:"Rosas",email:"oramirez@jasu.us",password:"$2a$10$tOSaexTv6Hf7hBThAg59l.4eY/V2x5AtaR0wlYzP6E/rXMMWaAkgy",activated:true } })
+db.roles.updateMany({ activated: true }, { $set: { usuarioCreated:"651b16eabeaf8d29de52780e" } })
+
+
+
+
+
+
+
+nombre:"Oscar ",
+apellidoPaterno:"Ramirez",
+apellidoMaterno:"Rosas",
+email:"oramirez@jasu.us",
+password:"$2a$10$tOSaexTv6Hf7hBThAg59l.4eY/V2x5AtaR0wlYzP6E/rXMMWaAkgy",
+activated:true
+
+
+
 db.fiestas.updateMany({ nombre: "REUNION SEP 2023" }, { $set: { realizada: false } })
 db.usuarios.updateMany({ nombre: "Oscar" }, { $set: { role: '651705dc04e4f314ed482462' } })
 

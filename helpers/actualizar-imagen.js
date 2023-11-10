@@ -3,6 +3,7 @@ const Usuario = require('../models/usuario')
 const Stock = require('../models/stock')
 const Ticket = require('../models/ticket')
 const Abasto = require('../models/abasto')
+const DataEs = require('../models/specDataEs')
 
 
 
@@ -60,6 +61,22 @@ const actualizarImagen = async (tipo, id, nombreArchivo) => {
       }
       ticket.img = nombreArchivo
       await ticket.save()
+      return true
+      break
+    case 'dataEs':
+
+      const dataEs = await DataEs.findById(id)
+      if (!dataEs) {
+        return false
+      }
+      pathViejo = `./uploads/tickets/${dataEs.img}`
+
+      if (dataEs.img && dataEs.img !== '') {
+
+        borrarImagen(pathViejo)
+      }
+      dataEs.img = nombreArchivo
+      await dataEs.save()
       return true
       break
 

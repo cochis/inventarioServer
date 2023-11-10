@@ -13,6 +13,7 @@ const fileUpload = (req, res = response) => {
     'stocks',
     'salones',
     'tickets',
+    'dataEs',
     'abastos'
   ]
   if (!tiposValidos.includes(tipo)) {
