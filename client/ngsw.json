@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1699649376807,
+  "timestamp": 1716219897050,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.ffc75925639c629d.js",
+        "/main.f0d8e93ebfe8873d.js",
         "/manifest.webmanifest",
         "/polyfills.a87c474981dca57a.js",
         "/runtime.c4da19d28b4dd58e.js",
@@ -35,6 +35,7 @@
         "/assets/css/bootstrap.min.css",
         "/assets/css/fontello.css",
         "/assets/css/templatemo-topic-listing.css",
+        "/assets/examples/Hola requiero 11 equipos de computo para.txt",
         "/assets/examples/ex.txt",
         "/assets/examples/updatesDB.json",
         "/assets/font/fontello.eot",
@@ -98,6 +99,7 @@
     "/assets/css/bootstrap.min.css": "7abed070e37ce060c0a561575f1d41a7f248fc74",
     "/assets/css/fontello.css": "1f8605d4b09de17937d17345c31aed487fc6b86a",
     "/assets/css/templatemo-topic-listing.css": "1ec3350af6a95374943f76832736f43ca2d92d74",
+    "/assets/examples/Hola requiero 11 equipos de computo para.txt": "3e50e7a4f5b03001027f1f684087157be6804e28",
     "/assets/examples/ex.txt": "40196bf61f85f2d869748d822f6a0ea2114ffa31",
     "/assets/examples/updatesDB.json": "f50a5322f85c04629d9647016009a593407fd0fb",
     "/assets/font/fontello.eot": "8532f6f1c4db78883daf995ed0141d52cebbaf3c",
@@ -150,8 +152,8 @@
     "/assets/js/jquery.min.js": "da49460a365d995ef121403cece389dafe496505",
     "/assets/js/jquery.sticky.js": "7fd0ecfd2534f00a8a97f8db64fc9ece30303863",
     "/favicon.ico": "21078227f5dc0c7469405bb6926f8c88b892d269",
-    "/index.html": "3fd4699650d05474ba290775a1b871b0e181df64",
-    "/main.ffc75925639c629d.js": "fca8395c41f3639bd5eb7d34f51a67d06a40ea9e",
+    "/index.html": "4afa6614796dde3418f219cff42a15efd0abf8ab",
+    "/main.f0d8e93ebfe8873d.js": "649b30b3d93eb636a3bc24430fb14fcd17a5bf26",
     "/manifest.webmanifest": "5d7273248979ba5c802c5203c84eea098fda649a",
     "/polyfills.a87c474981dca57a.js": "1401953c8842a85b8640b100e9bb273e183da825",
     "/runtime.c4da19d28b4dd58e.js": "d8b5df4ba1da8c35587aa142f4c29d98b1872f25",

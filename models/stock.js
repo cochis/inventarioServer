@@ -9,6 +9,10 @@ const StockSchema = Schema({
     type: String,
   
   },
+  nip: {
+    type: String,
+  
+  },
   modelo: {
     type: String,
     required: true,
