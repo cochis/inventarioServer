@@ -26,6 +26,10 @@ const StockSchema = Schema({
     type: String,
     default:null
   },
+  status: {
+    type: String,
+    default:null
+  },
   asignado: {
     type: Boolean,
     default:false
