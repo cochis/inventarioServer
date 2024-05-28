@@ -8,7 +8,7 @@ const getTickets = async (req, res) => {
   const cant = Number(req.query.cant) || 10
   const [tipostocks, total] = await Promise.all([
     Ticket.find({})
-      .sort({ nombre: 1 })
+      .sort({ dateCreated: -1 })
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .skip(desde)
       .limit(cant),
@@ -26,6 +26,7 @@ const getMyTickets = async (req, res) => {
   const uid = req.params.uid
  const [tickets, total] = await Promise.all([
     Ticket.find({usuarioCreated: uid})
+    .sort({ dateCreated: -1 })
     .populate('tipoTicket')
     .populate('estado')
     .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
@@ -45,6 +46,7 @@ const getMyTickets = async (req, res) => {
 const getAllTickets = async (req, res) => {
  const [tickets, total] = await Promise.all([
     Ticket.find({})
+    .sort({ dateCreated: -1 })
     .populate('tipoTicket')
     .populate('estado')
     .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
