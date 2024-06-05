@@ -41,7 +41,7 @@ db.fiestas.updateMany({ nombre: "REUNION SEP 2023" }, { $set: { realizada: false
 db.usuarios.updateMany({ nombre: "Oscar" }, { $set: { role: '651705dc04e4f314ed482462' } })
 
 db.usuarios.updateMany({ usuarioCreated: '6511be29311fc09ce841f0eb' }, { $set: {usuarioCreated: '6516ff6868826c2cb91cf050' } })
-db.usuarios.deleteOne({ email: "vian.vicu@gmail.com" })
+db.roles.deleteOne({   _id: ObjectId('655ce118b6a09f471d52c5e0') })
 db.usuarios.deleteOne({ email: "fray@fray.com" })
 
 db.boletos.drop()
