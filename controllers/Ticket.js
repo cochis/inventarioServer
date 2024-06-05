@@ -2,6 +2,7 @@ const { response } = require('express')
 const bcrypt = require('bcryptjs')
 const Ticket = require('../models/ticket')
 const { generarJWT } = require('../helpers/jwt')
+const { transporter } = require('../helpers/mailer')
 //getTickets Ticket
 const getTickets = async (req, res) => {
   const desde = Number(req.query.desde) || 0
@@ -84,7 +85,15 @@ const crearTicket = async (req, res = response) => {
 
 
     await ticket.save()
-
+    await transporter.sendMail({
+      from: '"Se creo un ticket" <sistemas@jasu.us>', // sender address
+      to: 'sistemas@jasu.us' , // list of receivers
+      subject: "Nuevo ticket", // Subject line
+      html: `
+      <b>Ticket </b>
+     <a href="https://infra.jasu.us/core/edit-ticket/true/${ticket._id}">CLick aqui</a>
+      `,
+    });
 
     res.json({
       ok: true,

@@ -160,7 +160,7 @@ const existUser = async (req, res = response) => {
     })
     const token = await generarJWT(campos)
     await transporter.sendMail({
-      from: '"Verificación de correo" <info@cochisweb.com>', // sender address
+      from: '"Verificación de correo" <sistemas@jasu.us>', // sender address
       to: email , // list of receivers
       subject: "Verificación de correo ✔", // Subject line
       html: `

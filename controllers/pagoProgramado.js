@@ -2,6 +2,11 @@ const { response } = require('express')
 const bcrypt = require('bcryptjs')
 const PagoProgramado = require('../models/pagoProgramado')
 const { generarJWT } = require('../helpers/jwt')
+const { transporter } = require('../helpers/mailer')
+
+
+
+
 //getPagoProgramados PagoProgramado
 const getPagoProgramados = async (req, res) => {
 
@@ -104,7 +109,25 @@ const crearPagoProgramado = async (req, res = response) => {
 
 
     await pagoProgramado.save()
-
+    console.log('pagoProgramado', pagoProgramado)
+    await transporter.sendMail({
+      from: '"Creacion de pago programado" <sistemas@jasu.us>', // sender address
+      to: 'gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us' , // list of receiverss
+     // to: 'oramirez@jasu.us' , // list of receivers
+      subject: "Creacion de pago programado ✔", // Subject line
+      html: `
+      <b>Se creo un pago programado para  ${pagoProgramado.proveedor} </b>
+      <br/>
+      <b>Concepto:   ${pagoProgramado.concepto} </b>
+      <br/>
+      <b>Cantidad:   ${pagoProgramado.cantidad} </b>
+      <br/>
+      <a href="https://infra.jasu.us/core/pagos-programados/edit-pago-programado/true/${pagoProgramado._id}">Da click aqui para ver el pago </a>
+      
+      `,
+    });
+     
+       
 
     res.json({
       ok: true,
@@ -146,6 +169,24 @@ const actualizarPagoProgramado = async (req, res = response) => {
     const pagoProgramadoActualizado = await PagoProgramado.findByIdAndUpdate(uid, campos, {
       new: true,
     })
+
+
+    await transporter.sendMail({
+      from: '"Edición de pago programado" <sistemas@jasu.us>', // sender address
+      to: 'gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us' , // list of receivers
+      //to: 'oramirez@jasu.us' , // list of receivers
+      subject: "Edición de pago programado ✔", // Subject line
+      html: `
+      <b>Se edito un pago programado para  ${pagoProgramadoActualizado.proveedor} </b>
+      <br/>
+      <b>Concepto:   ${pagoProgramadoActualizado.concepto} </b>
+      <br/>
+      <b>Cantidad:   ${pagoProgramadoActualizado.cantidad} </b>
+      <br/>
+      <a href="https://infra.jasu.us/core/pagos-programados/edit-pago-programado/true/${uid}">Da click aqui para ver el pago </a>
+      
+      `,
+    });
     res.json({
       ok: true,
       pagoProgramadoActualizado,
