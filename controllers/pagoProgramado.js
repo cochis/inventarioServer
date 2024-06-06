@@ -20,6 +20,7 @@ const getPagoProgramados = async (req, res) => {
         .populate('subsidiaria' )
         .populate('terminoPago' )
         .populate('tipoGasto' )
+        .populate('moneda' )
         .skip(desde)
         .limit(cant),
       PagoProgramado.countDocuments(),
@@ -47,6 +48,7 @@ const getPagoProgramados = async (req, res) => {
       .populate('subsidiaria' )
       .populate('terminoPago' )
       .populate('tipoGasto' )
+      .populate('moneda' )
       .skip(desde)
       .limit(cant),
     PagoProgramado.countDocuments(),
@@ -64,6 +66,7 @@ const getAllPagoProgramados = async (req, res) => {
   try {
     const [pagoProgramados, total] = await Promise.all([
       PagoProgramado.find({})
+      .populate('moneda' )
       .populate('usuarioCreated' )
       .populate('subsidiaria' )
       .populate('terminoPago' )
@@ -109,7 +112,7 @@ const crearPagoProgramado = async (req, res = response) => {
 
 
     await pagoProgramado.save()
-    console.log('pagoProgramado', pagoProgramado)
+  //  console.log('pagoProgramado', pagoProgramado)
     await transporter.sendMail({
       from: '"Creacion de pago programado" <sistemas@jasu.us>', // sender address
       to: 'gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us' , // list of receiverss
@@ -239,6 +242,7 @@ const getPagoProgramadoById = async (req, res = response) => {
     .populate('subsidiaria' )
     .populate('terminoPago' )
     .populate('tipoGasto' )
+    .populate('moneda' )
     if (!pagoProgramadoDB) {
       return res.status(404).json({
         ok: false,
@@ -264,6 +268,7 @@ const getPagoProgramadoByClave = async (req, res = response) => {
     .populate('subsidiaria' )
     .populate('terminoPago' )
     .populate('tipoGasto' )
+    .populate('moneda' )
     if (!pagoProgramadoDB) {
       return res.status(404).json({
         ok: false,
@@ -294,6 +299,7 @@ const getPagoProgramadoForSln = async (req, res = response) => {
     .populate('subsidiaria' )
     .populate('terminoPago' )
     .populate('tipoGasto' )
+    .populate('moneda' )
     if (!pagoProgramadoDB) {
       return res.status(404).json({
         ok: false,

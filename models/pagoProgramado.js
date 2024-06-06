@@ -49,15 +49,20 @@ const PagoProgramadoSchema = Schema({
   },
 
    
-   
+  
   fechaProgramada: {
     type: Number,
     
   },
-    aprobacion: {
+  aprobacion: {
     type: Boolean,
     default:false
- 
+    
+  },
+  moneda: {
+    type: Schema.Types.ObjectId,
+    ref: "Moneda",
+    
   },
     observaciones: {
     type: String,
