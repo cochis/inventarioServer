@@ -75,7 +75,6 @@ const getAllPagoProgramados = async (req, res) => {
       PagoProgramado.countDocuments(),
     ])
 
-    console.log('pagoProgramados', pagoProgramados)
 
     res.json({
       ok: true,
@@ -102,21 +101,27 @@ const crearPagoProgramado = async (req, res = response) => {
     ...req.body,
     usuarioCreated:uid
   }
-
+   
   try {
 
 
     const pagoProgramado = new PagoProgramado({
       ...campos
     })
-
+    var mails = ''
+    if(campos.url.includes("localhost")){
+      mails ='oramirez@jasu.us'
+    }else{
+      mails ='gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us' 
+    }
+  
 
     await pagoProgramado.save()
-  //  console.log('pagoProgramado', pagoProgramado)
+ 
     await transporter.sendMail({
       from: '"Creacion de pago programado" <sistemas@jasu.us>', // sender address
-      to: 'gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us' , // list of receiverss
-     // to: 'oramirez@jasu.us' , // list of receivers
+      // to: 'gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us' , // list of receiverss
+      to: mails , // list of receivers
       subject: "Creacion de pago programado ✔", // Subject line
       html: `
       <b>Se creo un pago programado para  ${pagoProgramado.proveedor} </b>
@@ -172,12 +177,18 @@ const actualizarPagoProgramado = async (req, res = response) => {
     const pagoProgramadoActualizado = await PagoProgramado.findByIdAndUpdate(uid, campos, {
       new: true,
     })
+    var mails = ''
+    if(campos.url.includes("localhost")){
+      mails ='oramirez@jasu.us'
+    }else{
+      mails ='gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us' 
+    }
 
 
     await transporter.sendMail({
       from: '"Edición de pago programado" <sistemas@jasu.us>', // sender address
-      to: 'gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us' , // list of receivers
-      //to: 'oramirez@jasu.us' , // list of receivers
+      // to: 'gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us' , // list of receivers
+      to: mails , // list of receivers
       subject: "Edición de pago programado ✔", // Subject line
       html: `
       <b>Se edito un pago programado para  ${pagoProgramadoActualizado.proveedor} </b>

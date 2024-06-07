@@ -30,6 +30,18 @@ const UsuarioSchema = Schema({
     ref: "Role",
     required: true
   }],
+   puesto: {
+    type: Schema.Types.ObjectId,
+    ref: "Puesto",
+    default: null
+
+  },
+   departamento: {
+    type: Schema.Types.ObjectId,
+    ref: "Departamento",
+    default: null
+
+  },
    usuarioCreated: {
     type: Schema.Types.ObjectId,
     ref: "Usuario",

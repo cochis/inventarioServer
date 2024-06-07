@@ -58,7 +58,7 @@ const getAllSubsidiarias = async (req, res) => {
       Subsidiaria.countDocuments(),
     ])
 
-    console.log('subsidiarias', subsidiarias)
+   
 
     res.json({
       ok: true,

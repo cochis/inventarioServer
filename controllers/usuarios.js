@@ -8,8 +8,10 @@ const getUsuarios = async (req, res) => {
   const cant = Number(req.query.cant) || 10
   const [usuarios, total] = await Promise.all([
     Usuario.find({})
-      .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      .populate('role', 'nombre clave _id')
+      .populate('usuarioCreated')
+      .populate('role')
+      .populate('puesto')
+      .populate('departamento')
       .sort({ nombre: 1 })
       .skip(desde)
       .limit(cant),
@@ -26,8 +28,10 @@ const getUsuarios = async (req, res) => {
 const getAllUsuarios = async (req, res) => {
   const [usuarios, total] = await Promise.all([
     Usuario.find({})
-      .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      .populate('role', 'nombre clave _id')
+    .populate('usuarioCreated')
+    .populate('role')
+    .populate('puesto')
+    .populate('departamento')
       .sort({ nombre: 1 }),
     Usuario.countDocuments(),
   ])
@@ -204,8 +208,10 @@ const getUsuarioById = async (req, res = response) => {
  
   try {
     const usuarioDB = await Usuario.findById(uid)
-      .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      .populate('role', 'nombre clave _id')
+    .populate('usuarioCreated')
+    .populate('role')
+    .populate('puesto')
+    .populate('departamento')
     if (!usuarioDB) {
       return res.status(404).json({
         ok: false,
@@ -228,8 +234,10 @@ const getUsuarioByEmail = async (req, res = response) => {
   try {
     
     const usuarioDB = await Usuario.find({email:email})
-      .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      .populate('role', 'nombre clave _id')
+    .populate('usuarioCreated')
+      .populate('role')
+      .populate('puesto')
+      .populate('departamento')
     if (!usuarioDB) {
       return res.status(404).json({
         ok: false,
@@ -252,8 +260,10 @@ const getUsuarioByCreatedUid = async (req, res = response) => {
  
   try {
     const usuarioDB = await Usuario.find({ usuarioCreated: user })
-      .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-      .populate('role', 'nombre clave _id')
+   .populate('usuarioCreated')
+      .populate('role')
+      .populate('puesto')
+      .populate('departamento')
     if (!usuarioDB) {
       return res.status(404).json({
         ok: false,
