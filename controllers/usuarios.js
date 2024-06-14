@@ -11,6 +11,7 @@ const getUsuarios = async (req, res) => {
       .populate('usuarioCreated')
       .populate('role')
       .populate('puesto')
+      .populate('supervisor')
       .populate('departamento')
       .sort({ nombre: 1 })
       .skip(desde)
@@ -31,6 +32,7 @@ const getAllUsuarios = async (req, res) => {
     .populate('usuarioCreated')
     .populate('role')
     .populate('puesto')
+    .populate('supervisor')
     .populate('departamento')
       .sort({ nombre: 1 }),
     Usuario.countDocuments(),
@@ -211,6 +213,7 @@ const getUsuarioById = async (req, res = response) => {
     .populate('usuarioCreated')
     .populate('role')
     .populate('puesto')
+    .populate('supervisor')
     .populate('departamento')
     if (!usuarioDB) {
       return res.status(404).json({
@@ -237,6 +240,7 @@ const getUsuarioByEmail = async (req, res = response) => {
     .populate('usuarioCreated')
       .populate('role')
       .populate('puesto')
+      .populate('supervisor')
       .populate('departamento')
     if (!usuarioDB) {
       return res.status(404).json({
@@ -263,6 +267,7 @@ const getUsuarioByCreatedUid = async (req, res = response) => {
    .populate('usuarioCreated')
       .populate('role')
       .populate('puesto')
+      .populate('supervisor')
       .populate('departamento')
     if (!usuarioDB) {
       return res.status(404).json({

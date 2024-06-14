@@ -1,12 +1,80 @@
 const { Schema, model } = require('mongoose')
+
 const SolicitudViajeSchema = Schema({
-  nombre: {
-    type: String,
-    required: true,
+  tipoSolicitudViaje: {
+    type: Schema.Types.ObjectId,
+    ref: "TipoSolicitudViaje",
   },
-  clave: {
-    type: String,
-    required: true,
+  empleado: {
+    type: Schema.Types.ObjectId,
+    ref: "Usuario",
+  },
+   
+  dateViaje:{
+    type:Number,
+    required:   true,
+  },
+  duracion:{
+    type:Number,
+    required:   true,
+  },
+  destino:{
+    type:String,
+    required:   true,
+  },
+  proposito:{
+    type:String,
+    required:   true,
+  },
+  dateSalida:{
+    type:Number,
+    required:   true,
+  },
+  dateRegreso:{
+    type:Number,
+    required:   true,
+  },
+  medioTransporte:{
+    type:String,
+    required:   true,
+  },
+  tipoTransporte:{
+    type: Schema.Types.ObjectId,
+    ref: "TipoTransporte",
+  },
+  detalleTransporte:{
+    type:String,
+  },
+  numeroTransporte:{
+    type:String,
+  },
+  horario:{
+    type:String,
+  },
+  
+  cantidadSolicitada:{
+    type:Number,
+    required:true
+  },
+  cantidadAprobada:{
+    type:Number,
+     
+  },
+  cantidadRegreso:{
+    type:Number,
+   
+  },
+  cantidadRegreso:{
+    type:Number,
+    
+  },
+  aprobado:{
+    type:Boolean,
+    default:false
+  },
+  fechaAprobacion:{
+    type:Number 
+     
   },
   usuarioCreated: {
     type: Schema.Types.ObjectId,

@@ -42,6 +42,12 @@ const UsuarioSchema = Schema({
     default: null
 
   },
+   supervisor: {
+    type: Schema.Types.ObjectId,
+    ref: "Usuario",
+    default: null
+
+  },
    usuarioCreated: {
     type: Schema.Types.ObjectId,
     ref: "Usuario",

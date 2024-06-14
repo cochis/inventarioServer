@@ -19,10 +19,13 @@ server {
 
 
 
-db.usuarios.updateMany({ email: "oramirez@jasu.us" }, { $set: {  nombre:"Oscar ",apellidoPaterno:"Ramirez",apellidoMaterno:"Rosas",email:"oramirez@jasu.us",password:"$2a$10$tOSaexTv6Hf7hBThAg59l.4eY/V2x5AtaR0wlYzP6E/rXMMWaAkgy",activated:true } })
-db.roles.updateMany({ activated: true }, { $set: { usuarioCreated:"651b16eabeaf8d29de52780e" } })
+db.usuarios.updateOne({ email: "oramirez@jasu.us" }, { $set: {  nombre:"Oscar ",apellidoPaterno:"Ramirez",apellidoMaterno:"Rosas",email:"oramirez@jasu.us",password:"$2a$10$tOSaexTv6Hf7hBThAg59l.4eY/V2x5AtaR0wlYzP6E/rXMMWaAkgy",activated:true } })
+db.usuarios.updateMany({ activated: true }, { $set: { usuarioCreated:"651b16eabeaf8d29de52780e" } })
 
-
+puesto 
+departamento 
+supervisor 
+ 
 
 
 
@@ -42,7 +45,9 @@ db.usuarios.updateMany({ nombre: "Oscar" }, { $set: { role: '651705dc04e4f314ed4
 
 db.usuarios.updateMany({ usuarioCreated: '6511be29311fc09ce841f0eb' }, { $set: {usuarioCreated: '6516ff6868826c2cb91cf050' } })
 db.roles.deleteOne({   _id: ObjectId('655ce118b6a09f471d52c5e0') })
+db.roles.pagosprogramados({   _id: ObjectId('66632416d3f798ed2798905f') })
 db.usuarios.deleteOne({ email: "fray@fray.com" })
+db.tickets.deleteOne({  _id: ObjectId('6667977ed3f798ed2798923a') })
 
 db.boletos.drop()
 db.eventos.drop()
@@ -156,4 +161,5 @@ db.roles.insertMany([{
 
 }])
 
-db.tipotickets.deleteOne( { "_id" : ObjectId("6517072c7032fe22839d68c6") } );
+db.pagosprogramados.deleteOne( { "_id" : ObjectId("666717dcd3f798ed27989135") } );
+db.pagosprogramados.deleteOne( { "_id" : ObjectId("666717dbd3f798ed27989133") } );
