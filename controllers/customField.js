@@ -123,10 +123,6 @@ const actualizarCustomField = async (req, res = response) => {
       })
     }
     const {  ...campos } = req.body
-    console.log('campos', campos)
-     
-
-
     const customFieldActualizado = await CustomField.findByIdAndUpdate(uid, campos, {
       new: true,
     })

@@ -19,7 +19,7 @@ const FacturaSchema = Schema({
   },
   tipoFactura: {
     type: Schema.Types.ObjectId,
-    ref: "Factura",
+    ref: "TipoFactura",
     required: true,
   },
   cantidad: {
@@ -27,7 +27,8 @@ const FacturaSchema = Schema({
     required: true,
   },
   moneda: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: "Moneda",
     required: true,
   },
   currencyExchange: {

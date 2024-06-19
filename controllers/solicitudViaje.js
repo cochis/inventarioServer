@@ -11,6 +11,7 @@ const getSolicitudViajes = async (req, res) => {
       .sort({ nombre: 1 })
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
     .populate('tipoSolicitudViaje' )
+    .populate('moneda' )
     .populate('tipoTransporte' )
     .populate('empleado' )
       .skip(desde)
@@ -30,6 +31,7 @@ const getAllSolicitudViajes = async (req, res) => {
     SolicitudViaje.find({})
     .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
     .populate('tipoSolicitudViaje' )
+    .populate('moneda' )
     .populate('tipoTransporte' )
     .populate('empleado' )
       .sort({ nombre: 1 }),
@@ -149,6 +151,7 @@ const getSolicitudViajeById = async (req, res = response) => {
     const solicitudViajeDB = await SolicitudViaje.findById(uid).populate('tipoSolicitudViaje', 'nombre clave  _id')
     .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
     .populate('tipoSolicitudViaje' )
+    .populate('moneda' )
     .populate('tipoTransporte' )
     .populate('empleado' )
    

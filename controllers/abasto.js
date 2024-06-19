@@ -123,7 +123,7 @@ const actualizarAbasto = async (req, res = response) => {
       })
     }
     const {  ...campos } = req.body
-    console.log('campos', campos)
+   
      
 
 

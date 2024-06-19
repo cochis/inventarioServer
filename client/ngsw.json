@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1718393055622,
+  "timestamp": 1718812965528,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.1f05a3985cabe63f.js",
+        "/main.039130580a88b248.js",
         "/manifest.webmanifest",
         "/polyfills.a87c474981dca57a.js",
         "/runtime.c4da19d28b4dd58e.js",
@@ -63,6 +63,7 @@
         "/assets/images/icon/icon_twitter.png",
         "/assets/images/icon/icon_youtube.png",
         "/assets/images/icon/link_icon.png",
+        "/assets/images/invoice.png",
         "/assets/images/left-corner.png",
         "/assets/images/loading.gif",
         "/assets/images/logo.png",
@@ -100,7 +101,7 @@
     "/assets/css/fontello.css": "1f8605d4b09de17937d17345c31aed487fc6b86a",
     "/assets/css/templatemo-topic-listing.css": "1ec3350af6a95374943f76832736f43ca2d92d74",
     "/assets/examples/Hola requiero 11 equipos de computo para.txt": "3e50e7a4f5b03001027f1f684087157be6804e28",
-    "/assets/examples/ex.txt": "cde2dfe70be643cdabf60f48b0d98cd1d00f9047",
+    "/assets/examples/ex.txt": "605ab05f8f2224855157e921758d7324718e09c1",
     "/assets/examples/updatesDB.json": "f50a5322f85c04629d9647016009a593407fd0fb",
     "/assets/font/fontello.eot": "8532f6f1c4db78883daf995ed0141d52cebbaf3c",
     "/assets/font/fontello.svg": "a62d7b439437e6c4eedea8a0ce71543f4ba6f2cf",
@@ -127,6 +128,7 @@
     "/assets/images/icon/icon_twitter.png": "7916945db77f888341ba66588ae45fee37711deb",
     "/assets/images/icon/icon_youtube.png": "50e934996eb3b53c286503c29627177d79a3c226",
     "/assets/images/icon/link_icon.png": "893204c5b630994d7edae55004f5c5ea5a06b758",
+    "/assets/images/invoice.png": "16ac7116850c4d4fc6f01a083ca470b2a9bb51be",
     "/assets/images/left-corner.png": "d609a1e74aa6e2d7c57c72fba617a06c70174410",
     "/assets/images/loading.gif": "c6bbb0c42808f8200c8c472750b4d68b32dd4079",
     "/assets/images/logo.png": "eb600fc654b390209a49a79791261abfba594d5a",
@@ -152,8 +154,8 @@
     "/assets/js/jquery.min.js": "da49460a365d995ef121403cece389dafe496505",
     "/assets/js/jquery.sticky.js": "7fd0ecfd2534f00a8a97f8db64fc9ece30303863",
     "/favicon.ico": "21078227f5dc0c7469405bb6926f8c88b892d269",
-    "/index.html": "89b56a7f6da5f44349e81929bd8205224d6cb410",
-    "/main.1f05a3985cabe63f.js": "4343ddea1e6ff56ebf0a5afd7febe9e64b70b697",
+    "/index.html": "63f4203a6ef2a8250c8573af5c924938cc4ba425",
+    "/main.039130580a88b248.js": "3f5b4d4ca2a0a8e58a7001a1514efdd0e7aa270e",
     "/manifest.webmanifest": "5d7273248979ba5c802c5203c84eea098fda649a",
     "/polyfills.a87c474981dca57a.js": "1401953c8842a85b8640b100e9bb273e183da825",
     "/runtime.c4da19d28b4dd58e.js": "d8b5df4ba1da8c35587aa142f4c29d98b1872f25",

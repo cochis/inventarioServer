@@ -14,6 +14,7 @@ const fileUpload = (req, res = response) => {
     'salones',
     'tickets',
     'dataEs',
+    'facturas',
     'abastos'
   ]
   if (!tiposValidos.includes(tipo)) {
@@ -31,7 +32,10 @@ const fileUpload = (req, res = response) => {
     })
   }
 
+
+  
   const file = req.files.imagen
+  
  
   const nombreCortado = file.name.split('.')
  
@@ -127,6 +131,7 @@ const retornaImagen = (req, res = response) => {
   const tipo = req.params.tipo
   const foto = req.params.foto
   const pathImg = path.join(__dirname, `../uploads/${tipo}/${foto}`)
+ 
   if (fs.existsSync(pathImg)) {
     res.sendFile(pathImg)
   } else {

@@ -48,10 +48,6 @@ const SolicitudViajeSchema = Schema({
   numeroTransporte:{
     type:String,
   },
-  horario:{
-    type:String,
-  },
-  
   cantidadSolicitada:{
     type:Number,
     required:true
@@ -64,17 +60,31 @@ const SolicitudViajeSchema = Schema({
     type:Number,
    
   },
-  cantidadRegreso:{
-    type:Number,
-    
-  },
+   
   aprobado:{
     type:Boolean,
     default:false
   },
   fechaAprobacion:{
-    type:Number 
+    type:Number ,
+    default:0
      
+  },
+
+  fechaPagado:{
+    type:Number ,
+    default:0
+     
+  },
+  pagado:{
+    type:Number ,
+    default:false
+     
+  },
+  moneda: {
+    type: Schema.Types.ObjectId,
+    ref: "Moneda",
+    
   },
   usuarioCreated: {
     type: Schema.Types.ObjectId,

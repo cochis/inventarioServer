@@ -12,7 +12,8 @@ const {
   isActive,
   getFacturaById,
   getAllFacturas ,
-  getMyFacturas
+  getMyFacturas,
+  getFacturaBySolicitud
 } = require("../controllers/factura");
 const { validarJWT } = require("../middlewares/validar-jwt");
 const router = Router();
@@ -21,6 +22,7 @@ router.get("/", validarJWT, getFacturas);
 router.get("/all", validarJWT, getAllFacturas);
 router.get("/my-facturas/:uid", validarJWT, getMyFacturas);
 router.get("/:uid", validarJWT, getFacturaById);
+router.get("/solicitud/:solicitud", validarJWT, getFacturaBySolicitud);
  
 router.post(
   "/",

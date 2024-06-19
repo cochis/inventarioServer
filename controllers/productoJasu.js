@@ -129,7 +129,6 @@ const actualizarProductoJasu = async (req, res = response) => {
   }
 }
 const dropProductosJasu = async (req, res = response) => {
- console.log('drop');
   try {
   await ProductoJasu.drop()
     

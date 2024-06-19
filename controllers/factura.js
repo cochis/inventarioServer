@@ -2,6 +2,7 @@ const { response } = require('express')
 const bcrypt = require('bcryptjs')
 const Factura = require('../models/factura')
 const { generarJWT } = require('../helpers/jwt')
+const solicitudViaje = require('../models/solicitudViaje')
 //getFacturas Factura
 const getFacturas = async (req, res) => {
   const desde = Number(req.query.desde) || 0
@@ -9,6 +10,9 @@ const getFacturas = async (req, res) => {
   const [tipostocks, total] = await Promise.all([
     Factura.find({})
       .sort({ nombre: 1 })
+      .populate('tipoFactura')
+      .populate('moneda')
+      .populate('solicitudViaje')
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .skip(desde)
       .limit(cant),
@@ -27,8 +31,7 @@ const getMyFacturas = async (req, res) => {
  const [facturas, total] = await Promise.all([
     Factura.find({usuarioCreated: uid})
     .populate('tipoFactura')
-    .populate('estado')
-    .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
+      .populate('moneda')
     .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .sort({ nombre: 1 }),
     Factura.countDocuments(),
@@ -46,8 +49,8 @@ const getAllFacturas = async (req, res) => {
  const [facturas, total] = await Promise.all([
     Factura.find({})
     .populate('tipoFactura')
-    .populate('estado')
-    .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
+    .populate('moneda')
+    .populate('solicitudViaje')
     .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .sort({ nombre: 1 }),
     Factura.countDocuments(),
@@ -231,6 +234,10 @@ const getFacturaById = async (req, res = response) => {
   const uid = req.params.uid
   try {
     const tipostockDB = await Factura.findById(uid)
+    .populate('tipoFactura')
+    .populate('moneda')
+    .populate('solicitudViaje')
+    .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
     if (!tipostockDB) {
       return res.status(404).json({
         ok: false,
@@ -240,6 +247,34 @@ const getFacturaById = async (req, res = response) => {
     res.json({
       ok: true,
       factura: tipostockDB,
+    })
+  } catch (error) {
+    res.status(500).json({
+      ok: false,
+      msg: 'Error inesperado',error:error,
+    })
+  }
+}
+const getFacturaBySolicitud = async (req, res = response) => {
+  const solicitud = req.params.solicitud
+ 
+  try {
+    const facturasDB = await Factura.find({
+      solicitudViaje:solicitud
+    })
+    .populate('tipoFactura')
+    .populate('moneda')
+    .populate('solicitudViaje')
+    .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+    if (!facturasDB) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'No exiten facturas de esa solicitud',
+      })
+    }
+    res.json({
+      ok: true,
+      facturas: facturasDB,
     })
   } catch (error) {
     res.status(500).json({
@@ -259,6 +294,7 @@ module.exports = {
   isActive,
   getFacturaById,
   getAllFacturas,
-  getMyFacturas
+  getMyFacturas,
+  getFacturaBySolicitud
 
 }

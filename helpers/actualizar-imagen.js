@@ -3,6 +3,7 @@ const Usuario = require('../models/usuario')
 const Stock = require('../models/stock')
 const Ticket = require('../models/ticket')
 const Abasto = require('../models/abasto')
+const Factura = require('../models/factura')
 const DataEs = require('../models/specDataEs')
 
 
@@ -10,11 +11,12 @@ const DataEs = require('../models/specDataEs')
 const borrarImagen = (path) => {
 
   if (fs.existsSync(path)) {
-    console.log('fs.existsSync(path)', fs.existsSync(path))
+    
     fs.unlinkSync(path)
   }
 }
 const actualizarImagen = async (tipo, id, nombreArchivo) => {
+ 
   let pathViejo = ''
   switch (tipo) {
     case 'usuarios':
@@ -63,6 +65,23 @@ const actualizarImagen = async (tipo, id, nombreArchivo) => {
       await ticket.save()
       return true
       break
+    case 'facturas':
+
+      const factura = await Factura.findById(id)
+    
+      if (!factura) {
+        return false
+      }
+      pathViejo = `./uploads/facturas/${factura.file}`
+
+      if (factura.file && factura.file !== '') {
+
+        borrarImagen(pathViejo)
+      }
+      factura.file = nombreArchivo
+      await factura.save()
+      return true
+      break
     case 'dataEs':
 
       const dataEs = await DataEs.findById(id)
@@ -95,8 +114,7 @@ const actualizarViaje = async (id, nombreArchivo,tipo, idViaje) => {
     return false
   }
  
-  console.log('tipo', tipo)
-  console.log('abasto.viajes[ Number(idViaje)].basculaOrigen', abasto.viajes[ Number(idViaje)] )
+  
   if(tipo =='basculaOrigen'){
 
     pathViejo = `./uploads/abastos/${abasto.viajes[ Number(idViaje)].fotoTicketOrigen}`

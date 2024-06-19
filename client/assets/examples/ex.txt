@@ -20,6 +20,7 @@ server {
 
 
 db.usuarios.updateOne({ email: "oramirez@jasu.us" }, { $set: {  nombre:"Oscar ",apellidoPaterno:"Ramirez",apellidoMaterno:"Rosas",email:"oramirez@jasu.us",password:"$2a$10$tOSaexTv6Hf7hBThAg59l.4eY/V2x5AtaR0wlYzP6E/rXMMWaAkgy",activated:true } })
+db.roles.updateOne({ clave: "SUP_ROLE" }, { $set: {  usuarioCreated:usuarioCreated: ObjectId('655ce08bb6a09f471d52c5d9')} })
 db.usuarios.updateMany({ activated: true }, { $set: { usuarioCreated:"651b16eabeaf8d29de52780e" } })
 
 puesto 
