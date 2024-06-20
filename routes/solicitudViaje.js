@@ -41,12 +41,15 @@ router.put(
   "/:id",
   [
     validarJWT,
-    check("tipoSolicitudViaje", "El tipo de solicitudViaje es obligatorio").not().isEmpty(),
- 
- 
-
-
-    check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
+    check("dateViaje", "El tipo de dateViaje es obligatorio").not().isEmpty(),
+    check("destino", "El   destino es obligatorio").not().isEmpty(),
+    check("proposito", "El proposito de  es obligatorio").not().isEmpty(),
+    check("medioTransporte", "El medioTransporte de  es obligatorio").not().isEmpty(),
+    check("duracion", "La duracion de edición es obligatoria").not().isEmpty(),
+    check("dateSalida", "La dateSalida de edición es obligatoria").not().isEmpty(),
+    check("dateRegreso", "La dateRegreso de edición es obligatoria").not().isEmpty(),
+    check("dateCreated", "La dateCreated de edición es obligatoria").not().isEmpty(),
+    check("cantidadSolicitada", "La cantidadSolicitada de edición es obligatoria").not().isEmpty(),
     validarCampos,
   ],
   actualizarSolicitudViaje
@@ -54,11 +57,15 @@ router.put(
 router.put(
   "/registro/:id",
   [
-
-    check("fiesta", "La fiesta es obligatoria").not().isEmpty(),
-
-
-    check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
+    check("dateViaje", "El tipo de dateViaje es obligatorio").not().isEmpty(),
+    check("destino", "El   destino es obligatorio").not().isEmpty(),
+    check("proposito", "El proposito de  es obligatorio").not().isEmpty(),
+    check("medioTransporte", "El medioTransporte de  es obligatorio").not().isEmpty(),
+    check("duracion", "La duracion de edición es obligatoria").not().isEmpty(),
+    check("dateSalida", "La dateSalida de edición es obligatoria").not().isEmpty(),
+    check("dateRegreso", "La dateRegreso de edición es obligatoria").not().isEmpty(),
+    check("dateCreated", "La dateCreated de edición es obligatoria").not().isEmpty(),
+    check("cantidadSolicitada", "La cantidadSolicitada de edición es obligatoria").not().isEmpty(),
     validarCampos,
   ],
   actualizarSolicitudViaje

@@ -54,10 +54,17 @@ const SolicitudViajeSchema = Schema({
   },
   cantidadAprobada:{
     type:Number,
+    default:0
      
+  },
+  cantidadJustifico:{
+    type:Number,
+    default:0
+    
   },
   cantidadRegreso:{
     type:Number,
+    default:0
    
   },
    
