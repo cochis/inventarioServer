@@ -99,7 +99,7 @@ const crearTicket = async (req, res = response) => {
       var mails = `oramirez@jasu.us,${usuarioDB.email}`
       var url = 'http://localhost:4200/core/edit-ticket/true'
     } else {
-      var mails = `gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
+      var mails = `rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
       var url = 'https://infra.jasu.us/core/edit-ticket/true'
     }
 
@@ -166,7 +166,7 @@ const actualizarTicket = async (req, res = response) => {
       var mails = `oramirez@jasu.us,${usuarioDB.email}`
       var url = 'http://localhost:4200/core/edit-ticket/true'
     } else {
-      var mails = `gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
+      var mails = `rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
       var url = 'https://infra.jasu.us/core/edit-ticket/true'
     }
     
