@@ -3,6 +3,9 @@ const bcrypt = require('bcryptjs')
 const Ticket = require('../models/ticket')
 const { generarJWT } = require('../helpers/jwt')
 const { transporter } = require('../helpers/mailer')
+const Usuario = require('../models/usuario')
+const TipoTicket = require('../models/tipoTicket')
+const EstadoTicket = require('../models/estadoTicket')
 //getTickets Ticket
 const getTickets = async (req, res) => {
   const desde = Number(req.query.desde) || 0
@@ -25,17 +28,17 @@ const getTickets = async (req, res) => {
 }
 const getMyTickets = async (req, res) => {
   const uid = req.params.uid
- const [tickets, total] = await Promise.all([
-    Ticket.find({usuarioCreated: uid})
-    .sort({ dateCreated: -1 })
-    .populate('tipoTicket')
-    .populate('estado')
-    .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
-    .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+  const [tickets, total] = await Promise.all([
+    Ticket.find({ usuarioCreated: uid })
+      .sort({ dateCreated: -1 })
+      .populate('tipoTicket')
+      .populate('estado')
+      .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
+      .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .sort({ nombre: 1 }),
     Ticket.countDocuments(),
   ])
- 
+
 
   res.json({
     ok: true,
@@ -45,17 +48,17 @@ const getMyTickets = async (req, res) => {
   })
 }
 const getAllTickets = async (req, res) => {
- const [tickets, total] = await Promise.all([
+  const [tickets, total] = await Promise.all([
     Ticket.find({})
-    .sort({ dateCreated: -1 })
-    .populate('tipoTicket')
-    .populate('estado')
-    .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
-    .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+      .sort({ dateCreated: -1 })
+      .populate('tipoTicket')
+      .populate('estado')
+      .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
+      .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .sort({ nombre: 1 }),
     Ticket.countDocuments(),
   ])
- 
+
 
   res.json({
     ok: true,
@@ -69,29 +72,52 @@ const getAllTickets = async (req, res) => {
 const crearTicket = async (req, res = response) => {
   const { email, password } = req.body
   const uid = req.uid
- 
-  const campos = {
-    ...req.body 
-   
-  }
 
+  const campos = {
+    ...req.body
+    
+  }
  
+
+
   try {
 
 
     const ticket = new Ticket({
       ...campos
     })
-
+    
+    let idempleado = campos.usuarioCreated
+    let estado = campos.estado
+    let tipo = campos.tipoTicket
+    const usuarioDB = await Usuario.findById(idempleado)
+    const estadoTiketDB = await EstadoTicket.findById(estado)
+    const tipoTicketDB = await TipoTicket.findById(tipo)
+    var url = ''
+    var mails = ''
+    if (campos.url.includes("localhost")) {
+      var mails = `oramirez@jasu.us,${usuarioDB.email}`
+      var url = 'http://localhost:4200/core/edit-ticket/true'
+    } else {
+      var mails = `gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
+      var url = 'https://infra.jasu.us/core/edit-ticket/true'
+    }
 
     await ticket.save()
     await transporter.sendMail({
-      from: '"Se creo un ticket" <sistemas@jasu.us>', // sender address
-      to: 'oramirez@jasu.us' , // list of receivers
+      from: '"Se creo un ticket 🎫 " <sistemas@jasu.us>', // sender address
+      to: mails, // list of receivers
       subject: "Nuevo ticket", // Subject line
       html: `
       <b>Ticket </b>
-     <a href="https://infra.jasu.us/core/edit-ticket/true/${ticket._id}">CLick aqui</a>
+    <br/>
+    <b>Concepto:   ${ticket.descripcion} </b>
+    <br/>
+    <b>Tipo:   ${tipoTicketDB.nombre} </b>
+    <br/>
+    <b>Estado:   ${estadoTiketDB.nombre} </b>
+    <br/>
+     <a href="${url}/${ticket._id}">Clic aquí</a>
       `,
     });
 
@@ -100,11 +126,11 @@ const crearTicket = async (req, res = response) => {
       ticket
     })
   } catch (error) {
-   
+
     res.status(500).json({
       ok: false,
       msg: 'Error inesperado...  revisar logs',
-      error:error
+      error: error
     })
   }
 }
@@ -113,30 +139,78 @@ const crearTicket = async (req, res = response) => {
 const actualizarTicket = async (req, res = response) => {
   //Validar token y comporbar si es el stipostock
   const uid = req.params.id
+  
   try {
     const tipostockDB = await Ticket.findById(uid)
  
+ 
+    const campos = {
+      ...req.body
+      
+    }
+
+
+
+    let idempleado = tipostockDB.usuarioCreated
+    let estado = tipostockDB.estado
+    let tipo = tipostockDB.tipoTicket
+    const usuarioDB = await Usuario.findById(idempleado)
+    const estadoTiketDB = await EstadoTicket.findById(estado)
+    const tipoTicketDB = await TipoTicket.findById(tipo)
+
+
+    var url = ''
+    var mails = ''
+   
+    if (campos.url.includes("localhost")) {
+      var mails = `oramirez@jasu.us,${usuarioDB.email}`
+      var url = 'http://localhost:4200/core/edit-ticket/true'
+    } else {
+      var mails = `gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
+      var url = 'https://infra.jasu.us/core/edit-ticket/true'
+    }
+    
+    
     if (!tipostockDB) {
       return res.status(404).json({
         ok: false,
         msg: 'No exite un tipostock',
       })
     }
-     
-
-
+    
+    
+    
     const tipostockActualizado = await Ticket.findByIdAndUpdate(uid, req.body, {
       new: true,
     })
+    
+    await transporter.sendMail({
+      from: '"Se edito un ticket 🎫" <sistemas@jasu.us>', // sender address
+      to: mails, // list of receivers
+      subject: "Actualizado ticket", // Subject line
+      html: `
+      <b>Ticket </b>
+       <b>Concepto:   ${tipostockActualizado.descripcion} </b>
+    <br/>
+    <b>Tipo:   ${tipoTicketDB.nombre} </b>
+    <br/>
+    <b>Estado:   ${estadoTiketDB.nombre} </b>
+    <br/>
+    <b>Respuesta:   ${tipostockActualizado.respuesta} </b>
+    <br/>
+     <a href="${url}/${tipostockActualizado._id}">Clic aquí</a>
+      `,
+    });
+
     res.json({
       ok: true,
       tipostockActualizado,
     })
   } catch (error) {
- 
+
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado', error: error,
     })
   }
 }
@@ -161,11 +235,11 @@ const registrarAsistencia = async (req, res = response) => {
       tipostockActualizado,
     })
   } catch (error) {
-   
+
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
-      error:error
+      msg: 'Error inesperado', error: error,
+      error: error
     })
   }
 }
@@ -199,11 +273,11 @@ const confirmaTicket = async (req, res = response) => {
       tipostockActualizado,
     })
   } catch (error) {
-   
+
     res.status(500).json({
       ok: false,
       msg: 'Error inesperado',
-      error:error,
+      error: error,
     })
   }
 }
@@ -229,11 +303,11 @@ const isActive = async (req, res = response) => {
       tipostockActualizado,
     })
   } catch (error) {
-   
+
     res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador',
-      error:error
+      error: error
     })
   }
 }
@@ -255,13 +329,13 @@ const getTicketById = async (req, res = response) => {
   } catch (error) {
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado', error: error,
     })
   }
 }
- 
 
- 
+
+
 
 module.exports = {
   getTickets,

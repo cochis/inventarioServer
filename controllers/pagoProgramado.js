@@ -4,7 +4,7 @@ const PagoProgramado = require('../models/pagoProgramado')
 const { generarJWT } = require('../helpers/jwt')
 const { transporter } = require('../helpers/mailer')
 
-
+const Usuario = require('../models/usuario')
 
 
 //getPagoProgramados PagoProgramado
@@ -101,7 +101,8 @@ const crearPagoProgramado = async (req, res = response) => {
     ...req.body,
     usuarioCreated:uid
   }
-   
+  let idempleado = uid
+  const usuarioDB = await Usuario.findById(idempleado)
   try {
 
 
@@ -110,9 +111,9 @@ const crearPagoProgramado = async (req, res = response) => {
     })
     var mails = ''
     if(campos.url.includes("localhost")){
-      mails ='oramirez@jasu.us'
+      mails =`oramirez@jasu.us,${usuarioDB.email}`
     }else{
-      mails ='gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us' 
+      mails =`gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
     }
   
 
@@ -122,7 +123,7 @@ const crearPagoProgramado = async (req, res = response) => {
       from: '"Creacion de pago programado" <sistemas@jasu.us>', // sender address
       // to: 'gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us' , // list of receiverss
       to: mails , // list of receivers
-      subject: "Creacion de pago programado ✔", // Subject line
+      subject: "Creacion de pago programado  💰", // Subject line
       html: `
       <b>Se creo un pago programado para  ${pagoProgramado.proveedor} </b>
       <br/>
@@ -164,6 +165,7 @@ const actualizarPagoProgramado = async (req, res = response) => {
       })
     }
     const { password, google, email, ...campos } = req.body
+      act = campos.aprobacion? 'Aprobada':'Aun no aprobada'
     if (!pagoProgramadoDB.google) {
       campos.email = email
     } else if (pagoProgramadoDB.email !== email) {
@@ -172,16 +174,20 @@ const actualizarPagoProgramado = async (req, res = response) => {
         msg: 'El pagoProgramado de Google  no se puede actualizar',
       })
     }
-
+    let idempleado = campos.usuarioCreated
+    const usuarioDB = await Usuario.findById(idempleado)
+ 
 
     const pagoProgramadoActualizado = await PagoProgramado.findByIdAndUpdate(uid, campos, {
       new: true,
     })
     var mails = ''
     if(campos.url.includes("localhost")){
-      mails ='oramirez@jasu.us'
+      mails =`oramirez@jasu.us,${usuarioDB.email}`
+      url = 'http://localhost:4200/core/pagos-programados/edit-pago-programado/true/'
     }else{
-      mails ='gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us' 
+      mails =`gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
+      url = 'https://infra.jasu.us/core/pagos-programados/edit-pago-programado/true/'
     }
 
 
@@ -189,13 +195,15 @@ const actualizarPagoProgramado = async (req, res = response) => {
       from: '"Edición de pago programado" <sistemas@jasu.us>', // sender address
       // to: 'gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us' , // list of receivers
       to: mails , // list of receivers
-      subject: "Edición de pago programado ✔", // Subject line
+      subject: "Edición de pago programado 💰", // Subject line
       html: `
       <b>Se edito un pago programado para  ${pagoProgramadoActualizado.proveedor} </b>
       <br/>
       <b>Concepto:   ${pagoProgramadoActualizado.concepto} </b>
       <br/>
       <b>Cantidad:   ${pagoProgramadoActualizado.cantidad} </b>
+      <br/>
+      <b>Aprobado:   ${act} </b>
       <br/>
       <a href="https://infra.jasu.us/core/pagos-programados/edit-pago-programado/true/${uid}">Da click aqui para ver el pago </a>
       

@@ -1,7 +1,9 @@
 const { response } = require('express')
 const bcrypt = require('bcryptjs')
 const SolicitudViaje = require('../models/solicitudViaje')
+const Usuario = require('../models/usuario')
 const { generarJWT } = require('../helpers/jwt')
+const { transporter } = require('../helpers/mailer')
 //getSolicitudViajes SolicitudViaje
 const getSolicitudViajes = async (req, res) => {
   const desde = Number(req.query.desde) || 0
@@ -47,7 +49,7 @@ const getAllSolicitudViajes = async (req, res) => {
 }
 const getSolicitudViajesNyEmpleado = async (req, res) => {
   const user = req.params.user
-  console.log('user', user)
+ 
   const [solicitudViajes, total] = await Promise.all([
     SolicitudViaje.find({ usuarioCreated: user })
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
@@ -74,6 +76,19 @@ const crearSolicitudViaje = async (req, res = response) => {
     ...req.body,
     usuarioCreated: req.uid
   }
+
+
+
+  let idempleado = campos.empleado
+  const usuarioDB = await Usuario.findById(idempleado)
+  if (campos.url.includes("localhost")) {
+    mails = `oramirez@jasu.us,${usuarioDB.email}`
+    url = 'http://localhost:4200/core/edit-viaje/false'
+  } else {
+    mails = `rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
+    url = 'https://infra.jasu.us/core/edit-viaje/false'
+  }
+
   try {
 
 
@@ -83,7 +98,32 @@ const crearSolicitudViaje = async (req, res = response) => {
 
 
     await solicitudViaje.save()
-
+    await transporter.sendMail({
+      from: '"Solicitud de viaje" <sistemas@jasu.us>', // sender address
+      to: mails, // list of receivers
+      subject: `Solicitud de viaje ✈ de ${usuarioDB.nombre} ${usuarioDB.apellidoPaterno}   a ${campos.destino}`, // Subject line
+      html: `
+      <b>Solicitud de viaje </b>
+      <br/>
+      <span>
+      <b>Empleado : </b> ${usuarioDB.nombre} ${usuarioDB.apellidoPaterno}
+      </span> 
+      <br/>
+      <span>
+      <b>Fecha de viaje  : </b> ${numberToDate(campos.dateViaje)}  
+      </span> 
+      <br/>
+      <span>
+      <b>Fecha de regreso  : </b> ${numberToDate(campos.dateRegreso)}  
+      </span> 
+      <br/>
+      <span>
+      <b>Cantidad solicitada : </b> ${campos.cantidadSolicitada}  
+      </span> 
+      <br/>
+       <a href="${url}/${solicitudViaje._id}">Da click aqui para ver el viaje </a>
+      `,
+    });
 
     res.json({
       ok: true,
@@ -101,6 +141,23 @@ const crearSolicitudViaje = async (req, res = response) => {
 //actualizarSolicitudViaje SolicitudViaje
 const actualizarSolicitudViaje = async (req, res = response) => {
   //Validar token y comporbar si es el ssolicitudViaje
+  const { password, google, email, ...campos } = req.body
+ 
+
+  var mails = ''
+  var url = ''
+  var act = ''
+    act = campos.aprobado? 'Aprobada':'Aun no aprobada'
+  let idempleado = campos.empleado
+  const usuarioDB = await Usuario.findById(idempleado)
+  if (campos.url.includes("localhost")) {
+    mails = `oramirez@jasu.us,${usuarioDB.email}`
+    url = 'http://localhost:4200/core/edit-viaje/false'
+  } else {
+    mails = `rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
+    url = 'https://infra.jasu.us/core/edit-viaje/false'
+  }
+ 
   const uid = req.params.id
   try {
     const solicitudViajeDB = await SolicitudViaje.findById(uid)
@@ -110,7 +167,7 @@ const actualizarSolicitudViaje = async (req, res = response) => {
         msg: 'No exite un solicitudViaje',
       })
     }
-    const { password, google, email, ...campos } = req.body
+
     if (!solicitudViajeDB.google) {
       campos.email = email
     } else if (solicitudViajeDB.email !== email) {
@@ -124,6 +181,38 @@ const actualizarSolicitudViaje = async (req, res = response) => {
     const solicitudViajeActualizado = await SolicitudViaje.findByIdAndUpdate(uid, campos, {
       new: true,
     })
+   
+
+    await transporter.sendMail({
+      from: '"Solicitud de viaje" <sistemas@jasu.us>', // sender address
+      to: mails, // list of receivers
+      subject: `Solicitud de viaje Editada ✈ de ${usuarioDB.nombre} ${usuarioDB.apellidoPaterno}   a ${solicitudViajeActualizado.destino} Actualizada`, // Subject line
+      html: `
+      <b>Solicitud de viaje </b>
+      <br/>
+      <span>
+      <b>Empleado : </b> ${usuarioDB.nombre} ${usuarioDB.apellidoPaterno}
+      </span> 
+      <br/>
+      <span>
+      <b>Fecha de viaje  : </b> ${numberToDate(solicitudViajeActualizado.dateViaje)}  
+      </span> 
+      <br/>
+      <span>
+      <b>Fecha de regreso  : </b> ${numberToDate(solicitudViajeActualizado.dateRegreso)}  
+      </span> 
+      <br/>
+      <span>
+      <b>Cantidad solicitada : </b> ${solicitudViajeActualizado.cantidadSolicitada}  
+      </span> 
+      <br/>
+      <span>
+      <b>Estado : </b> ${act}  
+      </span> 
+      <br/>
+       <a href="${url}/${solicitudViajeActualizado._id}">Da click aqui para ver el viaje </a>
+      `,
+    });
     res.json({
       ok: true,
       solicitudViajeActualizado,
@@ -148,10 +237,41 @@ const isActive = async (req, res = response) => {
       })
     }
     const campos = req.body
+    var act = ''
+    act = campos.activated? 'Aprobada':'Desaprobada'
     campos.activated = !solicitudViajeDB.activated
+    if (campos.url.includes("localhost")) {
+      mails = `oramirez@jasu.us,${usuarioDB.email}`
+      url = 'http://localhost:4200/core/edit-viaje/false'
+      
+    } else {
+      mails = `rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
+      url = 'https://infra.jasu.us/core/edit-viaje/false'
+    }
+
+
+
+
+
     const solicitudViajeActualizado = await SolicitudViaje.findByIdAndUpdate(uid, campos, {
       new: true,
     })
+
+
+    await transporter.sendMail({
+      from: '"Solicitud de viaje" <sistemas@jasu.us>', // sender address
+      to: mails, // list of receivers
+      subject: `Solicitud de viaje ✈ de ${usuarioDB.nombre} ${usuarioDB.apellidoPaterno}   a ${campos.destino} ${act}`, // Subject line
+      html: `
+      <b>Solicitud de viaje  ${act} </b>
+      <br/>     
+      `,
+    });
+
+
+
+
+
     res.json({
       ok: true,
       solicitudViajeActualizado,
@@ -192,6 +312,24 @@ const getSolicitudViajeById = async (req, res = response) => {
       msg: 'Error inesperado', error: error,
     })
   }
+}
+
+
+function numberToDate(date) {
+  let today = new Date(date)
+  var m = today.getMonth() + 1
+  var monthT = m.toString()
+  var d = today.getDate()
+  var dayT = today.getDate().toString()
+  let dt
+  if (d < 10) {
+    dayT = '0' + d
+  }
+  if (m < 10) {
+    monthT = '0' + m
+  }
+  dt = today.getFullYear() + '-' + monthT + '-' + dayT
+  return dt
 }
 module.exports = {
   getSolicitudViajes,
