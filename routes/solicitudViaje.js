@@ -12,12 +12,14 @@ const {
   actualizarSolicitudViaje,
   isActive,
   getSolicitudViajeById,
+  getSolicitudViajesNyEmpleado
 } = require("../controllers/solicitudViaje");
 const { validarJWT } = require("../middlewares/validar-jwt");
 const router = Router();
 
 router.get("/", validarJWT, getSolicitudViajes);
 router.get("/all", validarJWT, getAllSolicitudViajes);
+router.get("/user/:user", validarJWT, getSolicitudViajesNyEmpleado);
 router.get("/:uid", validarJWT, getSolicitudViajeById);
  
  

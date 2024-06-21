@@ -87,7 +87,7 @@ const crearTicket = async (req, res = response) => {
     await ticket.save()
     await transporter.sendMail({
       from: '"Se creo un ticket" <sistemas@jasu.us>', // sender address
-      to: 'sistemas@jasu.us' , // list of receivers
+      to: 'oramirez@jasu.us' , // list of receivers
       subject: "Nuevo ticket", // Subject line
       html: `
       <b>Ticket </b>

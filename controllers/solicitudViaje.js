@@ -10,10 +10,10 @@ const getSolicitudViajes = async (req, res) => {
     SolicitudViaje.find({})
       .sort({ nombre: 1 })
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-    .populate('tipoSolicitudViaje' )
-    .populate('moneda' )
-    .populate('tipoTransporte' )
-    .populate('empleado' )
+      .populate('tipoSolicitudViaje')
+      .populate('moneda')
+      .populate('tipoTransporte')
+      .populate('empleado')
       .skip(desde)
       .limit(cant),
     SolicitudViaje.countDocuments(),
@@ -29,11 +29,32 @@ const getSolicitudViajes = async (req, res) => {
 const getAllSolicitudViajes = async (req, res) => {
   const [solicitudViajes, total] = await Promise.all([
     SolicitudViaje.find({})
-    .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-    .populate('tipoSolicitudViaje' )
-    .populate('moneda' )
-    .populate('tipoTransporte' )
-    .populate('empleado' )
+      .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+      .populate('tipoSolicitudViaje')
+      .populate('moneda')
+      .populate('tipoTransporte')
+      .populate('empleado')
+      .sort({ nombre: 1 }),
+    SolicitudViaje.countDocuments(),
+  ])
+
+  res.json({
+    ok: true,
+    solicitudViajes,
+    uid: req.uid,
+    total,
+  })
+}
+const getSolicitudViajesNyEmpleado = async (req, res) => {
+  const user = req.params.user
+  console.log('user', user)
+  const [solicitudViajes, total] = await Promise.all([
+    SolicitudViaje.find({ usuarioCreated: user })
+      .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+      .populate('tipoSolicitudViaje')
+      .populate('moneda')
+      .populate('tipoTransporte')
+      .populate('empleado')
       .sort({ nombre: 1 }),
     SolicitudViaje.countDocuments(),
   ])
@@ -69,11 +90,11 @@ const crearSolicitudViaje = async (req, res = response) => {
       solicitudViaje
     })
   } catch (error) {
-   
+
     res.status(500).json({
       ok: false,
       msg: 'Error inesperado...  revisar logs',
-      error:error
+      error: error
     })
   }
 }
@@ -108,11 +129,11 @@ const actualizarSolicitudViaje = async (req, res = response) => {
       solicitudViajeActualizado,
     })
   } catch (error) {
-   
+
     res.status(500).json({
       ok: false,
       msg: 'Error inesperado',
-      error:error,
+      error: error,
     })
   }
 }
@@ -136,25 +157,25 @@ const isActive = async (req, res = response) => {
       solicitudViajeActualizado,
     })
   } catch (error) {
-   
+
     res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador',
-      error:error
+      error: error
     })
   }
 }
 const getSolicitudViajeById = async (req, res = response) => {
   const uid = req.params.uid
- 
+
   try {
     const solicitudViajeDB = await SolicitudViaje.findById(uid).populate('tipoSolicitudViaje', 'nombre clave  _id')
-    .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-    .populate('tipoSolicitudViaje' )
-    .populate('moneda' )
-    .populate('tipoTransporte' )
-    .populate('empleado' )
-   
+      .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
+      .populate('tipoSolicitudViaje')
+      .populate('moneda')
+      .populate('tipoTransporte')
+      .populate('empleado')
+
     if (!solicitudViajeDB) {
       return res.status(404).json({
         ok: false,
@@ -168,7 +189,7 @@ const getSolicitudViajeById = async (req, res = response) => {
   } catch (error) {
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado', error: error,
     })
   }
 }
@@ -179,5 +200,6 @@ module.exports = {
   actualizarSolicitudViaje,
   isActive,
   getSolicitudViajeById,
+  getSolicitudViajesNyEmpleado
 
 }
