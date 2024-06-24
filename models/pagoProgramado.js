@@ -1,13 +1,10 @@
 const { Schema, model } = require('mongoose')
 const PagoProgramadoSchema = Schema({
- 
-   
   subsidiaria: {
     type: Schema.Types.ObjectId,
     ref: "Subsidiaria",
     required: true,
   },
-   
   tipoGasto: {
     type: Schema.Types.ObjectId,
     ref: "TipoGasto",
@@ -22,9 +19,6 @@ const PagoProgramadoSchema = Schema({
     type: String,
     required: true,
   },
-
- 
- 
   fechaSolicitud: {
     type: Number,
     required: true,
@@ -32,12 +26,12 @@ const PagoProgramadoSchema = Schema({
   },
   fechaPago: {
     type: Number,
-    
+
   },
   pagado: {
     type: Boolean,
-    default:false
-    
+    default: false
+
   },
   concepto: {
     type: String,
@@ -47,34 +41,32 @@ const PagoProgramadoSchema = Schema({
     type: Number,
     required: true,
   },
-
-   
-  
   fechaProgramada: {
     type: Number,
-    
+
   },
   aprobacion: {
     type: Boolean,
-    default:false
-    
+    default: false
   },
   moneda: {
     type: Schema.Types.ObjectId,
     ref: "Moneda",
-    
+
   },
-    observaciones: {
+  observaciones: {
     type: String,
- 
+
+  },
+  factura: {
+    type: String,
   },
   usuarioCreated: {
     type: Schema.Types.ObjectId,
     ref: "Usuario",
-    
+
   },
- 
-    activated: {
+  activated: {
     type: Boolean,
     default: false,
   },

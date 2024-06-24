@@ -5,9 +5,7 @@ const { v4: uuidv4 } = require('uuid')
 const { actualizarImagen ,actualizarViaje} = require('../helpers/actualizar-imagen')
 const fileUpload = (req, res = response) => {
   const tipo = req.params.tipo
- 
   const id = req.params.id
- 
   const tiposValidos = [
     'usuarios',
     'stocks',
@@ -15,6 +13,7 @@ const fileUpload = (req, res = response) => {
     'tickets',
     'dataEs',
     'facturas',
+    'pagoProgramado',
     'abastos'
   ]
   if (!tiposValidos.includes(tipo)) {
@@ -24,7 +23,6 @@ const fileUpload = (req, res = response) => {
     })
   }
   //validar si existe un archivo
- 
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).json({
       ok: false,

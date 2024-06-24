@@ -1,5 +1,6 @@
 const fs = require('fs')
 const Usuario = require('../models/usuario')
+const PagoProgramado = require('../models/pagoProgramado')
 const Stock = require('../models/stock')
 const Ticket = require('../models/ticket')
 const Abasto = require('../models/abasto')
@@ -16,7 +17,6 @@ const borrarImagen = (path) => {
   }
 }
 const actualizarImagen = async (tipo, id, nombreArchivo) => {
- 
   let pathViejo = ''
   switch (tipo) {
     case 'usuarios':
@@ -31,6 +31,21 @@ const actualizarImagen = async (tipo, id, nombreArchivo) => {
       }
       usuario.img = nombreArchivo
       await usuario.save()
+      return true
+      break
+    case 'pagoProgramado':
+      
+      const pagoProgramado = await PagoProgramado.findById(id)
+      if (!pagoProgramado) { 
+        return false
+      }
+      pathViejo = `./uploads/pagoProgramado/${pagoProgramado.factura}`
+      if (pagoProgramado.img && pagoProgramado.img !== '') {
+
+        borrarImagen(pathViejo)
+      }
+      pagoProgramado.factura = nombreArchivo
+      await pagoProgramado.save()
       return true
       break
     case 'stocks':

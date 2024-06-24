@@ -2,6 +2,7 @@ sudo chown -R www-data:www-data /var/www/inventarioServer
 
 sudo ln -s sites-available/infra sites-enabled/
 
+
 sudo certbot --nginx -d infra.jasu.us
 
 
@@ -49,7 +50,8 @@ db.roles.deleteOne({   _id: ObjectId('655ce118b6a09f471d52c5e0') })
 db.roles.pagosprogramados({   _id: ObjectId('66632416d3f798ed2798905f') })
 db.usuarios.deleteOne({ email: "fray@fray.com" })
 db.tickets.deleteOne({  _id: ObjectId('6667977ed3f798ed2798923a') })
-
+db.tickets.deleteOne({  _id: ObjectId('6679aa8de25547567663edfb') })
+db.roles.deleteOne({   _id: ObjectId('655ce118b6a09f471d52c5e0') })
 db.boletos.drop()
 db.eventos.drop()
 db.fiestas.drop()
