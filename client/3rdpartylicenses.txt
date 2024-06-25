@@ -374,6 +374,9 @@ THE SOFTWARE.
 encode-utf8
 MIT
 
+ngx-pagination
+MIT
+
 ngx-webcam
 MIT
 MIT License

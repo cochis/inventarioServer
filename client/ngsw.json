@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1719265218300,
+  "timestamp": 1719339197386,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -13,11 +13,11 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.a7806886abedf89a.js",
+        "/main.7398d0949582e249.js",
         "/manifest.webmanifest",
         "/polyfills.a87c474981dca57a.js",
         "/runtime.c4da19d28b4dd58e.js",
-        "/styles.94da2509d7ba29d6.css"
+        "/styles.fca4a701ee52d494.css"
       ],
       "patterns": []
     },
@@ -53,6 +53,7 @@
         "/assets/icons/icon-512x512.png",
         "/assets/icons/icon-72x72.png",
         "/assets/icons/icon-96x96.png",
+        "/assets/images/Whitelist-Customer-Agreement.pdf",
         "/assets/images/businesswoman-using-tablet-analysis.jpg",
         "/assets/images/colleagues-working-cozy-office-medium-shot.jpg",
         "/assets/images/faq_graphic.jpg",
@@ -102,7 +103,7 @@
     "/assets/css/fontello.css": "1f8605d4b09de17937d17345c31aed487fc6b86a",
     "/assets/css/templatemo-topic-listing.css": "1ec3350af6a95374943f76832736f43ca2d92d74",
     "/assets/examples/Hola requiero 11 equipos de computo para.txt": "3e50e7a4f5b03001027f1f684087157be6804e28",
-    "/assets/examples/ex.txt": "6a8b6f2fa38f175ea5c498e63c19a245c41c4189",
+    "/assets/examples/ex.txt": "0ac0e2768def7ab03c1cfd9c82b1cc5969dbb569",
     "/assets/examples/updatesDB.json": "f50a5322f85c04629d9647016009a593407fd0fb",
     "/assets/font/fontello.eot": "8532f6f1c4db78883daf995ed0141d52cebbaf3c",
     "/assets/font/fontello.svg": "a62d7b439437e6c4eedea8a0ce71543f4ba6f2cf",
@@ -119,6 +120,7 @@
     "/assets/icons/icon-512x512.png": "8e59206e5392aab7bcd8e9c695d22937d1776101",
     "/assets/icons/icon-72x72.png": "358ef363f8b30a5434886418ef770fd149d9aae3",
     "/assets/icons/icon-96x96.png": "29b3190a128d0c97744636866d5071cfb9a2be9e",
+    "/assets/images/Whitelist-Customer-Agreement.pdf": "4275eae65cbfbe62c78a990971a736f5df0f568d",
     "/assets/images/businesswoman-using-tablet-analysis.jpg": "610aec239228882ce4f7be6fe277de8ef426a758",
     "/assets/images/colleagues-working-cozy-office-medium-shot.jpg": "990cb87f1f6f066b63b352e9923e318f809a3c16",
     "/assets/images/faq_graphic.jpg": "07e50f3aa9b810d96f734d7629def2a279a0a3b2",
@@ -156,12 +158,12 @@
     "/assets/js/jquery.min.js": "da49460a365d995ef121403cece389dafe496505",
     "/assets/js/jquery.sticky.js": "7fd0ecfd2534f00a8a97f8db64fc9ece30303863",
     "/favicon.ico": "21078227f5dc0c7469405bb6926f8c88b892d269",
-    "/index.html": "83281e56fb170bae110f8879b87c5d43ff7005db",
-    "/main.a7806886abedf89a.js": "f458e0bec1f956dfc95bc8b613a77201930e817d",
+    "/index.html": "4ac4dea1f6b1ea704906ee66fe1d1c15b4496c74",
+    "/main.7398d0949582e249.js": "851483fab00fa030918dd8ab759f289a5af48e86",
     "/manifest.webmanifest": "5d7273248979ba5c802c5203c84eea098fda649a",
     "/polyfills.a87c474981dca57a.js": "1401953c8842a85b8640b100e9bb273e183da825",
     "/runtime.c4da19d28b4dd58e.js": "d8b5df4ba1da8c35587aa142f4c29d98b1872f25",
-    "/styles.94da2509d7ba29d6.css": "c34b1e16207deae7575fa801409ccb2f7e3c8a3a"
+    "/styles.fca4a701ee52d494.css": "1e3f2af763eafda2558c1276eafb5bc9241b8ce1"
   },
   "navigationUrls": [
     {
