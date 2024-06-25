@@ -13,7 +13,8 @@ const {
   getPagoProgramadoById,
   getAllPagoProgramados,
   getPagoProgramadoForSln,
-  getPagoProgramadoByClave
+  getPagoProgramadoByClave,
+  getPagoProgramadosByUser
 } = require("../controllers/pagoProgramado");
 const { validarJWT, validarAdminJWT } = require("../middlewares/validar-jwt");
 const router = Router();
@@ -21,6 +22,7 @@ const router = Router();
 
 router.get("/", getPagoProgramados);
 router.get("/all", getAllPagoProgramados);
+router.get("/user/:user", getPagoProgramadosByUser);
 router.get("/all/salon", getPagoProgramadoForSln);
 router.get("/:uid", getPagoProgramadoById);
 router.get("/clave/:clave", getPagoProgramadoByClave);

@@ -92,6 +92,38 @@ const getAllPagoProgramados = async (req, res) => {
   }
 
 }
+const getPagoProgramadosByUser = async (req, res) => {
+
+  try {
+    const user = req.params.user
+    const [pagoProgramados, total] = await Promise.all([
+      PagoProgramado.find({usuarioCreated:user})
+      .populate('moneda' )
+      .populate('usuarioCreated' )
+      .populate('subsidiaria' )
+      .populate('terminoPago' )
+      .populate('tipoGasto' )
+        .sort({ nombre: 1 }),
+      PagoProgramado.countDocuments(),
+    ])
+
+
+    res.json({
+      ok: true,
+      pagoProgramados,
+      uid: req.uid,
+      total,
+    })
+  } catch (error) {
+ 
+    res.json({
+      ok: false,
+      error
+    })
+
+  }
+
+}
 
 //crearPagoProgramado PagoProgramado
 const crearPagoProgramado = async (req, res = response) => {
@@ -347,5 +379,6 @@ module.exports = {
   getPagoProgramadoById,
   getAllPagoProgramados,
   getPagoProgramadoForSln,
-  getPagoProgramadoByClave
+  getPagoProgramadoByClave,
+  getPagoProgramadosByUser
 }
