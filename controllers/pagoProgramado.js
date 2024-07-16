@@ -156,7 +156,7 @@ const crearPagoProgramado = async (req, res = response) => {
     if (pagoProgramado.urgente) {
       subject = "Urgente Creación de pago programado  💰  favor de contactar con " + usuarioDB.email + " para validar detalles"
     } else {
-      subject = "Urgente Creación de pago programado  💰 "
+      subject = "Creación de pago programado  💰 "
     }
     
     
