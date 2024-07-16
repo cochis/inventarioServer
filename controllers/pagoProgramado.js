@@ -16,11 +16,11 @@ const getPagoProgramados = async (req, res) => {
     const [pagoProgramados, total] = await Promise.all([
       PagoProgramado.find({})
         .sort({ nombre: 1 })
-        .populate('usuarioCreated' )
-        .populate('subsidiaria' )
-        .populate('terminoPago' )
-        .populate('tipoGasto' )
-        .populate('moneda' )
+        .populate('usuarioCreated')
+        .populate('subsidiaria')
+        .populate('terminoPago')
+        .populate('tipoGasto')
+        .populate('moneda')
         .skip(desde)
         .limit(cant),
       PagoProgramado.countDocuments(),
@@ -33,10 +33,10 @@ const getPagoProgramados = async (req, res) => {
       total,
     })
   } catch (error) {
-    
+
     res.json({
       ok: false,
-      error:error
+      error: error
     })
   }
   const desde = Number(req.query.desde) || 0
@@ -44,11 +44,11 @@ const getPagoProgramados = async (req, res) => {
   const [pagoProgramados, total] = await Promise.all([
     PagoProgramado.find({})
       .sort({ nombre: 1 })
-      .populate('usuarioCreated' )
-      .populate('subsidiaria' )
-      .populate('terminoPago' )
-      .populate('tipoGasto' )
-      .populate('moneda' )
+      .populate('usuarioCreated')
+      .populate('subsidiaria')
+      .populate('terminoPago')
+      .populate('tipoGasto')
+      .populate('moneda')
       .skip(desde)
       .limit(cant),
     PagoProgramado.countDocuments(),
@@ -66,11 +66,11 @@ const getAllPagoProgramados = async (req, res) => {
   try {
     const [pagoProgramados, total] = await Promise.all([
       PagoProgramado.find({})
-      .populate('moneda' )
-      .populate('usuarioCreated' )
-      .populate('subsidiaria' )
-      .populate('terminoPago' )
-      .populate('tipoGasto' )
+        .populate('moneda')
+        .populate('usuarioCreated')
+        .populate('subsidiaria')
+        .populate('terminoPago')
+        .populate('tipoGasto')
         .sort({ nombre: 1 }),
       PagoProgramado.countDocuments(),
     ])
@@ -83,7 +83,7 @@ const getAllPagoProgramados = async (req, res) => {
       total,
     })
   } catch (error) {
- 
+
     res.json({
       ok: false,
       error
@@ -97,12 +97,12 @@ const getPagoProgramadosByUser = async (req, res) => {
   try {
     const user = req.params.user
     const [pagoProgramados, total] = await Promise.all([
-      PagoProgramado.find({usuarioCreated:user})
-      .populate('moneda' )
-      .populate('usuarioCreated' )
-      .populate('subsidiaria' )
-      .populate('terminoPago' )
-      .populate('tipoGasto' )
+      PagoProgramado.find({ usuarioCreated: user })
+        .populate('moneda')
+        .populate('usuarioCreated')
+        .populate('subsidiaria')
+        .populate('terminoPago')
+        .populate('tipoGasto')
         .sort({ nombre: 1 }),
       PagoProgramado.countDocuments(),
     ])
@@ -115,7 +115,7 @@ const getPagoProgramadosByUser = async (req, res) => {
       total,
     })
   } catch (error) {
- 
+
     res.json({
       ok: false,
       error
@@ -131,8 +131,9 @@ const crearPagoProgramado = async (req, res = response) => {
   const uid = req.uid
   const campos = {
     ...req.body,
-    usuarioCreated:uid
+    usuarioCreated: uid
   }
+ 
   let idempleado = uid
   const usuarioDB = await Usuario.findById(idempleado)
   try {
@@ -142,20 +143,28 @@ const crearPagoProgramado = async (req, res = response) => {
       ...campos
     })
     var mails = ''
-    if(campos.url.includes("localhost")){
-      mails =`oramirez@jasu.us,${usuarioDB.email}`
-    }else{
-      mails =`gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
+    if (campos.url.includes("localhost")) {
+      mails = `oramirez@jasu.us,${usuarioDB.email}`
+    } else {
+      mails = `gfernandez@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
     }
-  
+
 
     await pagoProgramado.save()
- 
+
+    let subject = ''
+    if (pagoProgramado.urgente) {
+      subject = "Urgente Creación de pago programado  💰  favor de contactar con " + usuarioDB.email + " para validar detalles"
+    } else {
+      subject = "Urgente Creación de pago programado  💰 "
+    }
+    
+    
     await transporter.sendMail({
       from: '"Creacion de pago programado" <sistemas@jasu.us>', // sender address
-      // to: 'gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us' , // list of receiverss
-      to: mails , // list of receivers
-      subject: "Creacion de pago programado  💰", // Subject line
+      // to: 'gfernandez@jasu.us,oramirez@jasu.us , accounting@jasu.us' , // list of receiverss
+      to: mails, // list of receivers
+      subject: subject, // Subject line
       html: `
       <b>Se creo un pago programado para  ${pagoProgramado.proveedor} </b>
       <br/>
@@ -167,19 +176,19 @@ const crearPagoProgramado = async (req, res = response) => {
       
       `,
     });
-     
-       
+
+
 
     res.json({
       ok: true,
       pagoProgramado
     })
   } catch (error) {
-   
+
     res.status(500).json({
       ok: false,
       msg: 'Error inesperado...  revisar logs',
-      error:error
+      error: error
     })
   }
 }
@@ -197,7 +206,7 @@ const actualizarPagoProgramado = async (req, res = response) => {
       })
     }
     const { password, google, email, ...campos } = req.body
-      act = campos.aprobacion? 'Aprobada':'Aun no aprobada'
+    act = campos.aprobacion ? 'Aprobada' : 'Aun no aprobada'
     if (!pagoProgramadoDB.google) {
       campos.email = email
     } else if (pagoProgramadoDB.email !== email) {
@@ -208,25 +217,25 @@ const actualizarPagoProgramado = async (req, res = response) => {
     }
     let idempleado = campos.usuarioCreated
     const usuarioDB = await Usuario.findById(idempleado)
- 
+
 
     const pagoProgramadoActualizado = await PagoProgramado.findByIdAndUpdate(uid, campos, {
       new: true,
     })
     var mails = ''
-    if(campos.url.includes("localhost")){
-      mails =`oramirez@jasu.us,${usuarioDB.email}`
+    if (campos.url.includes("localhost")) {
+      mails = `oramirez@jasu.us,${usuarioDB.email}`
       url = 'http://localhost:4200/core/pagos-programados/edit-pago-programado/true/'
-    }else{
-      mails =`gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
+    } else {
+      mails = `gfernandez@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
       url = 'https://infra.jasu.us/core/pagos-programados/edit-pago-programado/true/'
     }
 
 
     await transporter.sendMail({
       from: '"Edición de pago programado" <sistemas@jasu.us>', // sender address
-      // to: 'gfernandez@jasu.us,rgranados@jasu.us,oramirez@jasu.us , accounting@jasu.us' , // list of receivers
-      to: mails , // list of receivers
+      // to: 'gfernandez@jasu.us,oramirez@jasu.us , accounting@jasu.us' , // list of receivers
+      to: mails, // list of receivers
       subject: "Edición de pago programado 💰", // Subject line
       html: `
       <b>Se edito un pago programado para  ${pagoProgramadoActualizado.proveedor} </b>
@@ -246,11 +255,11 @@ const actualizarPagoProgramado = async (req, res = response) => {
       pagoProgramadoActualizado,
     })
   } catch (error) {
-   
+
     res.status(500).json({
       ok: false,
       msg: 'Error inesperado',
-      error:error,
+      error: error,
     })
   }
 }
@@ -276,11 +285,11 @@ const isActive = async (req, res = response) => {
       pagoProgramadoActualizado,
     })
   } catch (error) {
-   
+
     res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador',
-      error:error
+      error: error
     })
   }
 }
@@ -289,11 +298,11 @@ const getPagoProgramadoById = async (req, res = response) => {
   const uid = req.params.uid
   try {
     const pagoProgramadoDB = await PagoProgramado.findById(uid)
-    .populate('usuarioCreated' )
-    .populate('subsidiaria' )
-    .populate('terminoPago' )
-    .populate('tipoGasto' )
-    .populate('moneda' )
+      .populate('usuarioCreated')
+      .populate('subsidiaria')
+      .populate('terminoPago')
+      .populate('tipoGasto')
+      .populate('moneda')
     if (!pagoProgramadoDB) {
       return res.status(404).json({
         ok: false,
@@ -307,7 +316,7 @@ const getPagoProgramadoById = async (req, res = response) => {
   } catch (error) {
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado', error: error,
     })
   }
 }
@@ -315,11 +324,11 @@ const getPagoProgramadoByClave = async (req, res = response) => {
   const clave = req.params.clave
   try {
     const pagoProgramadoDB = await PagoProgramado.find({ clave: clave })
-    .populate('usuarioCreated' )
-    .populate('subsidiaria' )
-    .populate('terminoPago' )
-    .populate('tipoGasto' )
-    .populate('moneda' )
+      .populate('usuarioCreated')
+      .populate('subsidiaria')
+      .populate('terminoPago')
+      .populate('tipoGasto')
+      .populate('moneda')
     if (!pagoProgramadoDB) {
       return res.status(404).json({
         ok: false,
@@ -333,7 +342,7 @@ const getPagoProgramadoByClave = async (req, res = response) => {
   } catch (error) {
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado', error: error,
     })
   }
 }
@@ -346,11 +355,11 @@ const getPagoProgramadoForSln = async (req, res = response) => {
         { "clave": "CHCROL" }
       ]
     })
-    .populate('usuarioCreated' )
-    .populate('subsidiaria' )
-    .populate('terminoPago' )
-    .populate('tipoGasto' )
-    .populate('moneda' )
+      .populate('usuarioCreated')
+      .populate('subsidiaria')
+      .populate('terminoPago')
+      .populate('tipoGasto')
+      .populate('moneda')
     if (!pagoProgramadoDB) {
       return res.status(404).json({
         ok: false,
@@ -364,7 +373,7 @@ const getPagoProgramadoForSln = async (req, res = response) => {
   } catch (error) {
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado', error: error,
     })
   }
 }

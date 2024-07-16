@@ -1,5 +1,8 @@
 const { Schema, model } = require('mongoose')
 const PagoProgramadoSchema = Schema({
+  urgente: {
+    type: Boolean 
+  },
   subsidiaria: {
     type: Schema.Types.ObjectId,
     ref: "Subsidiaria",
