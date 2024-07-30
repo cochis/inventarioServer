@@ -137,12 +137,9 @@ const crearPagoProgramado = async (req, res = response) => {
     ...req.body,
     usuarioCreated: uid
   }
-
   let idempleado = uid
   const usuarioDB = await Usuario.findById(idempleado)
   try {
-
-
     const pagoProgramado = new PagoProgramado({
       ...campos
     })
@@ -150,7 +147,15 @@ const crearPagoProgramado = async (req, res = response) => {
     if (campos.url.includes("localhost")) {
       mails = `oramirez@jasu.us,${usuarioDB.email}`
     } else {
-      mails = `gfernandez@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
+      
+      
+      if(campos.empresa.includes('66a90b3850ddd12f55056f27')){
+  
+        mails = `gfernandez@jasu.us,oramirez@jasu.us,malonso@jasu.us,accounting@jasu.us,${usuarioDB.email}`
+      }else{
+        mails = `gfernandez@loopintermodal.com,oramirez@jasu.us,malonso@loopintermodal.com,accounting@loopintermodal.com,${usuarioDB.email}`
+
+      }
     }
 
 
