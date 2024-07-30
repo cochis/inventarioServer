@@ -74,7 +74,7 @@ const getAllPagoProgramados = async (req, res) => {
         .populate('terminoPago')
         .populate('tipoGasto')
         .populate('moneda')
-        .sort({ nombre: 1 }),
+        .sort({ dateCreated: -1 }),
       PagoProgramado.countDocuments(),
     ])
 

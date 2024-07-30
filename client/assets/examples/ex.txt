@@ -201,3 +201,30 @@ db.usuarios.updateMany(
   { role: { $in: [ObjectId("650b6ad4c74defa872ea820c")] } },
   { $push: {empresa: ObjectId("66a7cf9d8e30740fa7670bca")} }
 ) 
+
+
+Empresas
+jasu ObjectId("66a90b3850ddd12f55056f27")
+loop ObjectId("66a90b4350ddd12f55056f2e")
+
+
+Roles
+jasu ObjectId("655ce117b6a09f471d52c5db")
+loop ObjectId("655ce117b6a09f471d52c5dc")
+
+
+db.usuarios.updateMany({ role: { $in: [ObjectId("655ce117b6a09f471d52c5db")] } },{ $set: [empresa:  [] ] }) 
+db.usuarios.updateMany({ role: { $in: [ObjectId("655ce117b6a09f471d52c5db")] } },{ $push: [empresa:  ObjectId("66a90b3850ddd12f55056f27") ] }) 
+
+db.usuarios.updateMany({ role: { $in: [ObjectId("655ce117b6a09f471d52c5db")] } },{ $push:{ empresa:   ObjectId("66a90b3850ddd12f55056f27") } }) 
+ 
+
+db.usuarios.updateMany({ role: { $in: [ObjectId("655ce117b6a09f471d52c5dc")] } },{ $set: {empresa:  [] } }) 
+db.usuarios.updateMany({ role: { $in: [ObjectId("655ce117b6a09f471d52c5db")] } },{ $push: [empresa:  ObjectId("66a90b3850ddd12f55056f27") ] }) 
+
+db.usuarios.updateMany({ role: { $in: [ObjectId("655ce117b6a09f471d52c5dc")] } },{ $push:{ empresa:   ObjectId("66a90b4350ddd12f55056f2e") } }) 
+db.pagosprogramados.updateMany( {},{ $push:{ empresa:   ObjectId("66a90b3850ddd12f55056f27") } }) 
+ 
+
+db.usuarios.updateMany({ supervisor:ObjectId('65ca719a29b6637b637d6d3f')  },{ $set:{ supervisor:   ObjectId("66a2a6c7a654df1f85cdc202") } }) 
+ 
