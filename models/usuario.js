@@ -25,6 +25,11 @@ const UsuarioSchema = Schema({
   img: {
     type: String,
   },
+  empresa:[ {
+    type: Schema.Types.ObjectId,
+    ref: "Empresa",
+    required: true
+  }],
   role:[ {
     type: Schema.Types.ObjectId,
     ref: "Role",

@@ -18,6 +18,7 @@ const getPagoProgramados = async (req, res) => {
         .sort({ nombre: 1 })
         .populate('usuarioCreated')
         .populate('subsidiaria')
+        .populate('empresa')
         .populate('terminoPago')
         .populate('tipoGasto')
         .populate('moneda')
@@ -46,6 +47,7 @@ const getPagoProgramados = async (req, res) => {
       .sort({ nombre: 1 })
       .populate('usuarioCreated')
       .populate('subsidiaria')
+      .populate('empresa')
       .populate('terminoPago')
       .populate('tipoGasto')
       .populate('moneda')
@@ -66,16 +68,17 @@ const getAllPagoProgramados = async (req, res) => {
   try {
     const [pagoProgramados, total] = await Promise.all([
       PagoProgramado.find({})
-        .populate('moneda')
         .populate('usuarioCreated')
         .populate('subsidiaria')
+        .populate('empresa')
         .populate('terminoPago')
         .populate('tipoGasto')
+        .populate('moneda')
         .sort({ nombre: 1 }),
       PagoProgramado.countDocuments(),
     ])
 
-
+   
     res.json({
       ok: true,
       pagoProgramados,
@@ -98,11 +101,12 @@ const getPagoProgramadosByUser = async (req, res) => {
     const user = req.params.user
     const [pagoProgramados, total] = await Promise.all([
       PagoProgramado.find({ usuarioCreated: user })
-        .populate('moneda')
         .populate('usuarioCreated')
         .populate('subsidiaria')
+        .populate('empresa')
         .populate('terminoPago')
         .populate('tipoGasto')
+        .populate('moneda')
         .sort({ nombre: 1 }),
       PagoProgramado.countDocuments(),
     ])
@@ -133,7 +137,7 @@ const crearPagoProgramado = async (req, res = response) => {
     ...req.body,
     usuarioCreated: uid
   }
- 
+
   let idempleado = uid
   const usuarioDB = await Usuario.findById(idempleado)
   try {
@@ -158,8 +162,8 @@ const crearPagoProgramado = async (req, res = response) => {
     } else {
       subject = "Creación de pago programado  💰 "
     }
-    
-    
+
+
     await transporter.sendMail({
       from: '"Creacion de pago programado" <sistemas@jasu.us>', // sender address
       // to: 'gfernandez@jasu.us,oramirez@jasu.us , accounting@jasu.us' , // list of receiverss
@@ -300,6 +304,7 @@ const getPagoProgramadoById = async (req, res = response) => {
     const pagoProgramadoDB = await PagoProgramado.findById(uid)
       .populate('usuarioCreated')
       .populate('subsidiaria')
+      .populate('empresa')
       .populate('terminoPago')
       .populate('tipoGasto')
       .populate('moneda')
@@ -326,6 +331,7 @@ const getPagoProgramadoByClave = async (req, res = response) => {
     const pagoProgramadoDB = await PagoProgramado.find({ clave: clave })
       .populate('usuarioCreated')
       .populate('subsidiaria')
+      .populate('empresa')
       .populate('terminoPago')
       .populate('tipoGasto')
       .populate('moneda')
@@ -357,6 +363,7 @@ const getPagoProgramadoForSln = async (req, res = response) => {
     })
       .populate('usuarioCreated')
       .populate('subsidiaria')
+      .populate('empresa')
       .populate('terminoPago')
       .populate('tipoGasto')
       .populate('moneda')

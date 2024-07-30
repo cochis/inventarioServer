@@ -64,6 +64,11 @@ const PagoProgramadoSchema = Schema({
   factura: {
     type: String,
   },
+  empresa: {
+    type: Schema.Types.ObjectId,
+    ref: "Empresa",
+    required: true
+  },
   usuarioCreated: {
     type: Schema.Types.ObjectId,
     ref: "Usuario",

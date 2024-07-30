@@ -1,6 +1,6 @@
 {
   "name": "SistemaTI-server",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "jasu",
   "main": "index.js",
   "scripts": {

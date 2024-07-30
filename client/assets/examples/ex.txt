@@ -166,3 +166,38 @@ db.roles.insertMany([{
 
 db.pagosprogramados.deleteOne( { "_id" : ObjectId("666717dcd3f798ed27989135") } );
 db.pagosprogramados.deleteOne( { "_id" : ObjectId("666717dbd3f798ed27989133") } );
+
+
+
+db.usuarios.update(
+    { role: 
+      { $in: 
+        [ ObjectId("650b6ad4c74defa872ea820c") 
+        ] 
+      } 
+    },
+   { $inc:
+      {
+        empresa: ObjectId("66a7cf9d8e30740fa7670bca")
+      }
+   }
+)
+
+
+  {
+}
+  
+  
+ 
+
+{{{role:{$in:[ObjectId("650b6ad4c74defa872ea820c")]}},{$set:{empresa: ObjectId("66a7cf9d8e30740fa7670bca")}}}
+
+
+db.usuarios.updateMany(
+  { role: { $in: [ObjectId("650b6ad4c74defa872ea820c")] } },
+  { $set: [] }
+) 
+db.usuarios.updateMany(
+  { role: { $in: [ObjectId("650b6ad4c74defa872ea820c")] } },
+  { $push: {empresa: ObjectId("66a7cf9d8e30740fa7670bca")} }
+) 
