@@ -1,5 +1,8 @@
 const { Schema, model } = require('mongoose')
 const PagoProgramadoSchema = Schema({
+  consecutivo: {
+    type: Number 
+  },
   urgente: {
     type: Boolean 
   },
@@ -18,23 +21,13 @@ const PagoProgramadoSchema = Schema({
     ref: "TerminoPago",
     required: true,
   },
-  proveedor: {
+  proveedorLoop: {
     type: String,
     required: true,
   },
-  fechaSolicitud: {
-    type: Number,
+  clienteLoop: {
+    type: String,
     required: true,
-    default: Date.now(),
-  },
-  fechaPago: {
-    type: Number,
-
-  },
-  pagado: {
-    type: Boolean,
-    default: false
-
   },
   concepto: {
     type: String,
@@ -44,6 +37,26 @@ const PagoProgramadoSchema = Schema({
     type: Number,
     required: true,
   },
+  fechaSolicitud: {
+    type: Number,
+    required: true,
+    default: Date.now(),
+  },
+  proveedor: {
+    type: String,
+    required: true,
+  },
+ 
+  fechaPago: {
+    type: Number,
+
+  },
+  pagado: {
+    type: Boolean,
+    default: false
+
+  },
+  
   fechaProgramada: {
     type: Number,
 
@@ -62,6 +75,15 @@ const PagoProgramadoSchema = Schema({
 
   },
   factura: {
+    type: String,
+  },
+  tipoFactura: {
+    type: String,
+  },
+  cotizacion: {
+    type: String,
+  },
+  comprobante: {
     type: String,
   },
   empresa: {
