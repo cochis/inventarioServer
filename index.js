@@ -56,6 +56,8 @@ app.use('/api/incoterm', require('./routes/incoterm'))
  
 app.use('/api/origens', require('./routes/origen'))
 app.use('/api/destinos', require('./routes/destino'))
+app.use('/api/proveedor-loop', require('./routes/proveedorLoop'))
+app.use('/api/cliente-loop', require('./routes/clienteLoop'))
 app.use('/api/monedas', require('./routes/moneda'))
 app.use('/api/unidadMedidas', require('./routes/unidadMedida'))
 app.use('/api/tipoMaterials', require('./routes/tipoMaterial'))

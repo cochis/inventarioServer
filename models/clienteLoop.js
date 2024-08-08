@@ -1,14 +1,14 @@
 const { Schema, model } = require('mongoose')
 const ClienteLoopSchema = Schema({
-  nombre: {
+  name: {
     type: String,
     required: true,
   },
   pais: {
-    type: Schema.Types.ObjectId,
-    ref: "Pais",
+    type: String,
+    required: true,
   },
-  id: {
+  taxId: {
     type: String,
     required: true,
   },

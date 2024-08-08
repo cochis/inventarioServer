@@ -1,10 +1,10 @@
 const { Schema, model } = require('mongoose')
 const PagoProgramadoSchema = Schema({
   consecutivo: {
-    type: Number 
+    type: Number
   },
   urgente: {
-    type: Boolean 
+    type: Boolean
   },
   subsidiaria: {
     type: Schema.Types.ObjectId,
@@ -21,6 +21,11 @@ const PagoProgramadoSchema = Schema({
     ref: "TerminoPago",
     required: true,
   },
+  proveedor: {
+    type: String,
+    required: true,
+  },
+
   proveedorLoop: {
     type: String,
     required: true,
@@ -28,6 +33,10 @@ const PagoProgramadoSchema = Schema({
   clienteLoop: {
     type: String,
     required: true,
+  },
+  impExpLoop: {
+    type: String,
+   
   },
   concepto: {
     type: String,
@@ -42,11 +51,7 @@ const PagoProgramadoSchema = Schema({
     required: true,
     default: Date.now(),
   },
-  proveedor: {
-    type: String,
-    required: true,
-  },
- 
+
   fechaPago: {
     type: Number,
 
@@ -56,24 +61,41 @@ const PagoProgramadoSchema = Schema({
     default: false
 
   },
-  
+
   fechaProgramada: {
     type: Number,
+
+  },
+  fechaVencimiento: {
+    type: Number,
+
+  },
+  
+  quote: {
+    type: String,
 
   },
   aprobacion: {
     type: Boolean,
     default: false
   },
-  moneda: {
-    type: Schema.Types.ObjectId,
-    ref: "Moneda",
-
+  tipoServicio: {
+    type: String
   },
   observaciones: {
     type: String,
 
   },
+  factura: {
+    type: String,
+
+  },
+  tipoFactura: {
+    type: String,
+
+  },
+
+
   factura: {
     type: String,
   },
@@ -91,15 +113,20 @@ const PagoProgramadoSchema = Schema({
     ref: "Empresa",
     required: true
   },
-  usuarioCreated: {
+  moneda: {
     type: Schema.Types.ObjectId,
-    ref: "Usuario",
-
+    ref: "Moneda",
   },
   activated: {
     type: Boolean,
     default: false,
   },
+  usuarioCreated: {
+    type: Schema.Types.ObjectId,
+    ref: "Usuario",
+
+  },
+
   dateCreated: {
     type: Number,
     required: true,

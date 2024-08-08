@@ -1,5 +1,9 @@
 const { Schema, model } = require('mongoose')
 const TerminoPagoSchema = Schema({
+  empresa: {
+    type: Schema.Types.ObjectId,
+    ref: "Empresa",
+  },
   nombre: {
     type: String,
     required: true,

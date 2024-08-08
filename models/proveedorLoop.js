@@ -1,26 +1,21 @@
 const { Schema, model } = require('mongoose')
-const TipoGastoSchema = Schema({
-  empresa: {
-    type: Schema.Types.ObjectId,
-    ref: "Empresa",
-    
-  },
-  nombre: {
+const ProveedorLoopSchema = Schema({
+
+  taxId: {
     type: String,
-    required: true,
+
   },
-  clave: {
+  name: {
     type: String,
-    required: true,
+
   },
-  aprobacionPor: {
-    type: Schema.Types.ObjectId,
-    ref: "Usuario",
+  pais: {
+    type: String,
+
   },
   usuarioCreated: {
     type: Schema.Types.ObjectId,
     ref: "Usuario",
-    
   },
   activated: {
     type: Boolean,
@@ -39,9 +34,9 @@ const TipoGastoSchema = Schema({
 
 })
 
-TipoGastoSchema.method('toJSON', function () {
+ProveedorLoopSchema.method('toJSON', function () {
   const { __v, _id, password, ...object } = this.toObject()
   object.uid = _id
   return object
 })
-module.exports = model('TipoGasto', TipoGastoSchema)
+module.exports = model('ProveedorLoop', ProveedorLoopSchema)

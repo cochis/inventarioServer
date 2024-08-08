@@ -11,6 +11,7 @@ const getTerminoPagos = async (req, res) => {
     const [terminoPagos, total] = await Promise.all([
       TerminoPago.find({})
         .sort({ nombre: 1 })
+        .populate('empresa' )
         .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
         .skip(desde)
         .limit(cant),
@@ -35,6 +36,7 @@ const getTerminoPagos = async (req, res) => {
   const [terminoPagos, total] = await Promise.all([
     TerminoPago.find({})
       .sort({ nombre: 1 })
+      .populate('empresa' )
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .skip(desde)
       .limit(cant),
@@ -53,6 +55,7 @@ const getAllTerminoPagos = async (req, res) => {
   try {
     const [terminoPagos, total] = await Promise.all([
       TerminoPago.find({})
+      .populate('empresa' )
         .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
         .sort({ nombre: 1 }),
       TerminoPago.countDocuments(),
@@ -184,6 +187,7 @@ const getTerminoPagoById = async (req, res = response) => {
   const uid = req.params.uid
   try {
     const terminoPagoDB = await TerminoPago.findById(uid)
+    .populate('empresa' )
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
     if (!terminoPagoDB) {
       return res.status(404).json({
@@ -206,6 +210,7 @@ const getTerminoPagoByClave = async (req, res = response) => {
   const clave = req.params.clave
   try {
     const terminoPagoDB = await TerminoPago.find({ clave: clave })
+    .populate('empresa' )
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
     if (!terminoPagoDB) {
       return res.status(404).json({
@@ -233,6 +238,7 @@ const getTerminoPagoForSln = async (req, res = response) => {
         { "clave": "CHCROL" }
       ]
     })
+    .populate('empresa' )
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
     if (!terminoPagoDB) {
       return res.status(404).json({

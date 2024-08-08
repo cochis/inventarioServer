@@ -1,5 +1,10 @@
 const { Schema, model } = require('mongoose')
 const SubsidiariaSchema = Schema({
+  empresa: {
+    type: Schema.Types.ObjectId,
+    ref: "Empresa",
+    
+  },
   nombre: {
     type: String,
     required: true,

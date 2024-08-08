@@ -1,26 +1,25 @@
 const { response } = require('express')
 const bcrypt = require('bcryptjs')
-const Subsidiaria = require('../models/subsidiaria')
+const ClienteLoop = require('../models/clienteLoop')
 const { generarJWT } = require('../helpers/jwt')
-//getSubsidiarias Subsidiaria
-const getSubsidiarias = async (req, res) => {
+//getClienteLoops ClienteLoop
+const getClienteLoops = async (req, res) => {
 
   try {
     const desde = Number(req.query.desde) || 0
     const cant = Number(req.query.cant) || 10
-    const [subsidiarias, total] = await Promise.all([
-      Subsidiaria.find({})
+    const [clienteLoops, total] = await Promise.all([
+      ClienteLoop.find({})
         .sort({ nombre: 1 })
-        .populate('empresa')
-        .populate('usuarioCreated')
+        .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
         .skip(desde)
         .limit(cant),
-      Subsidiaria.countDocuments(),
+      ClienteLoop.countDocuments(),
     ])
 
     res.json({
       ok: true,
-      subsidiarias,
+      clienteLoops,
       uid: req.uid,
       total,
     })
@@ -33,39 +32,36 @@ const getSubsidiarias = async (req, res) => {
   }
   const desde = Number(req.query.desde) || 0
   const cant = Number(req.query.cant) || 10
-  const [subsidiarias, total] = await Promise.all([
-    Subsidiaria.find({})
+  const [clienteLoops, total] = await Promise.all([
+    ClienteLoop.find({})
       .sort({ nombre: 1 })
-      .populate('empresa')
-      .populate('usuarioCreated')
+      .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .skip(desde)
       .limit(cant),
-    Subsidiaria.countDocuments(),
+    ClienteLoop.countDocuments(),
   ])
 
   res.json({
     ok: true,
-    subsidiarias,
+    clienteLoops,
     uid: req.uid,
     total,
   })
 }
-const getAllSubsidiarias = async (req, res) => {
+const getAllClienteLoops = async (req, res) => {
 
   try {
-    const [subsidiarias, total] = await Promise.all([
-      Subsidiaria.find({})
-      .populate('empresa')
-      .populate('usuarioCreated')
+    const [clienteLoops, total] = await Promise.all([
+      ClienteLoop.find({})
+        .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
         .sort({ nombre: 1 }),
-      Subsidiaria.countDocuments(),
+      ClienteLoop.countDocuments(),
     ])
 
-   
 
     res.json({
       ok: true,
-      subsidiarias,
+      clienteLoops,
       uid: req.uid,
       total,
     })
@@ -80,8 +76,8 @@ const getAllSubsidiarias = async (req, res) => {
 
 }
 
-//crearSubsidiaria Subsidiaria
-const crearSubsidiaria = async (req, res = response) => {
+//crearClienteLoop ClienteLoop
+const crearClienteLoop = async (req, res = response) => {
 
   const uid = req.uid
   const campos = {
@@ -92,17 +88,17 @@ const crearSubsidiaria = async (req, res = response) => {
   try {
 
 
-    const subsidiaria = new Subsidiaria({
+    const clienteLoop = new ClienteLoop({
       ...campos
     })
 
 
-    await subsidiaria.save()
+    await clienteLoop.save()
 
 
     res.json({
       ok: true,
-      subsidiaria
+      clienteLoop
     })
   } catch (error) {
    
@@ -114,35 +110,35 @@ const crearSubsidiaria = async (req, res = response) => {
   }
 }
 
-//actualizarSubsidiaria Subsidiaria
-const actualizarSubsidiaria = async (req, res = response) => {
-  //Validar token y comporbar si es el ssubsidiaria
+//actualizarClienteLoop ClienteLoop
+const actualizarClienteLoop = async (req, res = response) => {
+  //Validar token y comporbar si es el sclienteLoop
   const uid = req.params.id
   try {
-    const subsidiariaDB = await Subsidiaria.findById(uid)
-    if (!subsidiariaDB) {
+    const clienteLoopDB = await ClienteLoop.findById(uid)
+    if (!clienteLoopDB) {
       return res.status(404).json({
         ok: false,
-        msg: 'No exite un subsidiaria',
+        msg: 'No exite un clienteLoop',
       })
     }
     const { password, google, email, ...campos } = req.body
-    if (!subsidiariaDB.google) {
+    if (!clienteLoopDB.google) {
       campos.email = email
-    } else if (subsidiariaDB.email !== email) {
+    } else if (clienteLoopDB.email !== email) {
       return res.status(400).json({
         ok: false,
-        msg: 'El subsidiaria de Google  no se puede actualizar',
+        msg: 'El clienteLoop de Google  no se puede actualizar',
       })
     }
 
 
-    const subsidiariaActualizado = await Subsidiaria.findByIdAndUpdate(uid, campos, {
+    const clienteLoopActualizado = await ClienteLoop.findByIdAndUpdate(uid, campos, {
       new: true,
     })
     res.json({
       ok: true,
-      subsidiariaActualizado,
+      clienteLoopActualizado,
     })
   } catch (error) {
    
@@ -158,21 +154,21 @@ const actualizarSubsidiaria = async (req, res = response) => {
 const isActive = async (req, res = response) => {
   const uid = req.params.id
   try {
-    const subsidiariaDB = await Subsidiaria.findById(uid)
-    if (!subsidiariaDB) {
+    const clienteLoopDB = await ClienteLoop.findById(uid)
+    if (!clienteLoopDB) {
       return res.status(404).json({
         ok: false,
-        msg: 'No exite un subsidiaria',
+        msg: 'No exite un clienteLoop',
       })
     }
     const campos = req.body
-    campos.activated = !subsidiariaDB.activated
-    const subsidiariaActualizado = await Subsidiaria.findByIdAndUpdate(uid, campos, {
+    campos.activated = !clienteLoopDB.activated
+    const clienteLoopActualizado = await ClienteLoop.findByIdAndUpdate(uid, campos, {
       new: true,
     })
     res.json({
       ok: true,
-      subsidiariaActualizado,
+      clienteLoopActualizado,
     })
   } catch (error) {
    
@@ -184,21 +180,20 @@ const isActive = async (req, res = response) => {
   }
 }
 
-const getSubsidiariaById = async (req, res = response) => {
+const getClienteLoopById = async (req, res = response) => {
   const uid = req.params.uid
   try {
-    const subsidiariaDB = await Subsidiaria.findById(uid)
-    .populate('empresa')
+    const clienteLoopDB = await ClienteLoop.findById(uid)
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-    if (!subsidiariaDB) {
+    if (!clienteLoopDB) {
       return res.status(404).json({
         ok: false,
-        msg: 'No exite un subsidiaria',
+        msg: 'No exite un clienteLoop',
       })
     }
     res.json({
       ok: true,
-      subsidiaria: subsidiariaDB,
+      clienteLoop: clienteLoopDB,
     })
   } catch (error) {
     res.status(500).json({
@@ -207,21 +202,20 @@ const getSubsidiariaById = async (req, res = response) => {
     })
   }
 }
-const getSubsidiariaByClave = async (req, res = response) => {
+const getClienteLoopByClave = async (req, res = response) => {
   const clave = req.params.clave
   try {
-    const subsidiariaDB = await Subsidiaria.find({ clave: clave })
-    .populate('empresa')
+    const clienteLoopDB = await ClienteLoop.find({ clave: clave })
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-    if (!subsidiariaDB) {
+    if (!clienteLoopDB) {
       return res.status(404).json({
         ok: false,
-        msg: 'No exite un subsidiaria',
+        msg: 'No exite un clienteLoop',
       })
     }
     res.json({
       ok: true,
-      subsidiaria: subsidiariaDB,
+      clienteLoop: clienteLoopDB,
     })
   } catch (error) {
     res.status(500).json({
@@ -230,26 +224,25 @@ const getSubsidiariaByClave = async (req, res = response) => {
     })
   }
 }
-const getSubsidiariaForSln = async (req, res = response) => {
+const getClienteLoopForSln = async (req, res = response) => {
   const uid = req.params.uid
   try {
-    const subsidiariaDB = await Subsidiaria.find({
+    const clienteLoopDB = await ClienteLoop.find({
       $or: [
         { "clave": "USRROL" },
         { "clave": "CHCROL" }
       ]
     })
-    .populate('empresa')
       .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
-    if (!subsidiariaDB) {
+    if (!clienteLoopDB) {
       return res.status(404).json({
         ok: false,
-        msg: 'No exite un subsidiaria',
+        msg: 'No exite un clienteLoop',
       })
     }
     res.json({
       ok: true,
-      subsidiarias: subsidiariaDB,
+      clienteLoops: clienteLoopDB,
     })
   } catch (error) {
     res.status(500).json({
@@ -262,12 +255,12 @@ const getSubsidiariaForSln = async (req, res = response) => {
 
 
 module.exports = {
-  getSubsidiarias,
-  crearSubsidiaria,
-  actualizarSubsidiaria,
+  getClienteLoops,
+  crearClienteLoop,
+  actualizarClienteLoop,
   isActive,
-  getSubsidiariaById,
-  getAllSubsidiarias,
-  getSubsidiariaForSln,
-  getSubsidiariaByClave
+  getClienteLoopById,
+  getAllClienteLoops,
+  getClienteLoopForSln,
+  getClienteLoopByClave
 }

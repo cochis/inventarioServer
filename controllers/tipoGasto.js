@@ -11,6 +11,7 @@ const getTipoGastos = async (req, res) => {
     const [tipoGastos, total] = await Promise.all([
       TipoGasto.find({})
         .sort({ nombre: 1 })
+        .populate('empresa' )
         .populate('usuarioCreated')
         .populate('aprobacionPor')
         .skip(desde)
@@ -36,6 +37,7 @@ const getTipoGastos = async (req, res) => {
   const [tipoGastos, total] = await Promise.all([
     TipoGasto.find({})
       .sort({ nombre: 1 })
+      .populate('empresa' )
       .populate('usuarioCreated')
       .populate('aprobacionPor')
       .skip(desde)
@@ -55,6 +57,7 @@ const getAllTipoGastos = async (req, res) => {
   try {
     const [tipoGastos, total] = await Promise.all([
       TipoGasto.find({})
+      .populate('empresa' )
       .populate('usuarioCreated')
       .populate('aprobacionPor')
         .sort({ nombre: 1 }),
@@ -187,6 +190,7 @@ const getTipoGastoById = async (req, res = response) => {
   const uid = req.params.uid
   try {
     const tipoGastoDB = await TipoGasto.findById(uid)
+    .populate('empresa' )
     .populate('usuarioCreated')
     .populate('aprobacionPor')
     if (!tipoGastoDB) {
@@ -210,6 +214,7 @@ const getTipoGastoByClave = async (req, res = response) => {
   const clave = req.params.clave
   try {
     const tipoGastoDB = await TipoGasto.find({ clave: clave })
+    .populate('empresa' )
     .populate('usuarioCreated')
     .populate('aprobacionPor')
     if (!tipoGastoDB) {
@@ -238,6 +243,7 @@ const getTipoGastoForSln = async (req, res = response) => {
         { "clave": "CHCROL" }
       ]
     })
+    .populate('empresa' )
     .populate('usuarioCreated')
     .populate('aprobacionPor')
     if (!tipoGastoDB) {
