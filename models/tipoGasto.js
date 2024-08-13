@@ -13,10 +13,10 @@ const TipoGastoSchema = Schema({
     type: String,
     required: true,
   },
-  aprobacionPor: {
+  aprobacionPor:[ {
     type: Schema.Types.ObjectId,
     ref: "Usuario",
-  },
+  }],
   usuarioCreated: {
     type: Schema.Types.ObjectId,
     ref: "Usuario",

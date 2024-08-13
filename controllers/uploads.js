@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const { response } = require('express')
 const { v4: uuidv4 } = require('uuid')
-const { actualizarImagen ,actualizarViaje} = require('../helpers/actualizar-imagen')
+const { actualizarImagen ,actualizarViaje,actualizarFile} = require('../helpers/actualizar-imagen')
 const fileUpload = (req, res = response) => {
   const tipo = req.params.tipo
   const id = req.params.id
@@ -66,6 +66,7 @@ const fileUpload = (req, res = response) => {
     })
   })
 }
+
 const fileUploadAbasto = (req, res = response) => {
   const tipo = req.params.tipo
   const id = req.params.id
@@ -137,9 +138,39 @@ const retornaImagen = (req, res = response) => {
     res.sendFile(noFound)
   }
 }
-
+const fileUploadPago = (req, res = response) => {
+  const tipoArchivo = req.params.tipoArchivo
+  const id = req.params.id
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).json({
+      ok: false,
+      msg: 'No se envío ningún archivo',
+    })
+  }
+  const file = req.files.imagen
+  const nombreCortado = file.name.split('.')
+  const extensionArchivo = nombreCortado[nombreCortado.length - 1]
+  const nombreArchivo = `${uuidv4()}.${extensionArchivo}`
+  const path = `./uploads/pagoProgramado/${nombreArchivo}`
+  file.mv(path, async (err) => {
+    if (err) {
+      return res.status(500).json({
+        ok: false,
+        msg: 'Error al subir la imagen',
+        err:err
+      })
+    }
+    await actualizarFile(tipoArchivo, id, nombreArchivo)
+    return res.status(200).json({
+      ok: true,
+      msg: 'Archivo subido',
+      nombreArchivo,
+    })
+  })
+}
 module.exports = {
   fileUpload,
   fileUploadAbasto,
   retornaImagen,
+  fileUploadPago
 }

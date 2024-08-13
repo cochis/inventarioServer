@@ -118,6 +118,20 @@ const actualizarImagen = async (tipo, id, nombreArchivo) => {
       break
   }
 }
+const actualizarFile = async (tipo, id, nombreArchivo) => {
+  let pathViejo = ''
+  const pagoProgramado = await PagoProgramado.findById(id)
+  if (!pagoProgramado) { 
+    return false
+  }
+  pathViejo = `./uploads/pagoProgramado/${pagoProgramado.factura}`
+  if (pagoProgramado.img && pagoProgramado.img !== '') {
+
+    borrarImagen(pathViejo)
+  }
+  pagoProgramado[tipo] = nombreArchivo
+  await pagoProgramado.save()
+}
 const actualizarViaje = async (id, nombreArchivo,tipo, idViaje) => {
  
  
@@ -166,5 +180,6 @@ const actualizarViaje = async (id, nombreArchivo,tipo, idViaje) => {
 
 module.exports = {
   actualizarImagen,
-  actualizarViaje
+  actualizarViaje,
+  actualizarFile
 }

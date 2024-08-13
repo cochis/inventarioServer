@@ -227,4 +227,5 @@ db.pagosprogramados.updateMany( {},{ $push:{ empresa:   ObjectId("66a90b3850ddd1
  
 
 db.usuarios.updateMany({ supervisor:ObjectId('65ca719a29b6637b637d6d3f')  },{ $set:{ supervisor:   ObjectId("66a2a6c7a654df1f85cdc202") } }) 
- 
+ db.usuarios.updateOne({ email:"pnava@loopintermodal.com"  },{ $set:{ password:   "$2a$10$b5Dt5eTOiRLGyWgvZqWPvOxTxCKbcLLF59Z.rVjNQ7PQgzvWUWXna" } }) 
+ 655f63ba1d8b3316e01a16a0

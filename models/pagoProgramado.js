@@ -22,25 +22,25 @@ const PagoProgramadoSchema = Schema({
     required: true,
   },
   proveedor: {
-    type: String,
-    required: true,
+    type: String 
   },
 
   proveedorLoop: {
-    type: String,
-    required: true,
+    type: Schema.Types.ObjectId,
+    ref: "ProveedorLoop",
+   
   },
-  clienteLoop: {
-    type: String,
-    required: true,
+  clienteLoop:{
+    type: Schema.Types.ObjectId,
+    ref: "ClienteLoop",
+   
   },
   impExpLoop: {
     type: String,
    
   },
   concepto: {
-    type: String,
-    required: true,
+    type: String, 
   },
   cantidad: {
     type: Number,
