@@ -28,12 +28,13 @@ const PagoProgramadoSchema = Schema({
   proveedorLoop: {
     type: Schema.Types.ObjectId,
     ref: "ProveedorLoop",
+    default:null
    
   },
   clienteLoop:{
     type: Schema.Types.ObjectId,
     ref: "ClienteLoop",
-   
+    default:null
   },
   impExpLoop: {
     type: String,
