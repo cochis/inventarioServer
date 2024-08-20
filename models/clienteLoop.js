@@ -6,11 +6,11 @@ const ClienteLoopSchema = Schema({
   },
   pais: {
     type: String,
-    required: true,
+   
   },
   taxId: {
     type: String,
-    required: true,
+   
   },
   usuarioCreated: {
     type: Schema.Types.ObjectId,

@@ -26,9 +26,9 @@ const getMyPaiss = async (req, res) => {
   const uid = req.params.uid
  const [paiss, total] = await Promise.all([
     Pais.find({usuarioCreated: uid})
-    .populate('tipoPais')
-    .populate('estado')
-    .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
+    
+ 
+ 
     .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .sort({ nombre: 1 }),
     Pais.countDocuments(),
@@ -45,9 +45,9 @@ const getMyPaiss = async (req, res) => {
 const getAllPaiss = async (req, res) => {
  const [paiss, total] = await Promise.all([
     Pais.find({})
-    .populate('tipoPais')
-    .populate('estado')
-    .populate('usuarioAtendio', 'nombre apellidoPaterno apellidoMaterno email _id')
+ 
+    
+ 
     .populate('usuarioCreated', 'nombre apellidoPaterno apellidoMaterno email _id')
       .sort({ nombre: 1 }),
     Pais.countDocuments(),

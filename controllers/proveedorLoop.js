@@ -24,10 +24,10 @@ const getProveedorLoops = async (req, res) => {
       total,
     })
   } catch (error) {
-    
+
     res.json({
       ok: false,
-      error:error
+      error: error
     })
   }
   const desde = Number(req.query.desde) || 0
@@ -66,7 +66,7 @@ const getAllProveedorLoops = async (req, res) => {
       total,
     })
   } catch (error) {
- 
+
     res.json({
       ok: false,
       error
@@ -82,7 +82,7 @@ const crearProveedorLoop = async (req, res = response) => {
   const uid = req.uid
   const campos = {
     ...req.body,
-    usuarioCreated:uid
+    usuarioCreated: uid
   }
 
   try {
@@ -101,11 +101,62 @@ const crearProveedorLoop = async (req, res = response) => {
       proveedorLoop
     })
   } catch (error) {
-   
+
     res.status(500).json({
       ok: false,
       msg: 'Error inesperado...  revisar logs',
-      error:error
+      error: error
+    })
+  }
+}
+const cargaMasivaProveedorLoop = async (req, res = response) => {
+
+  const uid = req.uid
+  const campos = {
+    ...req.body,
+    usuarioCreated: uid
+  }
+
+  try {
+
+
+    const proveedorLoop = new ProveedorLoop({
+      ...campos
+    })
+    
+    const proveedorLoopDB = await ProveedorLoop.findOne({ taxId: proveedorLoop.taxId })
+    console.log('proveedorLoopDB', proveedorLoopDB)
+
+    if (proveedorLoopDB) {
+
+      const proveedorLoopActualizado = await ProveedorLoop.findByIdAndUpdate(proveedorLoopDB._id, campos, {
+        new: true,
+      })
+      console.log('proveedorLoopActualizado', proveedorLoopActualizado)
+      res.json({
+        ok: true,
+        proveedorLoopActualizado,
+      })
+    } else {
+      await proveedorLoop.save()
+      console.log('proveedorLoop', proveedorLoop)
+
+
+      res.json({
+        ok: true,
+        proveedorLoop
+      })
+    }
+
+
+
+
+  } catch (error) {
+
+    res.status(500).json({
+      ok: false,
+      msg: 'Error inesperado...  revisar logs',
+      error: error
     })
   }
 }
@@ -141,11 +192,11 @@ const actualizarProveedorLoop = async (req, res = response) => {
       proveedorLoopActualizado,
     })
   } catch (error) {
-   
+
     res.status(500).json({
       ok: false,
       msg: 'Error inesperado',
-      error:error,
+      error: error,
     })
   }
 }
@@ -171,11 +222,11 @@ const isActive = async (req, res = response) => {
       proveedorLoopActualizado,
     })
   } catch (error) {
-   
+
     res.status(500).json({
       ok: false,
       msg: 'Hable con el administrador',
-      error:error
+      error: error
     })
   }
 }
@@ -198,7 +249,7 @@ const getProveedorLoopById = async (req, res = response) => {
   } catch (error) {
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado', error: error,
     })
   }
 }
@@ -220,7 +271,7 @@ const getProveedorLoopByClave = async (req, res = response) => {
   } catch (error) {
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado', error: error,
     })
   }
 }
@@ -247,7 +298,7 @@ const getProveedorLoopForSln = async (req, res = response) => {
   } catch (error) {
     res.status(500).json({
       ok: false,
-      msg: 'Error inesperado',error:error,
+      msg: 'Error inesperado', error: error,
     })
   }
 }
@@ -262,5 +313,6 @@ module.exports = {
   getProveedorLoopById,
   getAllProveedorLoops,
   getProveedorLoopForSln,
-  getProveedorLoopByClave
+  getProveedorLoopByClave,
+  cargaMasivaProveedorLoop
 }

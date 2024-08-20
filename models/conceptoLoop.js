@@ -1,25 +1,22 @@
 const { Schema, model } = require('mongoose')
-const ProveedorLoopSchema = Schema({
-
-  taxId: {
-    type: String,
-
-  },
+const ConceptoLoopSchema = Schema({
   name: {
     type: String,
-
+    required: true,
   },
-  pais: {
+   
+  clave: {
     type: String,
-
+   
   },
   usuarioCreated: {
     type: Schema.Types.ObjectId,
     ref: "Usuario",
+    
   },
   activated: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   dateCreated: {
     type: Number,
@@ -34,9 +31,9 @@ const ProveedorLoopSchema = Schema({
 
 })
 
-ProveedorLoopSchema.method('toJSON', function () {
+ConceptoLoopSchema.method('toJSON', function () {
   const { __v, _id, password, ...object } = this.toObject()
   object.uid = _id
   return object
 })
-module.exports = model('ProveedorLoop', ProveedorLoopSchema)
+module.exports = model('ConceptoLoop', ConceptoLoopSchema)

@@ -1,30 +1,29 @@
 /*
-Ruta : api/proveedorLoops
+Ruta : api/conceptoLoops
 */
 
 const { Router } = require("express");
 const { check } = require("express-validator");
 const { validarCampos } = require("../middlewares/validar-campos");
 const {
-  getProveedorLoops,
-  crearProveedorLoop,
-  actualizarProveedorLoop,
+  getConceptoLoops,
+  crearConceptoLoop,
+  actualizarConceptoLoop,
   isActive,
-  getProveedorLoopById,
-  getAllProveedorLoops,
-  getProveedorLoopForSln,
-  getProveedorLoopByClave,
-  cargaMasivaProveedorLoop
-} = require("../controllers/proveedorLoop");
+  getConceptoLoopById,
+  getAllConceptoLoops,
+  getConceptoLoopForSln,
+  getConceptoLoopByClave
+} = require("../controllers/conceptoLoop");
 const { validarJWT, validarAdminJWT } = require("../middlewares/validar-jwt");
 const router = Router();
 
 
-router.get("/", getProveedorLoops);
-router.get("/all", getAllProveedorLoops);
-router.get("/all/salon", getProveedorLoopForSln);
-router.get("/:uid", getProveedorLoopById);
-router.get("/clave/:clave", getProveedorLoopByClave);
+router.get("/", getConceptoLoops);
+router.get("/all", getAllConceptoLoops);
+router.get("/all/salon", getConceptoLoopForSln);
+router.get("/:uid", getConceptoLoopById);
+router.get("/clave/:clave", getConceptoLoopByClave);
 router.post(
   "/",
   [
@@ -32,16 +31,7 @@ router.post(
     
     validarCampos,
   ],
-  crearProveedorLoop
-);
-router.post(
-  "/masiva/",
-  [
-    validarJWT,
-    
-    validarCampos,
-  ],
-  cargaMasivaProveedorLoop
+  crearConceptoLoop
 );
 
 router.put(
@@ -52,7 +42,7 @@ router.put(
     check("lastEdited", "La fecha de edición es obligatoria").not().isEmpty(),
     validarCampos,
   ],
-  actualizarProveedorLoop
+  actualizarConceptoLoop
 );
 
 

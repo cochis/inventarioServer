@@ -35,7 +35,7 @@ router.post(
     check("tipoGasto", "El tipo de gasto es obligatorio").not().isEmpty(),
     check("terminoPago", "El termino de pago es obligatorio").not().isEmpty(),
     
-    check("concepto", "El concepto es obligatorio").not().isEmpty(),
+   
 
     validarCampos,
   ],
@@ -50,7 +50,7 @@ router.put(
     check("tipoGasto", "El tipo de gasto es obligatorio").not().isEmpty(),
     check("terminoPago", "El termino de pago es obligatorio").not().isEmpty(),
     
-    check("concepto", "El concepto es obligatorio").not().isEmpty(),
+   
     validarCampos,
   ],
   actualizarPagoProgramado

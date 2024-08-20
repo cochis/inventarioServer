@@ -7,19 +7,13 @@ const PaisSchema = Schema({
     required: true,
   },
    
-  descripcion: {
-    type: String,
-    required: true,
-  },
+ 
    
   clave: {
     type: String,
     required: true,
   },
-    img: {
-    type: String,
- 
-  },
+  
   usuarioCreated: {
     type: Schema.Types.ObjectId,
     ref: "Usuario",

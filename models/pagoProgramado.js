@@ -43,6 +43,14 @@ const PagoProgramadoSchema = Schema({
   concepto: {
     type: String, 
   },
+  conceptoLoop: {
+    type: Schema.Types.ObjectId,
+    ref: "ConceptoLoop",
+    default:null
+  },
+  otroConcepto: {
+    type: String, 
+  },
   cantidad: {
     type: Number,
     required: true,
