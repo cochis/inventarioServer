@@ -163,9 +163,11 @@ const crearPagoProgramado = async (req, res = response) => {
       
       if(campos.empresa.includes('66a90b3850ddd12f55056f27')){
   
-        mails = `gfernandez@jasu.us,oramirez@jasu.us,malonso@jasu.us,accounting@jasu.us,${usuarioDB.email}`
+        mails = `oramirez@jasu.us,malonso@jasu.us,accounting@jasu.us,${usuarioDB.email}`
+        // mails = `gfernandez@jasu.us,oramirez@jasu.us,malonso@jasu.us,accounting@jasu.us,${usuarioDB.email}`
       }else{
-        mails = `gfernandez@loopintermodal.com,oramirez@jasu.us,malonso@loopintermodal.com,accounting@loopintermodal.com,${usuarioDB.email}`
+        // mails = `gfernandez@loopintermodal.com,oramirez@jasu.us,malonso@loopintermodal.com,accounting@loopintermodal.com,${usuarioDB.email}`
+        mails = `oramirez@jasu.us,malonso@loopintermodal.com,accounting@loopintermodal.com,${usuarioDB.email}`
 
       }
     }
@@ -246,10 +248,18 @@ const actualizarPagoProgramado = async (req, res = response) => {
     var mails = ''
     if (campos.url.includes("localhost")) {
       mails = `oramirez@jasu.us,${usuarioDB.email}`
-      url = 'http://localhost:4200/core/pagos-programados/edit-pago-programado/true/'
     } else {
-      mails = `gfernandez@jasu.us,oramirez@jasu.us , accounting@jasu.us,${usuarioDB.email}`
-      url = 'https://infra.jasu.us/core/pagos-programados/edit-pago-programado/true/'
+      
+      
+      if(campos.empresa.includes('66a90b3850ddd12f55056f27')){
+  
+        mails = `oramirez@jasu.us,malonso@jasu.us,accounting@jasu.us,${usuarioDB.email}`
+        // mails = `gfernandez@jasu.us,oramirez@jasu.us,malonso@jasu.us,accounting@jasu.us,${usuarioDB.email}`
+      }else{
+        // mails = `gfernandez@loopintermodal.com,oramirez@jasu.us,malonso@loopintermodal.com,accounting@loopintermodal.com,${usuarioDB.email}`
+        mails = `oramirez@jasu.us,malonso@loopintermodal.com,accounting@loopintermodal.com,${usuarioDB.email}`
+
+      }
     }
 
 
