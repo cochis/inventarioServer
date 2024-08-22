@@ -42,7 +42,7 @@ activated:true
 
 
 
-db.fiestas.updateMany({ nombre: "REUNION SEP 2023" }, { $set: { realizada: false } })
+db.pagosprogramados.updateMany({ quote: 'loop-xxx-2xq' }, { $set: { comprobante:'' } })
 db.usuarios.updateMany({ nombre: "Oscar" }, { $set: { role: '651705dc04e4f314ed482462' } })
 
 db.pagosprogramados.updateMany({ concepto: 'ANTICIPO CONSTRUCCION STAND TFT' }, { $set: {factura: undefined } })

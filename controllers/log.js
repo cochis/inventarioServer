@@ -63,7 +63,7 @@ const getAllLogs = async (req, res) => {
 //crearLog Log
 const crearLog = async (req, res = response) => {
   const { email, password } = req.body
-  console.log('req.body', req.body)
+ 
   const uid = req.uid
  
   const campos = {

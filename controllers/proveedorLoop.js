@@ -125,21 +125,21 @@ const cargaMasivaProveedorLoop = async (req, res = response) => {
     })
     
     const proveedorLoopDB = await ProveedorLoop.findOne({ taxId: proveedorLoop.taxId })
-    console.log('proveedorLoopDB', proveedorLoopDB)
+    
 
     if (proveedorLoopDB) {
 
       const proveedorLoopActualizado = await ProveedorLoop.findByIdAndUpdate(proveedorLoopDB._id, campos, {
         new: true,
       })
-      console.log('proveedorLoopActualizado', proveedorLoopActualizado)
+     
       res.json({
         ok: true,
         proveedorLoopActualizado,
       })
     } else {
       await proveedorLoop.save()
-      console.log('proveedorLoop', proveedorLoop)
+    
 
 
       res.json({
