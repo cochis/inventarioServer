@@ -25,6 +25,7 @@ const getPagoProgramados = async (req, res) => {
         .populate('terminoPago')
         .populate('tipoGasto')
         .populate('moneda')
+        .sort({ consecutivo: -1 })
         .skip(desde)
         .limit(cant),
       PagoProgramado.countDocuments(),
@@ -57,6 +58,7 @@ const getPagoProgramados = async (req, res) => {
       .populate('terminoPago')
       .populate('tipoGasto')
       .populate('moneda')
+      .sort({ consecutivo: -1 })
       .skip(desde)
       .limit(cant),
     PagoProgramado.countDocuments(),
@@ -83,7 +85,8 @@ const getAllPagoProgramados = async (req, res) => {
         .populate('terminoPago')
         .populate('tipoGasto')
         .populate('moneda')
-        .sort({ dateCreated: -1 }),
+        .sort({ consecutivo: -1 })
+        ,
       PagoProgramado.countDocuments(),
     ])
 
@@ -119,7 +122,8 @@ const getPagoProgramadosByUser = async (req, res) => {
         .populate('terminoPago')
         .populate('tipoGasto')
         .populate('moneda')
-        .sort({ nombre: 1 }),
+        .sort({ consecutivo: -1 })
+        ,
       PagoProgramado.countDocuments(),
     ])
 
@@ -338,6 +342,7 @@ const getPagoProgramadoById = async (req, res = response) => {
       .populate('terminoPago')
       .populate('tipoGasto')
       .populate('moneda')
+      .sort({ consecutivo: -1 })
     if (!pagoProgramadoDB) {
       return res.status(404).json({
         ok: false,
@@ -368,6 +373,7 @@ const getPagoProgramadoByClave = async (req, res = response) => {
       .populate('terminoPago')
       .populate('tipoGasto')
       .populate('moneda')
+      .sort({ consecutivo: -1 })
     if (!pagoProgramadoDB) {
       return res.status(404).json({
         ok: false,
@@ -403,6 +409,7 @@ const getPagoProgramadoForSln = async (req, res = response) => {
       .populate('terminoPago')
       .populate('tipoGasto')
       .populate('moneda')
+      .sort({ consecutivo: -1 })
     if (!pagoProgramadoDB) {
       return res.status(404).json({
         ok: false,
