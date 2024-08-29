@@ -117,6 +117,10 @@ const PagoProgramadoSchema = Schema({
   comprobante: {
     type: String,
   },
+  cerrada: {
+    type: Boolean,
+    default:false
+  },
   empresa: {
     type: Schema.Types.ObjectId,
     ref: "Empresa",
