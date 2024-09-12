@@ -44,7 +44,7 @@ activated:true
 
 db.pagosprogramados.updateMany({ consecutivo:29 }, { $set: { usuarioCreated: ObjectId('655f63901d8b3316e01a168d'),fechaSolicitud:1726890400000 } })
 db.pagosprogramados.updateMany({ quote: 'loop-xxx-2xq' }, { $set: { comprobante:'' } })
-db.usuarios.updateMany({ nombre: "Oscar" }, { $set: { role: '651705dc04e4f314ed482462' } })
+db.pagosprogramados.updateMany({_id: ObjectId("66d873e4a1885dda948063c5")}, { $set: { concepto: "Rampa de Acero para Andén - Capacidad de 15000 lb 72 x 84"} })
 
 db.pagosprogramados.updateMany({ concepto: 'ANTICIPO CONSTRUCCION STAND TFT' }, { $set: {factura: undefined } })
 db.roles.deleteOne({   _id: ObjectId('655ce118b6a09f471d52c5e0') })
