@@ -42,11 +42,13 @@ activated:true
 
 
 
+db.pagosprogramados.updateMany({ consecutivo:29 }, { $set: { usuarioCreated: ObjectId('655f63901d8b3316e01a168d'),fechaSolicitud:1726890400000 } })
 db.pagosprogramados.updateMany({ quote: 'loop-xxx-2xq' }, { $set: { comprobante:'' } })
 db.usuarios.updateMany({ nombre: "Oscar" }, { $set: { role: '651705dc04e4f314ed482462' } })
 
 db.pagosprogramados.updateMany({ concepto: 'ANTICIPO CONSTRUCCION STAND TFT' }, { $set: {factura: undefined } })
 db.roles.deleteOne({   _id: ObjectId('655ce118b6a09f471d52c5e0') })
+db.pagosprogramados.deleteOne({   _id: ObjectId('66cf55e7ac9a64178d69e03f') })
 db.roles.pagosprogramados({   _id: ObjectId('66632416d3f798ed2798905f') })
 db.usuarios.deleteOne({ email: "fray@fray.com" })
 db.tickets.deleteOne({  _id: ObjectId('6667977ed3f798ed2798923a') })

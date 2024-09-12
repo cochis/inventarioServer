@@ -95,8 +95,7 @@ const loginGoogle = async (req, res = response) => {
 }
 
 const renewToken = async (req, res = response) => {
-  const uid = req.uid
-
+  const uid = req.params.uid
   // Generar el TOKEN - JWT
   const usuario = await Usuario.findById(uid)
   const token = await generarJWT(usuario)

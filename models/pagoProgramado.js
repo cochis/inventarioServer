@@ -4,7 +4,8 @@ const PagoProgramadoSchema = Schema({
     type: Number
   },
   urgente: {
-    type: Boolean
+    type: Boolean,
+    default:false
   },
   subsidiaria: {
     type: Schema.Types.ObjectId,
@@ -22,7 +23,8 @@ const PagoProgramadoSchema = Schema({
     required: true,
   },
   proveedor: {
-    type: String 
+    type: String ,
+    default:null
   },
 
   proveedorLoop: {
@@ -38,10 +40,11 @@ const PagoProgramadoSchema = Schema({
   },
   impExpLoop: {
     type: String,
-   
-  },
+    default:null
+     },
   concepto: {
     type: String, 
+    default:null
   },
   conceptoLoop: {
     type: Schema.Types.ObjectId,
@@ -50,6 +53,7 @@ const PagoProgramadoSchema = Schema({
   },
   otroConcepto: {
     type: String, 
+    default:null
   },
   cantidad: {
     type: Number,
@@ -63,59 +67,55 @@ const PagoProgramadoSchema = Schema({
 
   fechaPago: {
     type: Number,
-
+    default:null
   },
   pagado: {
     type: Boolean,
     default: false
-
   },
 
   fechaProgramada: {
     type: Number,
-
+    default:null
+    
   },
   fechaVencimiento: {
     type: Number,
-
+    default:null
   },
   
   quote: {
     type: String,
-
+    default:null
   },
   aprobacion: {
     type: Boolean,
     default: false
   },
-  tipoServicio: {
-    type: String
-  },
+ 
   observaciones: {
     type: String,
-
+    default:null
   },
   factura: {
     type: String,
-
+    default:null
   },
   tipoFactura: {
     type: String,
-
+    default:null
   },
-
-
-  factura: {
+  numeroFactura: {
     type: String,
-  },
-  tipoFactura: {
-    type: String,
+    default:null
   },
   cotizacion: {
     type: String,
+    default:null
   },
   comprobante: {
     type: String,
+    default:null
   },
   cerrada: {
     type: Boolean,
@@ -129,6 +129,7 @@ const PagoProgramadoSchema = Schema({
   moneda: {
     type: Schema.Types.ObjectId,
     ref: "Moneda",
+    required: true
   },
   activated: {
     type: Boolean,
@@ -137,9 +138,8 @@ const PagoProgramadoSchema = Schema({
   usuarioCreated: {
     type: Schema.Types.ObjectId,
     ref: "Usuario",
-
+    required: true
   },
-
   dateCreated: {
     type: Number,
     required: true,
@@ -150,9 +150,7 @@ const PagoProgramadoSchema = Schema({
     required: true,
     default: Date.now(),
   },
-
 })
-
 PagoProgramadoSchema.method('toJSON', function () {
   const { __v, _id, password, ...object } = this.toObject()
   object.uid = _id
