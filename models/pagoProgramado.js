@@ -131,6 +131,18 @@ const PagoProgramadoSchema = Schema({
     ref: "Moneda",
     required: true
   },
+  fechaZarpe: {
+    type: Number,
+  },
+  fechaArribo: {
+    type: Number,
+  },
+  masterBL: {
+    type: String,
+  },
+  houseBL: {
+    type: String,
+  },
   activated: {
     type: Boolean,
     default: false,

@@ -42,13 +42,11 @@ activated:true
 
 
 
-db.pagosprogramados.updateMany({ consecutivo:29 }, { $set: { usuarioCreated: ObjectId('655f63901d8b3316e01a168d'),fechaSolicitud:1726890400000 } })
-db.pagosprogramados.updateMany({ quote: 'loop-xxx-2xq' }, { $set: { comprobante:'' } })
-db.pagosprogramados.updateMany({_id: ObjectId("66d873e4a1885dda948063c5")}, { $set: { concepto: "Rampa de Acero para Andén - Capacidad de 15000 lb 72 x 84"} })
+db.fiestas.updateMany({ nombre: "REUNION SEP 2023" }, { $set: { realizada: false } })
+db.usuarios.updateMany({ nombre: "Oscar" }, { $set: { role: '651705dc04e4f314ed482462' } })
 
 db.pagosprogramados.updateMany({ concepto: 'ANTICIPO CONSTRUCCION STAND TFT' }, { $set: {factura: undefined } })
 db.roles.deleteOne({   _id: ObjectId('655ce118b6a09f471d52c5e0') })
-db.pagosprogramados.deleteOne({   _id: ObjectId('66cf55e7ac9a64178d69e03f') })
 db.roles.pagosprogramados({   _id: ObjectId('66632416d3f798ed2798905f') })
 db.usuarios.deleteOne({ email: "fray@fray.com" })
 db.tickets.deleteOne({  _id: ObjectId('6667977ed3f798ed2798923a') })
@@ -125,18 +123,7 @@ db.roles.insertMany([{
   "lastEdited": 1695247040741
 
 }])
-db.conceptoLoops.drop()
-db.conceptoloops.insertMany([
-  {
-    _id: ObjectId('66c4c70c73174d20599a9855'),
-    name: 'Otro',
-    clave: 'OTRCPT',
-    usuarioCreated: ObjectId('655ce08bb6a09f471d52c5d9'),
-    activated: true,
-    dateCreated: 1724172035658,
-    lastEdited: 1724172035658 
-  }
-])
+
 db.roles.insertMany([{
   "nombre": "ADMINISTRADOR",
   "clave": "ADM_ROLE",
@@ -177,7 +164,7 @@ db.roles.insertMany([{
 
 }])
 
-db.conceptoLoops.deleteOne( { "_id" : ObjectId("66d09d4c71ad68fac13c4f58") } );
+db.pagosprogramados.deleteOne( { "_id" : ObjectId("666717dcd3f798ed27989135") } );
 db.pagosprogramados.deleteOne( { "_id" : ObjectId("666717dbd3f798ed27989133") } );
 
 db.subsidiarias.deleteOne( { "clave" : "LVRSB" } );

@@ -1,4 +1,11 @@
 node_modules/
-uploads/
+uploads/usuarios/
+uploads/abastos/
+uploads/factura/
+uploads/pagoProgramado/
+uploads/stock/
+uploads/stocks/
+uploads/tickets/
+uploads/web/
 client-dev/
 node_modules/
