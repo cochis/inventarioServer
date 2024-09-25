@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1727212967473,
+  "timestamp": 1727274236321,
   "index": "/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/favicon.ico",
         "/index.html",
-        "/main.dafd249b195a0e95.js",
+        "/main.4ab917ed68118750.js",
         "/manifest.webmanifest",
         "/polyfills.a87c474981dca57a.js",
         "/runtime.c4da19d28b4dd58e.js",
@@ -103,7 +103,7 @@
     "/assets/css/fontello.css": "4ff93f7b032237a8afaf6f669877a2a99628e588",
     "/assets/css/templatemo-topic-listing.css": "f690240daef04e815a8aacae9d6436da69116f49",
     "/assets/examples/Hola requiero 11 equipos de computo para.txt": "3e50e7a4f5b03001027f1f684087157be6804e28",
-    "/assets/examples/ex.txt": "a88f1d24c16e3bf7ca65d33359cf42897423f9f1",
+    "/assets/examples/ex.txt": "68c9f1704a46c0eb3fb68bc7162472c607838304",
     "/assets/examples/updatesDB.json": "f50a5322f85c04629d9647016009a593407fd0fb",
     "/assets/font/fontello.eot": "8532f6f1c4db78883daf995ed0141d52cebbaf3c",
     "/assets/font/fontello.svg": "87bf112a12bd70dae690cfdb9c63b583227eeac2",
@@ -158,8 +158,8 @@
     "/assets/js/jquery.min.js": "ab07e8e39fd7992b47088b22a5e4511b03374223",
     "/assets/js/jquery.sticky.js": "58f675471d3ff898d5c16ea12796be1d6b328485",
     "/favicon.ico": "21078227f5dc0c7469405bb6926f8c88b892d269",
-    "/index.html": "f32df2b069d55c3622fe4168625b307913c83819",
-    "/main.dafd249b195a0e95.js": "76b1bb87d2108901148dbb33ee8240ad45b624a4",
+    "/index.html": "8d35509fdc45f7a64402e08030039b823eabb324",
+    "/main.4ab917ed68118750.js": "2bee4f596aa01a61a3c6feba542b8491604ed6e5",
     "/manifest.webmanifest": "9d711df1c6076d809f75c93f3e95d03a15166800",
     "/polyfills.a87c474981dca57a.js": "1401953c8842a85b8640b100e9bb273e183da825",
     "/runtime.c4da19d28b4dd58e.js": "d8b5df4ba1da8c35587aa142f4c29d98b1872f25",
